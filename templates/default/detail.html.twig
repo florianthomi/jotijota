@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block left %}
+    <div class="h-25">
+        {{ form_start(form) }}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col-md">
+                {{ form_row(form.jid) }}
+            </div>
+            <div class="col-md">
+                {{ form_row(form.pseudo) }}
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-secondary w-100"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg> Ajouter</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <div class="row mt-3 border-top overflow-auto" style="max-height: 70%;">
+        <table class="table table-sm" id="entries">
+            <thead>
+            <tr>
+                <th>JID</th>
+                <th>Pseudo</th>
+                <th>Pays</th>
+                <th>Créé le</th>
+            </tr>
+            </thead>
+            {% for entry in entries %}
+                <tr>
+                    <td>
+                        <strong>{{ entry.jid }}</strong>
+                    </td>
+                    <td>
+                        {{ entry.pseudo }}
+                    </td>
+                    <td>{{ entry.country|country_name('fr') }}</td>
+                    <td>
+                        {{ entry.createdAt|date('d.m.Y H:i') }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+
+{% block right %}
+    <canvas id="canvas" data-url="{{ path('app_data', {'id': app.request.attributes.get('id')}) }}"></canvas>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('detail') }}
+{% endblock %}

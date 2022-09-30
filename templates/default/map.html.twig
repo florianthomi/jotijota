@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('map') }}
+{% endblock %}
+
+{% block body %}
+    <canvas id="canvas" data-url="{{ path('app_data') }}"></canvas>
+{% endblock %}
