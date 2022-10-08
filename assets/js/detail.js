@@ -29,7 +29,7 @@ form.addEventListener('submit', (e) => {
 
     let event = new Event('refresh');
     Array.from(document.getElementsByTagName('canvas')).forEach((e) => e.dispatchEvent(event))
-  })
+  }).error(() => {})
 })
 
 

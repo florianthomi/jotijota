@@ -1,7 +1,16 @@
 {% extends 'base.html.twig' %}
+{% block alert %}
+    <div class="alert alert-danger" role="alert">
+        <ul class="mb-0">
+            <li>Ne donnez aucune information personnelle (nom de famille, numéro de téléphone, email, adresse, ...)</li>
+            <li>Ne cliquez pas sur les liens qui vous sont envoyés</li>
+            <li>Si vous lisez des propos choquants ou qui vous dérangent, parlez-en à un·e responsable</li>
+        </ul>
+    </div>
+{% endblock %}
 
 {% block left %}
-    <div class="h-25">
+    <div>
         {{ form_start(form) }}
         {% for label, messages in app.flashes %}
             {% for message in messages %}

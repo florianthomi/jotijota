@@ -27,7 +27,10 @@ if (canvas) {
         scales: {
           color: {
             interpolate: "greens",
-            min: 0
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
           },
           xy: {
             projection: 'naturalEarth1',

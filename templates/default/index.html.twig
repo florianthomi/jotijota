@@ -3,8 +3,22 @@
 {% block left %}
     <div class="h-100">
         <table class="table table-sm table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Totem</th>
+                <th>Contacts</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
             {% for participant in participants %}
-                <tr>
+                <tr class="clickable" onclick="window.location = '{{ path('app_detail', {'id': participant.id}) }}'">
+                    <td>
+                        {{ loop.index }}
+                    </td>
                     <td>
                         {{ participant.last_name }}
                     </td>
@@ -13,6 +27,9 @@
                     </td>
                     <td>
                         {{ participant.nickname|default('-') }}
+                    </td>
+                    <td>
+                        {{ participant.entries|default(0) }}
                     </td>
                     <td>
                         <a href="{{ path('app_detail', {'id': participant.id}) }}">
@@ -24,6 +41,7 @@
                     </td>
                 </tr>
             {% endfor %}
+            </tbody>
         </table>
     </div>
 {% endblock %}
