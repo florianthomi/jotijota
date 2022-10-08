@@ -14,38 +14,37 @@
     {% endblock %}
 </head>
 <body>
-<header class="py-3 mb-3 border-bottom">
-    <nav class="navbar navbar-expand-lg bg-light">
+<header class="mb-3 border-bottom">
+    <nav class="navbar navbar-expand bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ path('app_index') }}">JOTI JOTA 2022</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_map') }}">Carte globale</a>
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <strong>JID : 5CH96H</strong>
+                    <strong>JID : {{ jid }}</strong>
                 </div>
             </div>
         </div>
     </nav>
 </header>
 <div class="container-fluid pb-3">
-
     {% block body %}
-        <div class="row">
-            <div class="col-md-4">
-                <div class="bg-light border rounded-3 p-3 overflow-auto" style="height: 85vh;">
+        <div class="row align-items-stretch">
+            <div class="col-lg-4 order-1 order-lg-0">
+                <div class="bg-light border rounded-3 p-3 overflow-auto" style="max-height: 85vh;">
                     {% block left %}
 
                     {% endblock %}
                 </div>
             </div>
-            <div class="col-md-8 pt-3 pt-md-0">
+            <div class="col-lg-8 pb-3 pb-lg-0 order-0 order-lg-1">
                 <div class="bg-light border rounded-3 p-3 h-100">
                     {% block right %}
 

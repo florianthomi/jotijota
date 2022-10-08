@@ -69,7 +69,7 @@ class DefaultController extends AbstractController
             }
         }
 
-        $entries = $entryRepository->findBy(['user_id' => $id]);
+        $entries = $entryRepository->findBy(['user_id' => $id], ['createdAt' => 'DESC']);
 
         return $this->render('default/detail.html.twig', [
             'entries' => $entries,
