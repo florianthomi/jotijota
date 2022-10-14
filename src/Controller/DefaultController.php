@@ -28,10 +28,10 @@ class DefaultController extends AbstractController
             ->select('COUNT(e.id) as total, e.user_id')
             ->groupBy('e.user_id')
             ->getQuery()
-            ->getResult()
+            ->getArrayResult()
         ;
 
-        $callback = function(array &$element) use ($counts) {
+        $callback = static function(array &$element) use ($counts) {
             $element['entries'] = $counts[$element['id']]['total'] ?? 0;
         };
 
@@ -99,10 +99,10 @@ class DefaultController extends AbstractController
         $countries = Countries::getCountryCodes();
         $entries = $entryRepository->statsByCountries($id);
 
-        $data = [];
+        $data = array_fill_keys($countries, 0);
 
-        foreach ($countries as $country) {
-            $data[$country] = $entries[$country]['total'] ?? 0;
+        foreach ($entries as $country => $entry) {
+            $data[$country] = $entry['total'] ?? 0;
         }
 
         return new JsonResponse($data);
@@ -111,7 +111,6 @@ class DefaultController extends AbstractController
     #[Route('/export/{id}', name: 'app_export', defaults: ['id' => null])]
     public function export(EntryRepository $entryRepository, int $id = null): StreamedResponse
     {
-
         $participants = $this->getParticipants();
 
         if ($id) {
@@ -168,8 +167,8 @@ class DefaultController extends AbstractController
 
     private function getParticipants(callable $callback = null): array
     {
-        return (new FilesystemAdapter())->get('participants.' . is_callable($callback), function (ItemInterface $item) use ($callback) {
-            $item->expiresAfter(600);
+        $participants = (new FilesystemAdapter())->get('participants', function (ItemInterface $item) {
+            $item->expiresAfter(3600);
 
             $participants = [];
 
@@ -184,9 +183,6 @@ class DefaultController extends AbstractController
                 $url = $response['next_page_link'];
 
                 foreach ($response['event_participations'] as $event_participation) {
-                    if ($callback) {
-                        $callback($event_participation);
-                    }
                     $participants[$event_participation['id']] = $event_participation;
                 }
             }
@@ -194,5 +190,10 @@ class DefaultController extends AbstractController
             return $participants;
         });
 
+        if (is_callable($callback)) {
+            array_walk($participants, $callback);
+        }
+
+        return $participants;
     }
 }
