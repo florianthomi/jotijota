@@ -23,7 +23,7 @@ class EntryRepository extends ServiceEntityRepository
 
     public function statsByCountries(int $id = null)
     {
-        $query = $this->createQueryBuilder('e')
+        $query = $this->createQueryBuilder('e', 'e.country')
             ->select('COUNT(e.id) as total, e.country')
             ->groupBy('e.country')
             ;
@@ -31,9 +31,8 @@ class EntryRepository extends ServiceEntityRepository
             $query->andWhere('e.user_id = :id')->setParameter('id', $id);
         }
 
-        $results = $query->getQuery()->getArrayResult();
+        return $query->getQuery()->getArrayResult();
 
-        return array_combine(array_column($results, 'country'), array_column($results, 'total'));
     }
     public function save(Entry $entity, bool $flush = false): void
     {

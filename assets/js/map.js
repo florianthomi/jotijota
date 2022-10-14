@@ -2,10 +2,11 @@ import 'chart.js/auto';
 import {ChoroplethChart, topojson} from 'chartjs-chart-geo'
 import '../styles/map.scss'
 
+const data = require('./world-countries.json');
+
 const canvas = document.getElementById("canvas")
 
 if (canvas) {
-  fetch('https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json').then((r) => r.json()).then((data) => {
     const countries = topojson.feature(data, data.objects.countries1).features;
 
     const chart = new ChoroplethChart(canvas.getContext("2d"), {
@@ -46,5 +47,4 @@ if (canvas) {
       })
     })
     canvas.dispatchEvent(new Event('refresh'))
-  });
 }

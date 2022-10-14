@@ -8,6 +8,7 @@ use App\Repository\EntryRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,20 +17,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Intl\Countries;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
     public function index(EntryRepository $entryRepository): Response
     {
-        $callback = function(array &$element) use ($entryRepository) {
-            $element['entries'] = $entryRepository->createQueryBuilder('e')
-                ->select('COUNT(e.id)')
-                ->andWhere('e.user_id = :id')
-                ->setParameter('id', $element['id'])
-                ->getQuery()
-                ->getSingleScalarResult()
-            ;
+        $counts = $entryRepository->createQueryBuilder('e', 'e.user_id')
+            ->select('COUNT(e.id) as total, e.user_id')
+            ->groupBy('e.user_id')
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $callback = function(array &$element) use ($counts) {
+            $element['entries'] = $counts[$element['id']]['total'] ?? 0;
         };
 
         $participants = $this->getParticipants($callback);
@@ -99,7 +102,7 @@ class DefaultController extends AbstractController
         $data = [];
 
         foreach ($countries as $country) {
-            $data[$country] = $entries[$country] ?? 0;
+            $data[$country] = $entries[$country]['total'] ?? 0;
         }
 
         return new JsonResponse($data);
@@ -165,26 +168,31 @@ class DefaultController extends AbstractController
 
     private function getParticipants(callable $callback = null): array
     {
-        $participants = [];
+        return (new FilesystemAdapter())->get('participants.' . is_callable($callback), function (ItemInterface $item) use ($callback) {
+            $item->expiresAfter(600);
 
-        $client = HttpClient::create();
+            $participants = [];
 
-        $url = $this->getParameter('event_url');
-        while ($url !== null) {
-            $request = $client->request('GET', $url);
+            $client = HttpClient::create();
 
-            $response = json_decode($request->getContent(), true);
+            $url = $this->getParameter('event_url');
+            while ($url !== null) {
+                $request = $client->request('GET', $url);
 
-            $url = $response['next_page_link'];
+                $response = json_decode($request->getContent(), true);
 
-            foreach ($response['event_participations'] as $event_participation) {
-                if ($callback) {
-                    $callback($event_participation);
+                $url = $response['next_page_link'];
+
+                foreach ($response['event_participations'] as $event_participation) {
+                    if ($callback) {
+                        $callback($event_participation);
+                    }
+                    $participants[$event_participation['id']] = $event_participation;
                 }
-                $participants[$event_participation['id']] = $event_participation;
             }
-        }
 
-        return $participants;
+            return $participants;
+        });
+
     }
 }
