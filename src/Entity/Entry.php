@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\EntryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: EntryRepository::class)]
+#[UniqueEntity(fields: ['jid', 'user_id'])]
 #[ORM\Table]
 class Entry
 {
