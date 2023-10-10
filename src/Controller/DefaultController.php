@@ -7,6 +7,7 @@ use App\Form\EntryType;
 use App\Repository\EntryRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Form\FormError;
@@ -18,10 +19,12 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Intl\Countries;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
+    #[IsGranted('ROLE_USER')]
     public function index(EntryRepository $entryRepository): Response
     {
         $counts = $entryRepository->createQueryBuilder('e', 'e.user_id')
@@ -51,7 +54,8 @@ class DefaultController extends AbstractController
     }
 
     #[Route('/detail/{id}', name: 'app_detail')]
-    public function detail(Request $request, int $id, EntryRepository $entryRepository): Response
+    #[IsGranted('ROLE_USER')]
+    public function detail(Request $request, int $id, EntryRepository $entryRepository, TranslatorInterface $translator): Response
     {
         $entry = new Entry();
         $entry->setUserId($id);
@@ -69,11 +73,11 @@ class DefaultController extends AbstractController
             preg_match('#^([1-7])([A-Za-z]{2})\d{2}[A-Za-z0-9]$#', $jid, $matches);
 
             if (empty($matches[2]) || ((int)$matches[1] !== 7 && !Countries::exists($matches[2]))) {
-                $form->get('jid')->addError(new FormError('JID invalide'));
+                $form->get('jid')->addError(new FormError($translator->trans('JID invalide')));
             } else {
                 $entry->setCountry($matches[2]);
                 $entryRepository->save($entry, true);
-                $this->addFlash('success', 'Entrée bien enregistrée !');
+                $this->addFlash('success', $translator->trans('Entrée bien enregistrée !'));
                 return $this->redirectToRoute('app_detail', ['id' => $id]);
             }
         }
@@ -109,6 +113,7 @@ class DefaultController extends AbstractController
     }
 
     #[Route('/export/{id}', name: 'app_export', defaults: ['id' => null])]
+    #[IsGranted('ROLE_USER')]
     public function export(EntryRepository $entryRepository, int $id = null): StreamedResponse
     {
         $participants = $this->getParticipants();
