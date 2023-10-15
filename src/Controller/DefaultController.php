@@ -123,6 +123,7 @@ class DefaultController extends AbstractController
             'Pays',
             'Pseudo',
             'Age',
+            'Remarque',
             'Date d\'ajout',
             'Participant'
         ];
@@ -136,6 +137,7 @@ class DefaultController extends AbstractController
                 $entry->getCountry(),
                 $entry->getPseudo(),
                 $entry->getAge(),
+                $entry->getRemark(),
                 $entry->getCreatedAt()->format('d.m.Y H:i'),
                 $member->getLastName() . ' ' . $member->getFirstName()
             ];
