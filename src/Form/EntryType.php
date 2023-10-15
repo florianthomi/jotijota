@@ -46,6 +46,7 @@ class EntryType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Entry::class,
+            'csrf_protection' => false
         ]);
     }
 }

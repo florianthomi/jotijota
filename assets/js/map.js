@@ -27,10 +27,11 @@ if (canvas) {
         },
         scales: {
           color: {
-            interpolate: "greens",
+            interpolate: "buGn",
+            quantize: 0,
             beginAtZero: true,
             ticks: {
-              stepSize: 1
+              stepSize: 20
             }
           },
           xy: {
