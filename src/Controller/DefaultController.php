@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Entry;
+use App\Entity\Member;
 use App\Form\EntryType;
 use App\Repository\EntryRepository;
+use App\Repository\MemberRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -13,6 +16,7 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -25,28 +29,14 @@ class DefaultController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
     #[IsGranted('ROLE_USER')]
-    public function index(EntryRepository $entryRepository): Response
+    public function index(MemberRepository $memberRepository): Response
     {
-        $counts = $entryRepository->createQueryBuilder('e', 'e.user_id')
-            ->select('COUNT(e.id) as total, e.user_id')
-            ->groupBy('e.user_id')
+        $participants = $memberRepository->createQueryBuilder('m')
+            ->orderBy('SIZE(m.entries)', 'DESC')
+            ->addOrderBy('m.last_name', 'ASC')
             ->getQuery()
-            ->getArrayResult()
+            ->getResult()
         ;
-
-        $callback = static function(array &$element) use ($counts) {
-            $element['entries'] = $counts[$element['id']]['total'] ?? 0;
-        };
-
-        $participants = $this->getParticipants($callback);
-
-        usort($participants, static function($a, $b) {
-            if ($a['entries'] !== $b['entries']) {
-                return $b['entries'] <=> $a['entries'];
-            }
-
-            return strtolower($a['last_name']) <=> strtolower($b['last_name']);
-        });
 
         return $this->render('default/index.html.twig', [
             'participants' => $participants
@@ -55,10 +45,11 @@ class DefaultController extends AbstractController
 
     #[Route('/detail/{id}', name: 'app_detail')]
     #[IsGranted('ROLE_USER')]
-    public function detail(Request $request, int $id, EntryRepository $entryRepository, TranslatorInterface $translator): Response
+    public function detail(Request $request, Member $member, EntryRepository $entryRepository, TranslatorInterface $translator): Response
     {
         $entry = new Entry();
-        $entry->setUserId($id);
+        $entry->setUserId($member->getId());
+        $entry->setMember($member);
 
         $form = $this->createForm(EntryType::class, $entry, [
             'attr' => [
@@ -78,15 +69,15 @@ class DefaultController extends AbstractController
                 $entry->setCountry($matches[2]);
                 $entryRepository->save($entry, true);
                 $this->addFlash('success', $translator->trans('Entrée bien enregistrée !'));
-                return $this->redirectToRoute('app_detail', ['id' => $id]);
+                return $this->redirectToRoute('app_detail', ['id' => $member->getId()]);
             }
         }
 
-        $entries = $entryRepository->findBy(['user_id' => $id], ['createdAt' => 'DESC']);
+        $entries = $entryRepository->findBy(['member' => $member], ['createdAt' => 'DESC']);
 
         return $this->render('default/detail.html.twig', [
             'entries' => $entries,
-            'id'      => $id,
+            'id'      => $member->getId(),
             'form'    => $form->createView()
         ]);
     }
@@ -114,12 +105,10 @@ class DefaultController extends AbstractController
 
     #[Route('/export/{id}', name: 'app_export', defaults: ['id' => null])]
     #[IsGranted('ROLE_USER')]
-    public function export(EntryRepository $entryRepository, int $id = null): StreamedResponse
+    public function export(EntryRepository $entryRepository, Member $member = null): StreamedResponse
     {
-        $participants = $this->getParticipants();
-
-        if ($id) {
-            $entries = $entryRepository->findBy(['user_id' => $id]);
+        if ($member) {
+            $entries = $member->getEntries();
         } else {
             $entries = $entryRepository->findAll();
         }
@@ -148,7 +137,7 @@ class DefaultController extends AbstractController
                 $entry->getPseudo(),
                 $entry->getAge(),
                 $entry->getCreatedAt()->format('d.m.Y H:i'),
-                $participants[$entry->getUserId()]['last_name'] . ' ' . $participants[$entry->getUserId()]['first_name']
+                $member->getLastName() . ' ' . $member->getFirstName()
             ];
 
             $sheet->fromArray($data, null, 'A' . ++$row);
@@ -168,37 +157,5 @@ class DefaultController extends AbstractController
         });
 
         return $reponse;
-    }
-
-    private function getParticipants(callable $callback = null): array
-    {
-        $participants = (new FilesystemAdapter())->get('participants', function (ItemInterface $item) {
-            $item->expiresAfter(3600);
-
-            $participants = [];
-
-            $client = HttpClient::create();
-
-            $url = $this->getParameter('event_url');
-            while ($url !== null) {
-                $request = $client->request('GET', $url);
-
-                $response = json_decode($request->getContent(), true);
-
-                $url = $response['next_page_link'];
-
-                foreach ($response['event_participations'] as $event_participation) {
-                    $participants[$event_participation['id']] = $event_participation;
-                }
-            }
-
-            return $participants;
-        });
-
-        if (is_callable($callback)) {
-            array_walk($participants, $callback);
-        }
-
-        return $participants;
     }
 }

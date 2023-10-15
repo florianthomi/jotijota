@@ -20,16 +20,16 @@
                         {{ loop.index }}
                     </td>
                     <td>
-                        {{ participant.last_name }}
+                        {{ participant.lastName }}
                     </td>
                     <td>
-                        {{ participant.first_name }}
+                        {{ participant.firstName }}
                     </td>
                     <td>
                         {{ participant.nickname|default('-') }}
                     </td>
                     <td>
-                        {{ participant.entries|default(0) }}
+                        {{ participant.entries|length|default(0) }}
                     </td>
                     <td>
                         <a href="{{ path('app_detail', {'id': participant.id}) }}">

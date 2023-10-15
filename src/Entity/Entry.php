@@ -38,6 +38,10 @@ class Entry
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $remark;
 
+    #[ORM\ManyToOne(inversedBy: 'entries')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Member $member = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -127,6 +131,18 @@ class Entry
     public function setRemark(?string $remark): self
     {
         $this->remark = $remark;
+        return $this;
+    }
+
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(?Member $member): static
+    {
+        $this->member = $member;
+
         return $this;
     }
 
