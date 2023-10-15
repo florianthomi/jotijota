@@ -44,6 +44,13 @@ if (canvas) {
     canvas.addEventListener('refresh', (e) => {
       fetch(canvas.dataset.url).then((r) => r.json()).then((data) => {
         chart.data.datasets[0].data = countries.map((d) => ({feature: d, value: data[d.properties['Alpha-2']] || 0}))
+        const total = Object.values(data).reduce((acc, value) => {
+          acc.jid += value;
+          acc.countries = value > 0 ? acc.countries + 1 : acc.countries;
+          return acc
+        }, {jid: 0, countries: 0})
+        document.getElementById('nbre_jid').innerText = total.jid;
+        document.getElementById('nbre_pays').innerText = total.countries;
         chart.update()
       })
     })

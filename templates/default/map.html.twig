@@ -11,5 +11,13 @@
 
 
 {% block body %}
+    <div class="row mb-5">
+        <div class="col text-center">
+            <h4>{{ "Total JID"|trans }} : <strong id="nbre_jid"></strong></h4>
+        </div>
+        <div class="col text-center">
+            <h4>{{ "Total pays"|trans }} : <strong id="nbre_pays"></strong></h4>
+        </div>
+    </div>
     <canvas id="canvas" data-url="{{ path('app_data') }}"></canvas>
 {% endblock %}
