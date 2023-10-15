@@ -132,6 +132,7 @@ class DefaultController extends AbstractController
 
         $row = 1;
         foreach ($entries as $entry) {
+            $participant = $entry->getMember();
             $data = [
                 $entry->getJid(),
                 $entry->getCountry(),
@@ -139,7 +140,7 @@ class DefaultController extends AbstractController
                 $entry->getAge(),
                 $entry->getRemark(),
                 $entry->getCreatedAt()->format('d.m.Y H:i'),
-                $member->getLastName() . ' ' . $member->getFirstName()
+                $participant->getLastName() . ' ' . $participant->getFirstName()
             ];
 
             $sheet->fromArray($data, null, 'A' . ++$row);
