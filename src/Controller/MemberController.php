@@ -102,10 +102,10 @@ class MemberController extends AbstractController
     #[Route('/{id}', name: 'app_member_delete', methods: ['POST'])]
     public function delete(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$member->getId(), $request->request->get('_token'))) {
+//        if ($this->isCsrfTokenValid('delete'.$member->getId(), $request->request->get('_token'))) {
             $entityManager->remove($member);
             $entityManager->flush();
-        }
+//        }
 
         return $this->redirectToRoute('app_member_index', [], Response::HTTP_SEE_OTHER);
     }
