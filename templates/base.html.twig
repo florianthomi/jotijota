@@ -51,7 +51,9 @@
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <strong>JID : {{ jid }}</strong>
+                    {% block JID %}
+                        <strong>JID : {{ jid }}</strong>
+                    {% endblock %}
                 </div>
             </div>
         </div>
