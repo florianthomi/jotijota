@@ -49,8 +49,12 @@ if (canvas) {
           acc.countries = value > 0 ? acc.countries + 1 : acc.countries;
           return acc
         }, {jid: 0, countries: 0})
-        document.getElementById('nbre_jid').innerText = total.jid;
-        document.getElementById('nbre_pays').innerText = total.countries;
+        if (document.getElementById('nbre_jid')) {
+          document.getElementById('nbre_jid').innerText = total.jid;
+        }
+        if (document.getElementById('nbre_pays')) {
+          document.getElementById('nbre_pays').innerText = total.countries;
+        }
         chart.update()
       })
     })
