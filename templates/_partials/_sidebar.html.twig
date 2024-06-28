@@ -1,14 +1,17 @@
 <aside
+        data-expanded="0"
+        data-sidebar-target="sidebarContainer"
         class="-translate-x-full absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0"
 >
     <!-- SIDEBAR HEADER -->
     <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <a href="index.html">
-            <img src="./images/logo/logo.svg" alt="Logo" />
+        <a href="{{ path('app_dashboard') }}">
+            <img src="{{ asset('images/logo/logo.svg') }}" alt="Logo" />
         </a>
 
         <button
-                class="hamburger-toggler lock lg:hidden"
+                data-action="click->sidebar#toggle"
+                class="lock lg:hidden"
         >
             <svg
                     class="fill-current"
@@ -33,7 +36,6 @@
         <!-- Sidebar Menu -->
         <nav
                 class="mt-5 px-4 py-4 lg:mt-9 lg:px-6"
-                x-data="{selected: $persist('Dashboard')}"
         >
             <!-- Menu Group -->
             <div>
@@ -41,11 +43,10 @@
 
                 <ul class="mb-6 flex flex-col gap-1.5">
                     <!-- Menu Item Dashboard -->
-                    <li>
-                        <a
-                                data-dropdown="close"
-                                class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                                href="#"
+                    <li data-controller="dropdown">
+                        <button
+                                data-action="click->dropdown#toggle"
+                                class="w-full group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                                 :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Dashboard') || (page === 'ecommerce' || page === 'analytics' || page === 'stocks') }"
                         >
                             <svg
@@ -78,7 +79,7 @@
 
                             <svg
                                     class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-                                    data-dropdown-icon
+                                    data-dropdown-target="icon"
                                     width="20"
                                     height="20"
                                     viewBox="0 0 20 20"
@@ -92,18 +93,18 @@
                                         fill=""
                                 />
                             </svg>
-                        </a>
+                        </button>
 
                         <!-- Dropdown Menu Start -->
                         <div
-                                data-dropdown-content
-                                class="translate transform overflow-hidden"
+                                data-dropdown-target="menu"
+                                class="hidden translate transform overflow-hidden"
                         >
                             <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                                 <li>
                                     <a
                                             class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                            href="index.html"
+                                            href="{{ path('app_dashboard') }}"
                                             :class="page === 'ecommerce' && '!text-white'"
                                     >eCommerce
                                     </a>

@@ -25,7 +25,4 @@ return [
     '@hotwired/turbo' => [
         'version' => '8.0.4',
     ],
-    '@hotwired/turbo-rails' => [
-        'version' => '8.0.4',
-    ],
 ];

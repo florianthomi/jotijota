@@ -6,7 +6,7 @@ module.exports = {
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
   ],
-  darkMode: ['selector', '[data-dark-mode="1"]'],
+  darkMode: 'selector',
   theme: {
     fontFamily: {
       satoshi: ['Satoshi', 'sans-serif'],

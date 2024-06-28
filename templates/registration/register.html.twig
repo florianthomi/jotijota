@@ -20,15 +20,15 @@
             <div class="flex flex-wrap items-center">
                 <div class="hidden w-full xl:block xl:w-1/2">
                     <div class="px-26 py-17.5 text-center">
-                        <a class="mb-5.5 inline-block" href="index.html">
+                        <a class="mb-5.5 inline-block" href="{{ path('app_dashboard') }}">
                             <img
                                     class="hidden dark:block"
-                                    src="./images/logo/logo.svg"
+                                    src="{{ asset('images/logo/logo.svg') }}"
                                     alt="Logo"
                             />
                             <img
                                     class="dark:hidden"
-                                    src="./images/logo/logo-dark.svg"
+                                    src="{{ asset('images/logo/logo-dark.svg') }}"
                                     alt="Logo"
                             />
                         </a>

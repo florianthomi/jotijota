@@ -7,7 +7,8 @@
         <div class="flex items-center gap-2 sm:gap-4 lg:hidden">
             <!-- Hamburger Toggle BTN -->
             <button
-                    class="hamburger-toggler z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
+                    data-action="click->sidebar#toggle"
+                    class="z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
             >
         <span class="relative block h-5.5 w-5.5 cursor-pointer">
           <span class="du-block absolute right-0 h-full w-full">
@@ -25,8 +26,8 @@
         </span>
             </button>
             <!-- Hamburger Toggle BTN -->
-            <a class="block flex-shrink-0 lg:hidden" href="index.html">
-                <img src="./images/logo/logo-icon.svg" alt="Logo" />
+            <a class="block flex-shrink-0 lg:hidden" href="{{ path('app_dashboard') }}">
+                <img src="{{ asset('images/logo/logo-icon.svg') }}" alt="Logo" />
             </a>
         </div>
         <div class="hidden sm:block">
@@ -37,11 +38,12 @@
                 <li>
                     <!-- Dark Mode Toggler -->
                     <label
+                            data-controller="dark-mode"
                             class="bg-stroke dark:bg-primary relative m-0 block h-7.5 w-14 rounded-full"
                     >
                         <input
-                                id="dark-mode-toggler"
                                 type="checkbox"
+                                data-action="dark-mode#toggle"
                                 class="absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"
                         />
                         <span
@@ -87,27 +89,29 @@
 
             <!-- User Area -->
             <div
+                    data-controller="dropdown"
                     class="relative"
             >
-                <a
-                        data-dropdown="close"
-                        data-dropdown-clickoutside
-                        class="flex items-center gap-4"
-                        href="#"
+                <button
+                        type="button"
+                        data-action="click->dropdown#toggle"
+                        class="w-full flex items-center gap-4"
                 >
           <span class="hidden text-right lg:block">
             <span class="block text-sm font-medium text-black dark:text-white"
-            >Thomas Anree</span
+            >{{ app.user.firstname }}</span
             >
-            <span class="block text-xs font-medium">UX Designer</span>
+              {% if app.user and app.user.group %}
+                  <span class="block text-xs font-medium">{{ app.user.group.name }}</span>
+              {% endif %}
           </span>
 
                     <span class="h-12 w-12 rounded-full">
-            <img src="./images/user/user-01.png" alt="User" />
+            <img src="{{ asset('images/user/user-01.png') }}" alt="User" />
           </span>
 
                     <svg
-                            data-dropdown-icon
+                            data-dropdown-target="icon"
                             class="hidden fill-current sm:block"
                             width="12"
                             height="8"
@@ -122,12 +126,12 @@
                                 fill=""
                         />
                     </svg>
-                </a>
+                </button>
 
                 <!-- Dropdown Start -->
                 <div
-                        data-dropdown-content
-                        class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+                        data-dropdown-target="menu"
+                        class="hidden absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
                 >
                     <ul
                             class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark"
