@@ -8,11 +8,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Entry>
- *
- * @method Entry|null find($id, $lockMode = null, $lockVersion = null)
- * @method Entry|null findOneBy(array $criteria, array $orderBy = null)
- * @method Entry[]    findAll()
- * @method Entry[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class EntryRepository extends ServiceEntityRepository
 {
@@ -21,59 +16,28 @@ class EntryRepository extends ServiceEntityRepository
         parent::__construct($registry, Entry::class);
     }
 
-    public function statsByCountries(int $id = null)
-    {
-        $query = $this->createQueryBuilder('e', 'e.country')
-            ->select('COUNT(e.id) as total, e.country')
-            ->groupBy('e.country')
-            ;
-        if ($id) {
-            $query->andWhere('e.user_id = :id')->setParameter('id', $id);
-        }
+    //    /**
+    //     * @return Entry[] Returns an array of Entry objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('e')
+    //            ->andWhere('e.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('e.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-        return $query->getQuery()->getArrayResult();
-
-    }
-    public function save(Entry $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(Entry $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-//    /**
-//     * @return Entry[] Returns an array of Entry objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Entry
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Entry
+    //    {
+    //        return $this->createQueryBuilder('e')
+    //            ->andWhere('e.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

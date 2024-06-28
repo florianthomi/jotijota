@@ -1,0 +1,34 @@
+@import "admin.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[data-dropdown="open"] {
+    [data-dropdown-icon] {
+        @apply rotate-180
+    }
+    + [data-dropdown-content] {
+        @apply block
+    }
+}
+
+[data-dropdown="close"] {
+   + [data-dropdown-content] {
+        @apply hidden
+    }
+}
+
+.sidebar-open #hamburger-toggler {
+    .du-block:first-child {
+        @apply w-full delay-300
+    }
+
+    .du-block:last-child {
+        @apply h-0 delay-[0]
+    }
+}
+
+.sidebar-open aside {
+    @apply translate-x-0
+}

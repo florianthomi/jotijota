@@ -1,0 +1,117 @@
+version: '3.8'
+
+services:
+  # PHP SERVICES
+
+  php:
+    container_name: ${COMPOSE_PROJECT_NAME}-php
+    expose:
+      - 9001 # xdebug port
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    environment:
+      - PHP_IDE_CONFIG=serverName=docker
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_HOST
+      - MYSQL_DATABASE
+      - MYSQL_PORT
+      - MYSQL_ROOT_PASSWORD
+      - SSH_AUTH_SOCK=$SSH_AUTH_SOCKET #required for linux
+    volumes:
+      - ./:/var/www:rw,cached
+      - ./var/cache:/var/www/var/cache:rw,delegated
+      - ./var/logs:/var/www/var/logs:rw,delegated
+      - ./node_modules:/var/www/node_modules:rw,delegated
+      - ./vendor:/var/www/vendor:rw,delegated
+      - $SSH_AUTH_SOCKET:$SSH_AUTH_SOCKET
+
+  php_56:
+    extends: php
+    image: hub.iomedia.ch/php_56
+
+  php_70:
+    extends: php
+    image: hub.iomedia.ch/php_70
+
+  php_71:
+    extends: php
+    image: hub.iomedia.ch/php_71
+
+  php_72:
+    extends: php
+    image: hub.iomedia.ch/php_72
+
+  php_73:
+    extends: php
+    image: hub.iomedia.ch/php_73
+
+  php_74:
+    extends: php
+    image: hub.iomedia.ch/php_74
+
+  php_80:
+    extends: php
+    image: hub.iomedia.ch/php_80
+
+  php_81:
+    extends: php
+    image: hub.iomedia.ch/php_81
+
+  php_82:
+    extends: php
+    image: hub.iomedia.ch/php_82
+
+  # HTTP SERVICES
+
+  apache:
+    container_name: ${COMPOSE_PROJECT_NAME}-http
+    expose:
+      - 80 # http port
+      - 443 # https port
+    volumes:
+      - ./:/var/www:rw,cached
+
+  apache_24_flex:
+    extends: apache
+    image: hub.iomedia.ch/apache_24_flex
+
+  apache_24_non_flex:
+    extends: apache
+    image: hub.iomedia.ch/apache_24_nonflex
+
+  # DATABASE SERVICES
+
+  mysql:
+    container_name: ${COMPOSE_PROJECT_NAME}-db
+    expose:
+      - 3306 # mysql port
+    ports:
+      - "3306"
+    volumes:
+      - database:/var/lib/mysql:rw,delegated
+    environment:
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+
+  mysql_57:
+    extends: mysql
+    image: hub.iomedia.ch/mysql_57
+
+  # THIRD TIER SERVICES
+
+  adminer:
+    container_name: ${COMPOSE_PROJECT_NAME}-adminer
+    image: adminer
+    expose:
+      - 8080
+    restart: "no"
+    environment:
+      - ADMINER_PLUGINS=tables-filter tinymce edit-calendar
+      - ADMINER_DESIGN=pepa-linha
+
+  mail:
+    container_name: ${COMPOSE_PROJECT_NAME}-mail
+    image: schickling/mailcatcher

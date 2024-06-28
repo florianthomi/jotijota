@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  php:
+    extends:
+      file: docker-compose.services.yaml
+      service: php_82
+    networks:
+      - default
+  http:
+    extends:
+      file: docker-compose.services.yaml
+      service: apache_24_flex
+    depends_on:
+      - php
+    labels:
+      - "traefik.frontend.rule=Host:back.${COMPOSE_PROJECT_NAME}.localhost"
+      - "traefik.enable=true"
+    networks:
+      - traefik
+      - default
+  db:
+    extends:
+      file: docker-compose.services.yaml
+      service: mysql_57
+    labels:
+      - "traefik.frontend.rule=Host:db.${COMPOSE_PROJECT_NAME}.localhost"
+      - "traefik.enable=true"
+    networks:
+      - traefik
+      - default
+  mail:
+    extends:
+      file: docker-compose.services.yaml
+      service: mail
+    labels:
+      - "traefik.frontend.rule=Host:mail.${COMPOSE_PROJECT_NAME}.localhost"
+      - "traefik.enable=true"
+      - "traefik.port=1080"
+    networks:
+      - traefik
+      - default
+  adminer:
+    extends:
+      file: docker-compose.services.yaml
+      service: adminer
+    labels:
+      - "traefik.frontend.rule=Host:adminer.${COMPOSE_PROJECT_NAME}.localhost"
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+    networks:
+      - traefik
+      - default
+
+volumes:
+  database:
+
+networks:
+  traefik:
+    external: true
