@@ -140,6 +140,8 @@
                                 <label for="_remember_me">Remember me</label>
                             </div>
 
+                            {{ component('Toggler') }}
+
                             <div class="mb-5">
                                 <input type="hidden" name="_csrf_token"
                                        value="{{ csrf_token('authenticate') }}"

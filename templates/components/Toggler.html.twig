@@ -1,0 +1,22 @@
+<div{{ attributes.defaults({class:'flex gap-x-4', 'data-controller': 'toggler'})}}>
+    <label
+            data-toggler-target="background"
+            class="bg-stroke relative m-0 block h-7.5 w-14 rounded-full"
+    >
+        <input
+                type="checkbox"
+                data-toggler-target="input"
+                data-action="toggler#toggle {{ actions|join(' ') }}"
+                class="absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"
+        />
+        <span
+                data-toggler-target="cursor"
+                class="left-1 translate-x-0 absolute top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-switcher duration-75 ease-linear"
+        >
+            {% block icons %}{% endblock %}
+        </span>
+    </label>
+    {{ label }}
+</div>
+
+
