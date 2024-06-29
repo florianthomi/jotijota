@@ -8,6 +8,6 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class Toggler
 {
     public string $label = '';
-
+    public ?string $name = null;
     public array $actions = [];
 }

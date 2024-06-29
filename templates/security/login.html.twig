@@ -1,16 +1,18 @@
 {% extends 'layout.html.twig' %}
 
-{% block header %}
-
-{% endblock %}
-
 {% block sidebar %}
 
 {% endblock %}
 
+{% block header %}
+    {% embed '_partials/_header.html.twig' %}
+        {% block sidebar_toggler %}{% endblock %}
+    {% endembed %}
+{% endblock %}
 
-{% block body %}
-    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-20">
+
+{% block content %}
+    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
 
         <!-- ====== Forms Section Start -->
         <div
@@ -68,7 +70,7 @@
 
                             <div class="mb-4">
                                 <label
-                                        class="mb-2.5 block font-medium text-black dark:text-white"
+                                        class="form-label"
                                 >Email</label
                                 >
                                 <div class="relative">
@@ -76,7 +78,7 @@
                                             type="text"
                                             value="{{ last_username }}" name="_username" id="username" autocomplete="username" required autofocus
                                             placeholder="Enter your username"
-                                            class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                            class="form-input"
                                     />
 
                                     <span class="absolute right-4 top-4">
@@ -101,14 +103,14 @@
 
                             <div class="mb-6">
                                 <label
-                                        class="mb-2.5 block font-medium text-black dark:text-white"
+                                        class="form-label"
                                 >Re-type Password</label
                                 >
                                 <div class="relative">
                                     <input
                                             type="password"
-                                            name="_password" id="password" autocomplete="current-password" required
-                                            class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                            name="_password" id="password"  required
+                                            class="form-input"
                                     />
 
                                     <span class="absolute right-4 top-4">
@@ -135,12 +137,8 @@
                                 </div>
                             </div>
 
-                            <div class="checkbox mb-3">
-                                <input type="checkbox" name="_remember_me" id="_remember_me">
-                                <label for="_remember_me">Remember me</label>
-                            </div>
 
-                            {{ component('Toggler') }}
+                            {{ component('Toggler', {class: 'mb-3', name: '_remember_me', label: 'Remember me'}) }}
 
                             <div class="mb-5">
                                 <input type="hidden" name="_csrf_token"

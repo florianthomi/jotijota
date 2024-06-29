@@ -1,10 +1,17 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
+  connect () {
+    if (document.documentElement.classList.contains("dark")) {
+      this.dispatch("enable");
+    }
+  }
+
   toggle() {
     const isCurrentlyDark = document.documentElement.classList.contains("dark");
     this.applyDarkMode(!isCurrentlyDark);
     this.setUserPreference(!isCurrentlyDark);
+    this.dispatch('toggle')
   }
 
   applyDarkMode(isDark) {

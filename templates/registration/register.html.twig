@@ -1,17 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Register{% endblock %}
-
-{% block header %}
-
-{% endblock %}
 
 {% block sidebar %}
 
 {% endblock %}
 
-{% block body %}
-    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-20">
+{% block header %}
+    {% embed '_partials/_header.html.twig' %}
+        {% block sidebar_toggler %}{% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
 
         <!-- ====== Forms Section Start -->
         <div
