@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block top_title %}Nouvelle édition{% endblock %}
+
+{% block buttons %}
+    {{ component('Link', {icon: {name: 'icon-back'}, label: 'Retour', action: path('app_edition_index')}) }}
+{% endblock %}
+
+{% block content %}
+    {{ include('edition/_form.html.twig') }}
+{% endblock %}

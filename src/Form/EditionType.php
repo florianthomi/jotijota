@@ -23,20 +23,18 @@ class EditionType extends AbstractType
             ])
             ->add('subscriptionFrom', null, [
                 'widget' => 'single_text',
+                'required' => false,
             ])
             ->add('subscriptionTo', null, [
                 'widget' => 'single_text',
+                'required' => false
             ])
             ->add('name')
             ->add('questions', EntityType::class, [
                 'class' => Question::class,
                 'choice_label' => 'id',
                 'multiple' => true,
-            ])
-            ->add('groups', EntityType::class, [
-                'class' => Group::class,
-                'choice_label' => 'id',
-                'multiple' => true,
+                'required' => false,
             ])
         ;
     }
