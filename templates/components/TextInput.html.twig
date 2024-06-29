@@ -1,7 +1,43 @@
 <div{{ attributes.defaults({ class: 'mb-4'}) }}>
-    {{ form_label(form, null, {'label_attr': {'class': 'form-labe'}}) }}
-    <div class="relative">
-        {{ form_widget(form, {'attr': {'class': 'form-input'}}) }}
-        <span class="absolute right-4 top-4">{% block icon %}{% endblock %}</span>
-    </div>
+
+    {% if form %}
+        {{ form_label(form, null, {'label_attr': {'class': 'form-label'}}) }}
+        <div class="relative">
+            {{ form_widget(form, {'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(form) }}
+            <span class="absolute right-4 top-4">
+                {% if icon %}
+                    {{ component('Icon', icon) }}
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        {% if label %}
+            <label for="{{ name }}" class="form-label">{{ label }}</label>
+        {% endif %}
+        <div class="relative">
+            <input
+                    class="form-input"
+                    type="{{ type }}"
+                    value="{{ value }}"
+                    name="{{ name }}"
+            {%- for attrname, attrvalue in extraAttributes -%}
+                {{- " " -}}
+                {%- if attrname in ['placeholder', 'title'] -%}
+                    {{- attrname }}="{{ translation_domain is same as(false) or attrvalue is null ? attrvalue : attrvalue|trans(attr_translation_parameters, translation_domain) }}"
+                {%- elseif attrvalue is same as(true) -%}
+                    {{- attrname }}="{{ attrname }}"
+                {%- elseif attrvalue is not same as(false) -%}
+                    {{- attrname }}="{{ attrvalue }}"
+                {%- endif -%}
+            {%- endfor -%}
+            />
+            <span class="absolute right-4 top-4">
+                {% if icon %}
+                    {{ component('Icon', icon) }}
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
 </div>

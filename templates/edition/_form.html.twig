@@ -1,4 +1,59 @@
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-        {{ component('Button', {label: button_label|default('save'), type: 'submit'}) }}
+{{ component('TextInput', {form: form.name}) }}
+
+<div class="mb-4 flex flex-col gap-4 sm:flex-row">
+    {{ component('TextInput', {
+        form: form.startAt,
+        class: 'w-full sm:w-1/2'
+    }) }}
+
+    {{ component('TextInput', {
+        form: form.endAt,
+        class: 'w-full sm:w-1/2'
+    }) }}
+</div>
+
+
+<div class="mb-4 flex flex-col gap-4 sm:flex-row">
+    {{ component('TextInput', {
+        form: form.subscriptionFrom,
+        class: 'w-full sm:w-1/2'
+    }) }}
+
+    {{ component('TextInput', {
+        form: form.subscriptionTo,
+        class: 'w-full sm:w-1/2'
+    }) }}
+</div>
+
+{{ form_widget(form) }}
+
+<div class="flex justify-end gap-4.5">
+    {{ component('Link', {label: 'cancel', action: path('app_edition_index'), class: 'border border-stroke bg-transparent hover:shadow-1 dark:border-strokedark'}) }}
+    {{ component('Button', {label: button_label|default('save'), type: 'submit'}) }}
+</div>
 {{ form_end(form) }}
+
+
+
+
+{#<div>#}
+{#    <label#}
+{#            class="mb-3 block text-sm font-medium text-black dark:text-white"#}
+{#    >#}
+{#        Date picker#}
+{#    </label>#}
+{#    <div class="relative">#}
+{#        <input#}
+{#                class="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"#}
+{#                placeholder="mm/dd/yyyy"#}
+{#                type="datetime-local"#}
+{#        />#}
+{#        {{ component('TextInput', {form: form.name}) }}#}
+
+{#    </div>#}
+{#</div>#}
+
+
+

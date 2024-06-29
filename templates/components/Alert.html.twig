@@ -1,0 +1,20 @@
+{# bg-warning border-warning text-warning text-warning-600 text-warning-900 #}
+{# bg-success border-success text-success text-success-600 text-success-900 #}
+{# bg-danger border-danger text-danger text-danger-600 text-danger-900 #}
+<div
+        class="flex w-full border-l-6 border-{{ type }} bg-{{ type }} bg-opacity-[15%] px-7 py-5 mb-5 shadow-md"
+>
+    <div
+            class="mr-5 flex h-9 w-9 items-center justify-center rounded-lg bg-{{ type }}"
+    >
+        {{ component('Icon', {name: 'icon-'~type, class: 'size-3.5 text-white'}) }}
+    </div>
+    <div class="w-full">
+        <h5 class="mb-3 text-lg font-bold text-{{ type }}-900">
+            {{ title }}
+        </h5>
+        <p class="leading-relaxed text-{{ type }}-600">
+            {{ message|default|raw }}
+        </p>
+    </div>
+</div>

@@ -38,5 +38,5 @@
 
     <a href="{{ path('app_edition_edit', {'id': edition.id}) }}">edit</a>
 
-    {{ include('edition/_delete_form.html.twig') }}
+    {{ include('edition/_delete_form.html.twig', {entity: edition}) }}
 {% endblock %}
