@@ -1,0 +1,3 @@
+dunglas_doctrine_json_odm:
+    type_map:
+        coords: App\BusinessLogic\Model\Coords

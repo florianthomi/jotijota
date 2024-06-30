@@ -1,0 +1,77 @@
+<div {{ attributes }}>
+    {{ form_start(form) }}
+    {{ component('TextInput', {form: form.name}) }}
+
+    <div class="mb-4 flex flex-col gap-4 sm:flex-row">
+        {{ component('TextInput', {
+            form: form.coords.latitude,
+            class: 'w-full sm:w-1/2'
+        }) }}
+
+        {{ component('TextInput', {
+            form: form.coords.longitude,
+            class: 'w-full sm:w-1/2'
+        }) }}
+    </div>
+
+
+    <div class="mb-4 flex flex-col gap-4 sm:flex-row">
+        {{ form_row(form.country, {attr: {class: 'w-full sm:w-1/2'}}) }}
+
+        {{ form_row(form.languages, {attr: {class: 'w-full sm:w-1/2'}}) }}
+    </div>
+
+    <div class="mb-4">
+        {{ component('TextArea', {
+            form: form.rules
+        }) }}
+        {{ component('TextArea', {
+            form: form.comment
+        }) }}
+    </div>
+
+    <div class="mb-4 flex flex-col gap-4">
+        <div>
+            {{ form_label(form.questions) }}
+            {{ form_help(form.questions) }}
+        </div>
+
+        {% for key, questionForm in form.questions %}
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+                {{ component('TextInput', {
+                    form: questionForm.title,
+                    class: 'w-auto grow'
+                }) }}
+                {{ component('Toggler', {
+                    label: field_label(questionForm.required),
+                    name: field_name(questionForm.required),
+                    value: field_value(questionForm.required),
+                    checked: questionForm.required.vars.checked,
+                }) }}
+                {{ form_row(questionForm.vars.button_delete, { label: 'X', attr: { class: 'btn btn-outline-danger !px-4' } }) }}
+
+            </div>
+
+        {% endfor %}
+
+        {{ form_widget(form.questions.vars.button_add, { label: '+ Add question', attr: { class: 'btn btn-outline-primary' } }) }}
+
+        {% do form.questions.setRendered %}
+
+    </div>
+
+
+    <div class="flex justify-end gap-4.5">
+        {{ component('Link', {
+            label: 'cancel',
+            action: path('app_group_index'),
+            class: 'text-white text-strokedark border border-strokedark bg-transparent dark:text-stroke hover:shadow-1 dark:border-stroke'}) }}
+        {{ component('Button', {
+            label: button_label|default('save'),
+            type: 'submit',
+            class: 'bg-primary text-white'
+        }) }}
+    </div>
+    {{ form_end(form) }}
+</div>
+

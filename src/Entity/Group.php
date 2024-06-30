@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\BusinessLogic\Model\Coords;
 use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,8 +21,8 @@ class Group
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private array $coords = [];
+    #[ORM\Column(type: 'json_document', options: ['jsonb' => true])]
+    private Coords $coords;
 
     #[ORM\Column(length: 3)]
     private ?string $country = null;
@@ -64,6 +65,7 @@ class Group
         $this->questions = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->editions = new ArrayCollection();
+        $this->coords = new Coords();
     }
 
     public function getId(): ?int
@@ -83,14 +85,14 @@ class Group
         return $this;
     }
 
-    public function getCoords(): array
+    public function getCoords(): Coords
     {
         return $this->coords;
     }
 
-    public function setCoords(array $coords): static
+    public function setCoords(Coords $coords): static
     {
-        $this->coords = $coords;
+        $this->coords = clone $coords;
 
         return $this;
     }

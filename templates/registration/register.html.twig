@@ -81,11 +81,11 @@
                         {% endcomponent %}
 
                         <div class="mb-5">
-                            <input
-                                    type="submit"
-                                    value="Create account"
-                                    class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium text-white transition hover:bg-opacity-90"
-                            />
+                            {{ component('Button', {
+                                type: 'submit',
+                                label: 'create account',
+                                class: 'w-full bg-primary text-white'
+                            }) }}
                         </div>
 
                         <div class="mt-6 text-center">

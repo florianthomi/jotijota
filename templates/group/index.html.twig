@@ -1,0 +1,94 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Groups index{% endblock %}
+
+{% block top_title %}
+    {{ 'Groups'|trans }}
+{% endblock %}
+
+
+{% block content %}
+    <div
+            class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1"
+    >
+        <div class="max-w-full overflow-x-auto">
+            <table class="w-full table-auto">
+                <thead>
+                <tr class="bg-gray-2 text-left dark:bg-meta-4">
+                    <th
+                            class="px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
+                    >
+                        Id
+                    </th>
+                    <th
+                            class="px-4 py-4 font-medium text-black dark:text-white"
+                    >
+                        Logo
+                    </th>
+                    <th
+                            class="px-4 py-4 font-medium text-black dark:text-white"
+                    >
+                        Nom
+                    </th>
+                    <th
+                            class="px-4 py-4 font-medium text-black dark:text-white"
+                    >
+                        Pays
+                    </th>
+                    <th
+                            class="px-4 py-4 font-medium text-black dark:text-white"
+                    >
+                        Nbre de participants
+                    </th>
+                    <th class="px-4 py-4 font-medium text-black dark:text-white">
+                        Actions
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                            <p class="text-black dark:text-white">{{ entity.id }}</p>
+                        </td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                            {% if entity.logo %}
+                                <p class="text-black dark:text-white">{{ entity.logo }}</p>
+                            {% endif %}
+                        </td>
+                        <td
+                                class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11"
+                        >
+                            <h5 class="font-medium text-black dark:text-white">{{ entity.name }}</h5>
+                        </td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                            <p class="text-black dark:text-white">{{ entity.country|country_name }}</p>
+                        </td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                <p class="text-black dark:text-white">{{ entity.users|length }}</p>
+                        </td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                            <div class="flex items-center space-x-3.5">
+                                <a href="{{ path('app_group_show', {id: entity.id}) }}" class="hover:text-primary">
+                                    {{ component('Icon', {name: 'icon-eye'}) }}
+                                </a>
+                                <a href="{{ path('app_group_edit', {id: entity.id}) }}" class="hover:text-primary">
+                                    {{ component('Icon', {name: 'icon-pencil'}) }}
+                                </a>
+                                {% include 'group/_delete_form.html.twig' %}
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center px-4 py-5 pl-9 xl:pl-11">
+                            {{ "label.no_results"|trans }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

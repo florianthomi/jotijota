@@ -1,12 +1,12 @@
 {% extends 'layout.html.twig' %}
 
-{% block top_title %}{{ edition.name }}{% endblock %}
+{% block top_title %}{{ group.name }}{% endblock %}
 
 {% block buttons %}
     {{ component('Link', {
         icon: {name: 'icon-back'},
         label: 'Retour',
-        action: path('app_edition_index'),
+        action: path('app_group_index'),
         class: 'bg-primary text-white'
     }) }}
 {% endblock %}
@@ -14,9 +14,9 @@
 {% block content %}
     <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div class="p-7">
-            {{ component('EditionForm', {
+            {{ component('GroupForm', {
                 form: form,
-                edition: edition,
+                group: group,
 
             }) }}
         </div>
