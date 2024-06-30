@@ -9,5 +9,7 @@ class Toggler
 {
     public string $label = '';
     public ?string $name = null;
+    public string $value = '1';
+    public bool $checked = false;
     public array $actions = [];
 }

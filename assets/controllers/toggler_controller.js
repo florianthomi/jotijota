@@ -16,7 +16,6 @@ export default class extends Controller {
   }
 
   enable() {
-    console.log('enable')
     this.inputTarget.checked = true
     this.backgroundTarget.classList.add("!bg-primary")
     this.cursorTarget.classList.add("!right-1", "!translate-x-full")

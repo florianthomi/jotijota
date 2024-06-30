@@ -1,18 +1,9 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Edition index{% endblock %}
+{% block title %}Users index{% endblock %}
 
 {% block top_title %}
-    {{ 'Editions'|trans }}
-{% endblock %}
-
-{% block buttons %}
-    {{ component('Link', {
-        icon: {name: 'icon-plus'},
-        label: 'Ajouter une édition',
-        action: path('app_edition_new'),
-        class: 'bg-primary text-white'
-    }) }}
+    {{ 'Users'|trans }}
 {% endblock %}
 
 
@@ -27,32 +18,22 @@
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
                     >
-                        Nom
+                        Username
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Du
+                        Prénom / Nom
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Au
+                        Groupe / Section
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Inscriptions
-                    </th>
-                    <th
-                            class="px-4 py-4 font-medium text-black dark:text-white"
-                    >
-                        Nbre de groupes
-                    </th>
-                    <th
-                            class="px-4 py-4 font-medium text-black dark:text-white"
-                    >
-                        Nbre de questions
+                        Roles
                     </th>
                     <th class="px-4 py-4 font-medium text-black dark:text-white">
                         Actions
@@ -65,32 +46,30 @@
                         <td
                                 class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11"
                         >
-                            <h5 class="font-medium text-black dark:text-white">{{ entity.name }}</h5>
+                            <h5 class="font-medium text-black dark:text-white">{{ entity.username }}</h5>
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.startAt|date('d.m.Y H:i') }}</p>
+                            <p class="text-black dark:text-white">{{ entity.firstname }} {{ entity.lastname }}</p>
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.endAt|date('d.m.Y H:i') }}</p>
+                            {% if entity.group %}
+                                <p class="text-black dark:text-white">{{ entity.group }}{% if entity.section %} ({{ entity.section }}){% endif %}</p>
+                            {% endif %}
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.endAt|date('d.m.Y H:i') }}</p>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.groups|length }}</p>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.questions|length }}</p>
+                            {% for role in entity.roles %}
+                                <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium bg-gray dark:bg-boxdark-2">{{ role }}</p>
+                            {% endfor %}
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <div class="flex items-center space-x-3.5">
-                                <a href="{{ path('app_edition_show', {id: entity.id}) }}" class="hover:text-primary">
+                                <a href="{{ path('app_user_show', {id: entity.id}) }}" class="hover:text-primary">
                                     {{ component('Icon', {name: 'icon-eye'}) }}
                                 </a>
-                                <a href="{{ path('app_edition_edit', {id: entity.id}) }}" class="hover:text-primary">
+                                <a href="{{ path('app_user_edit', {id: entity.id}) }}" class="hover:text-primary">
                                     {{ component('Icon', {name: 'icon-pencil'}) }}
                                 </a>
-                                {% include 'edition/_delete_form.html.twig' %}
+                                {% include 'user/_delete_form.html.twig' %}
                             </div>
                         </td>
                     </tr>

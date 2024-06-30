@@ -1,18 +1,9 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Edition index{% endblock %}
+{% block title %}Questions index{% endblock %}
 
 {% block top_title %}
-    {{ 'Editions'|trans }}
-{% endblock %}
-
-{% block buttons %}
-    {{ component('Link', {
-        icon: {name: 'icon-plus'},
-        label: 'Ajouter une édition',
-        action: path('app_edition_new'),
-        class: 'bg-primary text-white'
-    }) }}
+    {{ 'Questions'|trans }}
 {% endblock %}
 
 
@@ -27,32 +18,17 @@
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
                     >
-                        Nom
+                        Question
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Du
+                        Obligatoire
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Au
-                    </th>
-                    <th
-                            class="px-4 py-4 font-medium text-black dark:text-white"
-                    >
-                        Inscriptions
-                    </th>
-                    <th
-                            class="px-4 py-4 font-medium text-black dark:text-white"
-                    >
-                        Nbre de groupes
-                    </th>
-                    <th
-                            class="px-4 py-4 font-medium text-black dark:text-white"
-                    >
-                        Nbre de questions
+                        Réponses
                     </th>
                     <th class="px-4 py-4 font-medium text-black dark:text-white">
                         Actions
@@ -65,32 +41,23 @@
                         <td
                                 class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11"
                         >
-                            <h5 class="font-medium text-black dark:text-white">{{ entity.name }}</h5>
+                            <h5 class="font-medium text-black dark:text-white">{{ entity.title }}</h5>
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.startAt|date('d.m.Y H:i') }}</p>
+                            <p class="inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium {% if entity.required %}bg-success text-success{% else %}bg-danger text-danger{% endif %}">{{ component('Icon', {name: entity.required ? 'icon-success' : 'icon-danger', class: 'size-2.5'}) }}</p>
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.endAt|date('d.m.Y H:i') }}</p>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.endAt|date('d.m.Y H:i') }}</p>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.groups|length }}</p>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.questions|length }}</p>
+                            <p class="inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium bg-primary text-primary">{{ entity.answers|length }}</p>
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <div class="flex items-center space-x-3.5">
-                                <a href="{{ path('app_edition_show', {id: entity.id}) }}" class="hover:text-primary">
+                                <a href="{{ path('app_question_show', {id: entity.id}) }}" class="hover:text-primary">
                                     {{ component('Icon', {name: 'icon-eye'}) }}
                                 </a>
-                                <a href="{{ path('app_edition_edit', {id: entity.id}) }}" class="hover:text-primary">
+                                <a href="{{ path('app_question_edit', {id: entity.id}) }}" class="hover:text-primary">
                                     {{ component('Icon', {name: 'icon-pencil'}) }}
                                 </a>
-                                {% include 'edition/_delete_form.html.twig' %}
+                                {% include 'question/_delete_form.html.twig' %}
                             </div>
                         </td>
                     </tr>

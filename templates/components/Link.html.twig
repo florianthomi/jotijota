@@ -1,4 +1,4 @@
-<a href="{{ action }}" {{ attributes.defaults({class: 'inline-flex items-center gap-2.5 justify-center rounded-md bg-primary px-5 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10'}) }} >
+<a href="{{ action }}" {{ attributes.defaults({class: 'btn bg-primary'}) }} >
     {% if icon is defined and icon.name is defined %}
         {{ component('Icon', icon) }}
     {% endif %}

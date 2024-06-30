@@ -6,6 +6,8 @@
         <input
                 type="checkbox"
                 {% if name %}name="{{ name }}"{% endif %}
+                value="{{ value }}"
+                {% if checked %}checked{% endif %}
                 data-toggler-target="input"
                 data-action="toggler#toggle {{ actions|join(' ') }}"
                 class="absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"

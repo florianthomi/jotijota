@@ -3,7 +3,12 @@
 {% block top_title %}Nouvelle édition{% endblock %}
 
 {% block buttons %}
-    {{ component('Link', {icon: {name: 'icon-back'}, label: 'Retour', action: path('app_edition_index')}) }}
+    {{ component('Link', {
+        icon: {name: 'icon-back'},
+        label: 'Retour',
+        action: path('app_edition_index'),
+        class: 'bg-primary text-white'
+    }) }}
 {% endblock %}
 
 {% block content %}

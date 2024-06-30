@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\UX\LiveComponent\Form\Type\LiveCollectionType;
 
 class EditionType extends AbstractType
 {
@@ -30,11 +31,9 @@ class EditionType extends AbstractType
                 'required' => false
             ])
             ->add('name')
-            ->add('questions', EntityType::class, [
-                'class' => Question::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-                'required' => false,
+            ->add('questions', LiveCollectionType::class, [
+                'entry_type' => QuestionType::class,
+                'help' => 'Ces questions pourront être complétées par les participants'
             ])
         ;
     }

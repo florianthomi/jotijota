@@ -47,7 +47,7 @@ class Group
     /**
      * @var Collection<int, User>
      */
-    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'groupe')]
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'group')]
     private Collection $users;
 
     /**
