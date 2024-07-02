@@ -64,4 +64,11 @@ return [
     'maska' => [
         'version' => '3.0.0-beta4',
     ],
+    'leaflet' => [
+        'version' => '1.9.4',
+    ],
+    'leaflet/dist/leaflet.min.css' => [
+        'version' => '1.9.4',
+        'type' => 'css',
+    ],
 ];

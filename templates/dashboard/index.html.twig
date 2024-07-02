@@ -1,1 +1,11 @@
 {% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <div data-controller="leaflet" data-leaflet-marker-icon-value="{{ asset('images/marker.png') }}" data-leaflet-points-value="{{ data|map(e => e.coords)|json_encode }}">
+
+        <div style="height: 80vh;" data-leaflet-target="map" ></div>
+
+    </div>
+
+{% endblock %}

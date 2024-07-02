@@ -4,7 +4,7 @@ namespace App\BusinessLogic\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class Coords
+class Coords implements \JsonSerializable
 {
     #[Assert\Range(min: -180, max: 180)]
     private float $latitude = 0.0;
@@ -32,5 +32,10 @@ class Coords
     {
         $this->longitude = $longitude;
         return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return ['lat' => $this->latitude, 'lng' => $this->longitude];
     }
 }
