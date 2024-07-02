@@ -19,11 +19,11 @@ class Answer
 
     #[ORM\ManyToOne(inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    private ?Question $question = null;
 
     #[ORM\ManyToOne(inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Question $question = null;
+    private ?Entry $entry = null;
 
     public function getId(): ?int
     {
@@ -42,18 +42,6 @@ class Answer
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getQuestion(): ?Question
     {
         return $this->question;
@@ -62,6 +50,18 @@ class Answer
     public function setQuestion(?Question $question): static
     {
         $this->question = $question;
+
+        return $this;
+    }
+
+    public function getEntry(): ?Entry
+    {
+        return $this->entry;
+    }
+
+    public function setEntry(?Entry $entry): static
+    {
+        $this->entry = $entry;
 
         return $this;
     }

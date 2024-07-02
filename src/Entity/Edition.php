@@ -36,7 +36,7 @@ class Edition
      */
     #[ORM\JoinTable(name: 'editions_questions')]
     #[ORM\JoinColumn(name: 'edition_id', referencedColumnName: 'id')]
-    #[ORM\InverseJoinColumn(name: 'question_id', referencedColumnName: 'id', unique: true)]
+    #[ORM\InverseJoinColumn(name: 'question_id', referencedColumnName: 'id', unique: true, onDelete: 'CASCADE')]
     #[ORM\ManyToMany(targetEntity: Question::class, cascade: ['persist'])]
     private Collection $questions;
 
@@ -46,10 +46,17 @@ class Edition
     #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'editions')]
     private Collection $groups;
 
+    /**
+     * @var Collection<int, Entry>
+     */
+    #[ORM\OneToMany(targetEntity: Entry::class, mappedBy: 'edition', orphanRemoval: true)]
+    private Collection $entries;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->groups = new ArrayCollection();
+        $this->entries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,6 +168,36 @@ class Edition
     public function removeGroup(Group $group): static
     {
         $this->groups->removeElement($group);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Entry>
+     */
+    public function getEntries(): Collection
+    {
+        return $this->entries;
+    }
+
+    public function addEntry(Entry $entry): static
+    {
+        if (!$this->entries->contains($entry)) {
+            $this->entries->add($entry);
+            $entry->setEdition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntry(Entry $entry): static
+    {
+        if ($this->entries->removeElement($entry)) {
+            // set the owning side to null (unless already changed)
+            if ($entry->getEdition() === $this) {
+                $entry->setEdition(null);
+            }
+        }
 
         return $this;
     }

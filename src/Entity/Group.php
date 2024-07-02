@@ -41,8 +41,8 @@ class Group
      */
     #[ORM\JoinTable(name: 'groups_questions')]
     #[ORM\JoinColumn(name: 'group_id', referencedColumnName: 'id')]
-    #[ORM\InverseJoinColumn(name: 'question_id', referencedColumnName: 'id', unique: true)]
-    #[ORM\ManyToMany(targetEntity: Question::class)]
+    #[ORM\InverseJoinColumn(name: 'question_id', referencedColumnName: 'id', unique: true, onDelete: 'CASCADE')]
+    #[ORM\ManyToMany(targetEntity: Question::class, cascade: ['persist'])]
     private Collection $questions;
 
     /**

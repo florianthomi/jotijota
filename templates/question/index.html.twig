@@ -54,9 +54,6 @@
                                 <a href="{{ path('app_question_show', {id: entity.id}) }}" class="hover:text-primary">
                                     {{ component('Icon', {name: 'icon-eye'}) }}
                                 </a>
-                                <a href="{{ path('app_question_edit', {id: entity.id}) }}" class="hover:text-primary">
-                                    {{ component('Icon', {name: 'icon-pencil'}) }}
-                                </a>
                                 {% include 'question/_delete_form.html.twig' %}
                             </div>
                         </td>

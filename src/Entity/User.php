@@ -39,12 +39,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: true, name: '`group`')]
     private ?Group $group = null;
 
-    /**
-     * @var Collection<int, Answer>
-     */
-    #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'user', orphanRemoval: true)]
-    private Collection $answers;
-
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
@@ -142,36 +136,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGroup(?Group $group): static
     {
         $this->group = $group;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Answer>
-     */
-    public function getAnswers(): Collection
-    {
-        return $this->answers;
-    }
-
-    public function addAnswer(Answer $answer): static
-    {
-        if (!$this->answers->contains($answer)) {
-            $this->answers->add($answer);
-            $answer->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAnswer(Answer $answer): static
-    {
-        if ($this->answers->removeElement($answer)) {
-            // set the owning side to null (unless already changed)
-            if ($answer->getUser() === $this) {
-                $answer->setUser(null);
-            }
-        }
 
         return $this;
     }

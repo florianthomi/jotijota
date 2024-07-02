@@ -3,7 +3,7 @@
     {% if form %}
         {{ form_label(form, null, {'label_attr': {'class': 'form-label'}}) }}
         <div class="relative">
-            {{ form_widget(form, {'attr': {'class': 'form-input'}}) }}
+            {{ form_widget(form, {'attr': {'class': 'form-input'}|merge(extraAttributes)}) }}
             {{ form_errors(form) }}
             <span class="absolute right-4 top-4">
                 {% if icon %}

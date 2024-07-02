@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Answer;
 use App\Entity\Question;
 use App\Form\Question1Type;
 use App\Repository\QuestionRepository;
@@ -39,5 +40,16 @@ class QuestionController extends AbstractController
         }
 
         return $this->redirectToRoute('app_question_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/answer/{answer}', name: 'app_question_answer_delete', methods: ['POST'])]
+    public function deleteAnswer(Request $request, Question $question, Answer $answer, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$question->getId().$answer->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($answer);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_question_show', ['id' => $question->getId()], Response::HTTP_SEE_OTHER);
     }
 }
