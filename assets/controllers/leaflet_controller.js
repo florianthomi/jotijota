@@ -15,7 +15,8 @@ export default class extends Controller {
     if (this.mapTarget) {
       this.map = leaflet.map(this.mapTarget).setView([0,0], 2)
       leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        className: 'map-tiles'
       }).addTo(this.map);
 
       const icon = leaflet.icon({
