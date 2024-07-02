@@ -38,6 +38,10 @@ class Entry
     #[ORM\JoinColumn(nullable: false)]
     private ?Edition $edition = null;
 
+    #[ORM\ManyToOne(inversedBy: 'entries')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->answers = new ArrayCollection();
@@ -134,6 +138,18 @@ class Entry
     public function setEdition(?Edition $edition): static
     {
         $this->edition = $edition;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

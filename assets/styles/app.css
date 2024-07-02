@@ -32,3 +32,7 @@
     content: ' *';
     @apply text-danger
 }
+
+.block-container {
+    @apply rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-7
+}

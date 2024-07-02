@@ -52,6 +52,9 @@ class Edition
     #[ORM\OneToMany(targetEntity: Entry::class, mappedBy: 'edition', orphanRemoval: true)]
     private Collection $entries;
 
+    #[ORM\Column]
+    private ?bool $visible = null;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -198,6 +201,18 @@ class Edition
                 $entry->setEdition(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isVisible(): ?bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(bool $visible): static
+    {
+        $this->visible = $visible;
 
         return $this;
     }

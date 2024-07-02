@@ -6,12 +6,12 @@
 {% block content %}
     <div class="flex flex-col gap-4 sm:flex-row">
         <div class="w-full sm:w-2/3">
-            <div class="p-7 chart-container rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div class="chart-container block-container">
                 <canvas data-map-target="canvas" data-map-url-value="{{ asset('js/world-countries.json') }}" data-controller="map"></canvas>
             </div>
         </div>
         <div class="w-full sm:w-1/3">
-            <div class="p-7 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div class="block-container">
                 {{ form_start(form) }}
                 {{ component('TextInput', {
                     form: form.jid,

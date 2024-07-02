@@ -48,9 +48,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $section = null;
 
+    /**
+     * @var Collection<int, Entry>
+     */
+    #[ORM\OneToMany(targetEntity: Entry::class, mappedBy: 'user')]
+    private Collection $entries;
+
     public function __construct()
     {
-        $this->answers = new ArrayCollection();
+        $this->entries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,6 +178,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSection(?string $section): static
     {
         $this->section = $section;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Entry>
+     */
+    public function getEntries(): Collection
+    {
+        return $this->entries;
+    }
+
+    public function addEntry(Entry $entry): static
+    {
+        if (!$this->entries->contains($entry)) {
+            $this->entries->add($entry);
+            $entry->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntry(Entry $entry): static
+    {
+        if ($this->entries->removeElement($entry)) {
+            // set the owning side to null (unless already changed)
+            if ($entry->getUser() === $this) {
+                $entry->setUser(null);
+            }
+        }
 
         return $this;
     }

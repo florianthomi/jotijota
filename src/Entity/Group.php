@@ -60,6 +60,9 @@ class Group
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $logo = null;
 
+    #[ORM\Column]
+    private ?bool $visible = null;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -234,6 +237,18 @@ class Group
     public function setLogo(?string $logo): static
     {
         $this->logo = $logo;
+
+        return $this;
+    }
+
+    public function isVisible(): ?bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(bool $visible): static
+    {
+        $this->visible = $visible;
 
         return $this;
     }
