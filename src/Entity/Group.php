@@ -6,6 +6,7 @@ use App\BusinessLogic\Model\Coords;
 use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -215,6 +216,16 @@ class Group
     public function getEditions(): Collection
     {
         return $this->editions;
+    }
+
+    public function getCurrentEdition(): Edition|false
+    {
+        $now = new \DateTime();
+        $criteria = Criteria::create();
+        $criteria->andWhere(Criteria::expr()->gte('startAt', $now))
+            ->andWhere(Criteria::expr()->lt('endAt', $now));
+
+        return $this->editions->matching($criteria)->first();
     }
 
     public function addEdition(Edition $edition): static

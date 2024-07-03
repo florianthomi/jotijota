@@ -26,6 +26,9 @@ class EntryController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $entry = new Entry();
+        $entry->setUser($this->getUser());
+        $entry->setEdition($this->getUser()?->getGroup()?->getCurrentEdition());
+
         $form = $this->createForm(EntryType::class, $entry);
         $form->handleRequest($request);
 

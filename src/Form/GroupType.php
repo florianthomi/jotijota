@@ -32,7 +32,9 @@ class GroupType extends AbstractType
             ->add('coords', CoordsType::class, [
                 'by_reference' => false
             ])
-            ->add('country', CountryType::class)
+            ->add('country', CountryType::class, [
+                'autocomplete' => true
+            ])
             ->add('comment')
             ->add('rules')
             ->add('languages', ChoiceType::class, [
@@ -45,6 +47,7 @@ class GroupType extends AbstractType
 
                     return $choices;
                 }),
+                'autocomplete' => true,
                 'multiple' => true
             ])
             ->add('questions', LiveCollectionType::class, [

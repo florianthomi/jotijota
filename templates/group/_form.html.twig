@@ -16,9 +16,14 @@
 
 
     <div class="mb-4 flex flex-col gap-4 sm:flex-row">
-        {{ form_row(form.country, {attr: {class: 'w-full sm:w-1/2'}}) }}
-
-        {{ form_row(form.languages, {attr: {class: 'w-full sm:w-1/2'}}) }}
+        {{ component('SelectInput', {
+            form: form.country,
+            class: 'w-full sm:w-1/2'
+        }) }}
+        {{ component('SelectInput', {
+            form: form.languages,
+            class: 'w-full sm:w-1/2'
+        }) }}
     </div>
 
     <div class="mb-4">

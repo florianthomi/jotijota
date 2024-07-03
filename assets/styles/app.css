@@ -1,4 +1,5 @@
 @import "admin.css";
+@import "tom-select.css";
 
 @tailwind base;
 @tailwind components;
@@ -28,7 +29,7 @@
     @apply border border-danger bg-transparent text-danger
 }
 
-.required::after {
+label.required::after {
     content: ' *';
     @apply text-danger
 }

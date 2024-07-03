@@ -5,4 +5,7 @@ import './bootstrap.js';
  * This file will be included onto the page via the importmap() Twig function,
  * which should already be in your base.html.twig.
  */
+
+import 'tom-select/dist/css/tom-select.css'
+
 import './styles/app.css';

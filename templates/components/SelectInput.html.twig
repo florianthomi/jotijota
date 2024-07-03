@@ -1,0 +1,30 @@
+<div {{ attributes.defaults({class: 'mb-4'})}}>
+    {% if form %}
+        {{ form_label(form, null, {label_attr: {class: 'form-label'}}) }}
+    <div class="relative z-10 bg-white dark:bg-form-input">
+        {{ form_widget(form, {attr: {class: 'form-input-select'}}) }}
+    </div>
+    {% else %}
+        <label for="{{ name }}" class="form-label">
+            {{ label }}
+        </label>
+        <div class="relative z-10 bg-white dark:bg-form-input">
+            <select name="{{ name }}" {% if multiple %}multiple{% endif%} class="">
+                {% if not required %}
+                    <option value=""> - </option>
+                {% endif %}
+                {% for label,value in choices %}
+                    <option value="{{ value }}" {% if value in currentValues %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+            <span class="absolute right-4 top-1/2 z-20 -translate-y-1/2">
+            {{ component('Icon', {
+                name: 'icon-caret-down',
+            }) }}
+            </span>
+        </div>
+    {% endif %}
+
+
+
+</div>

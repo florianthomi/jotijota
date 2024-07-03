@@ -36,7 +36,8 @@ class EditionType extends AbstractType
             ->add('coordinators', EntityType::class, [
                 'class' => User::class,
                 'multiple' => true,
-                'required' => false
+                'required' => false,
+                'autocomplete' => true,
             ])
             ->add('questions', LiveCollectionType::class, [
                 'entry_type' => QuestionType::class,

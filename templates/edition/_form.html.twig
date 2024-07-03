@@ -35,9 +35,13 @@
         checked: form.visible.vars.checked,
     }) }}
 
+    {{ component('SelectInput', {
+        form: form.coordinators
+    }) }}
+
     <div class="mb-4 flex flex-col gap-4">
         <div>
-            {{ form_label(form.questions) }}
+            {{ form_label(form.questions, null, {'label_attr': {'class': 'form-label'}}) }}
             {{ form_help(form.questions) }}
         </div>
 
