@@ -26,6 +26,15 @@
             class: 'w-full sm:w-1/2'
         }) }}
     </div>
+
+    {{ component('Toggler', {
+        class: 'mb-4',
+        label: field_label(form.visible),
+        name: field_name(form.visible),
+        value: field_value(form.visible),
+        checked: form.visible.vars.checked,
+    }) }}
+
     <div class="mb-4 flex flex-col gap-4">
         <div>
             {{ form_label(form.questions) }}
@@ -60,8 +69,8 @@
     <div class="flex justify-end gap-4.5">
         {{ component('Link', {
             label: 'cancel',
-            action: path('app_edition_index'),
-            class: 'text-white text-strokedark border border-strokedark bg-transparent dark:text-stroke hover:shadow-1 dark:border-stroke'}) }}
+            action: cancelLink|default(path('app_edition_index')),
+            class: 'text-strokedark border border-strokedark bg-transparent dark:text-stroke hover:shadow-1 dark:border-stroke'}) }}
         {{ component('Button', {
             label: button_label|default('save'),
             type: 'submit',

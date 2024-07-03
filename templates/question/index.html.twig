@@ -8,9 +8,7 @@
 
 
 {% block content %}
-    <div
-            class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1"
-    >
+    <div class="block-container">
         <div class="max-w-full overflow-x-auto">
             <table class="w-full table-auto">
                 <thead>
@@ -44,7 +42,7 @@
                             <h5 class="font-medium text-black dark:text-white">{{ entity.title }}</h5>
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium {% if entity.required %}bg-success text-success{% else %}bg-danger text-danger{% endif %}">{{ component('Icon', {name: entity.required ? 'icon-success' : 'icon-danger', class: 'size-2.5'}) }}</p>
+                            <p class="inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium {% if entity.required %}bg-success text-success{% else %}bg-danger text-danger{% endif %}">{{ component('Icon', {name: entity.required ? 'icon-success' : 'icon-danger', class: '!size-2.5'}) }}</p>
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <p class="inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium bg-primary text-primary">{{ entity.answers|length }}</p>

@@ -12,13 +12,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div class="p-7">
-            {{ component('GroupForm', {
-                form: form,
-                group: group,
+    <div class="block-container">
+        {{ component('GroupForm', {
+            form: form,
+            group: group,
 
-            }) }}
-        </div>
+        }) }}
     </div>
 {% endblock %}

@@ -16,7 +16,7 @@
 {% block content %}
 
         <div
-                class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+                class="block-container !p-0"
         >
             <div class="flex flex-wrap items-center items-stretch" data-controller="leaflet" data-leaflet-marker-icon-value="{{ asset('images/marker.png') }}" data-leaflet-points-value="{{ []|json_encode }}">
                 <div class="hidden w-full xl:block xl:w-1/2" data-leaflet-target="map">

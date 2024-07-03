@@ -18,7 +18,7 @@
 
 {% block content %}
     <div
-            class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1"
+            class="block-container"
     >
         <div class="max-w-full overflow-x-auto">
             <table class="w-full table-auto">
@@ -74,7 +74,10 @@
                             <p class="text-black dark:text-white">{{ entity.endAt|date('d.m.Y H:i') }}</p>
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.endAt|date('d.m.Y H:i') }}</p>
+                            <p class="text-black dark:text-white">{{ '%from% - %to%'|replace({
+                                    '%from%': entity.subscriptionFrom ? entity.subscriptionFrom|date('d.m.Y H:i:s') : '',
+                                    '%to%': entity.subscriptionTo ? entity.subscriptionTo|date('d.m.Y H:i:s') : ''
+                                }) }}</p>
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <p class="text-black dark:text-white">{{ entity.groups|length }}</p>

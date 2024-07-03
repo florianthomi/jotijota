@@ -55,17 +55,44 @@
                         </a>
                     </li>
                     <li class="border-b border-strokedark"></li>
-                    <li>
-                        <a
-                                class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                                href="{{ path('app_dashboard') }}"
+                    <li data-controller="dropdown">
+                        <button
+                                data-action="click->dropdown#toggle"
+                                class="w-full group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                         >
                             {{ component('Icon', {
                                 name: 'icon-dashboard'
                             }) }}
 
                             Dashboard
-                        </a>
+
+                            {{ component('Icon', {
+                                name: 'icon-caret-down',
+                                class: 'absolute right-4 top-1/2 -translate-y-1/2',
+                                'data-dropdown-target': 'icon'
+                            }) }}
+
+                        </button>
+
+                        <!-- Dropdown Menu Start -->
+                        <div
+                                data-dropdown-target="menu"
+                                class="hidden translate transform overflow-hidden"
+                        >
+                            <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
+                                {% for edition in get_editions() %}
+                                    <li>
+                                        <a
+                                                class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                                href="{{ path('app_dashboard_edition', {edition: edition.id}) }}"
+                                        >{{ edition.name }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+                        <!-- Dropdown Menu End -->
                     </li>
                     <li>
                         <a

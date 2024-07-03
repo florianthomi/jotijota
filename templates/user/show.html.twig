@@ -1,46 +1,31 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}{{ user.username }}{% endblock %}
 
-{% block body %}
-    <h1>User</h1>
+{% block top_title %}
+    {{ component('Link', {
+        class: '!p-0 bg-transparent',
+        action: path('app_user_index'),
+        icon: {
+            name: 'icon-back'
+        }
+    }) }}
+    <span>{{ user.username }}</span>
+{% endblock %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Section</th>
-                <td>{{ user.section }}</td>
-            </tr>
-        </tbody>
-    </table>
+{% block buttons %}
+    {{ component('Link', {
+        icon: {name: 'icon-pencil'},
+        label: 'Editer',
+        action: path('app_user_edit', {id: user.id}),
+        class: 'bg-primary text-white'
+    }) }}
+{% endblock %}
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+{% block content %}
+    <div class="block-container">
+        <div class="max-w-full overflow-x-auto">
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

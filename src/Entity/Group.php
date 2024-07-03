@@ -63,12 +63,19 @@ class Group
     #[ORM\Column]
     private ?bool $visible = null;
 
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'coordinatedGroups')]
+    private Collection $coordinators;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->editions = new ArrayCollection();
         $this->coords = new Coords();
+        $this->coordinators = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -249,6 +256,30 @@ class Group
     public function setVisible(bool $visible): static
     {
         $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getCoordinators(): Collection
+    {
+        return $this->coordinators;
+    }
+
+    public function addCoordinator(User $coordinator): static
+    {
+        if (!$this->coordinators->contains($coordinator)) {
+            $this->coordinators->add($coordinator);
+        }
+
+        return $this;
+    }
+
+    public function removeCoordinator(User $coordinator): static
+    {
+        $this->coordinators->removeElement($coordinator);
 
         return $this;
     }

@@ -54,9 +54,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Entry::class, mappedBy: 'user')]
     private Collection $entries;
 
+    /**
+     * @var Collection<int, Edition>
+     */
+    #[ORM\ManyToMany(targetEntity: Edition::class, mappedBy: 'coordinators')]
+    private Collection $coordinatedEditions;
+
+    /**
+     * @var Collection<int, Group>
+     */
+    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'coordinators')]
+    private Collection $coordinatedGroups;
+
+    public function __toString(): string
+    {
+        return sprintf('%s - %s %s', $this->username, $this->firstname, $this->lastname);
+    }
+
     public function __construct()
     {
         $this->entries = new ArrayCollection();
+        $this->coordinatedEditions = new ArrayCollection();
+        $this->coordinatedGroups = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -207,6 +226,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($entry->getUser() === $this) {
                 $entry->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Edition>
+     */
+    public function getCoordinatedEditions(): Collection
+    {
+        return $this->coordinatedEditions;
+    }
+
+    public function addCoordinatedEdition(Edition $edition): static
+    {
+        if (!$this->coordinatedEditions->contains($edition)) {
+            $this->coordinatedEditions->add($edition);
+            $edition->addCoordinator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoordinatedEdition(Edition $edition): static
+    {
+        if ($this->coordinatedEditions->removeElement($edition)) {
+            $edition->removeCoordinator($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Group>
+     */
+    public function getCoordinatedGroups(): Collection
+    {
+        return $this->coordinatedGroups;
+    }
+
+    public function addCoordinatedGroup(Group $group): static
+    {
+        if (!$this->coordinatedGroups->contains($group)) {
+            $this->coordinatedGroups->add($group);
+            $group->addCoordinator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoordinatedGroup(Group $group): static
+    {
+        if ($this->coordinatedGroups->removeElement($group)) {
+            $group->removeCoordinator($this);
         }
 
         return $this;

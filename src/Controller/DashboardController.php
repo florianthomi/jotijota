@@ -23,7 +23,7 @@ class DashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/edition/{edition}/group/{group}', name: 'app_dashboard_group')]
+    #[Route('/dashboard/group/{group}', name: 'app_dashboard_group')]
     public function group(Edition $edition, Group $group): Response
     {
         return $this->render('dashboard/group.html.twig', [
@@ -31,7 +31,7 @@ class DashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/edition/{edition}', name: 'app_dashboard_edition')]
+    #[Route('/dashboard/edition/{edition}', name: 'app_dashboard_edition')]
     public function eiditon(Edition $edition): Response
     {
         return $this->render('dashboard/group.html.twig', [

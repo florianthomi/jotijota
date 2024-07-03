@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EditionRepository::class)]
 class Edition
@@ -20,12 +21,14 @@ class Edition
     private ?\DateTimeInterface $startAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\GreaterThan(propertyPath: 'startAt')]
     private ?\DateTimeInterface $endAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $subscriptionFrom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Assert\GreaterThan(propertyPath: 'subscriptionFrom')]
     private ?\DateTimeInterface $subscriptionTo = null;
 
     #[ORM\Column(length: 255)]
@@ -53,13 +56,20 @@ class Edition
     private Collection $entries;
 
     #[ORM\Column]
-    private ?bool $visible = null;
+    private ?bool $visible = false;
+
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'coordinatedEditions')]
+    private Collection $coordinators;
 
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->groups = new ArrayCollection();
         $this->entries = new ArrayCollection();
+        $this->coordinators = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -72,7 +82,7 @@ class Edition
         return $this->startAt;
     }
 
-    public function setStartAt(\DateTimeInterface $startAt): static
+    public function setStartAt(?\DateTimeInterface $startAt): static
     {
         $this->startAt = $startAt;
 
@@ -84,7 +94,7 @@ class Edition
         return $this->endAt;
     }
 
-    public function setEndAt(\DateTimeInterface $endAt): static
+    public function setEndAt(?\DateTimeInterface $endAt): static
     {
         $this->endAt = $endAt;
 
@@ -213,6 +223,30 @@ class Edition
     public function setVisible(bool $visible): static
     {
         $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getCoordinators(): Collection
+    {
+        return $this->coordinators;
+    }
+
+    public function addCoordinator(User $coordinator): static
+    {
+        if (!$this->coordinators->contains($coordinator)) {
+            $this->coordinators->add($coordinator);
+        }
+
+        return $this;
+    }
+
+    public function removeCoordinator(User $coordinator): static
+    {
+        $this->coordinators->removeElement($coordinator);
 
         return $this;
     }

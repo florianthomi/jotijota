@@ -1,42 +1,34 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Edition{% endblock %}
+{% block title %}{{ edition.name }}{% endblock %}
 
-{% block body %}
-    <h1>Edition</h1>
+{% block top_title %}
+    {{ component('Link', {
+        class: '!p-0 bg-transparent',
+        action: path('app_edition_index'),
+        icon: {
+            name: 'icon-back'
+        }
+    }) }}
+    <span>{{ edition.name }}</span>
+    {{ component('Icon', {
+    name: 'icon-eye' ~ (edition.visible ? '' : '-slash')
+}) }}
+{% endblock %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ edition.id }}</td>
-            </tr>
-            <tr>
-                <th>StartAt</th>
-                <td>{{ edition.startAt ? edition.startAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>EndAt</th>
-                <td>{{ edition.endAt ? edition.endAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>SubscriptionFrom</th>
-                <td>{{ edition.subscriptionFrom ? edition.subscriptionFrom|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>SubscriptionTo</th>
-                <td>{{ edition.subscriptionTo ? edition.subscriptionTo|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ edition.name }}</td>
-            </tr>
-        </tbody>
-    </table>
+{% block buttons %}
+    {{ component('Link', {
+        icon: {name: 'icon-pencil'},
+        label: 'Editer',
+        action: path('app_edition_edit', {id: edition.id}),
+        class: 'bg-primary text-white'
+    }) }}
+{% endblock %}
 
-    <a href="{{ path('app_edition_index') }}">back to list</a>
+{% block content %}
+    <div class="block-container">
+        <div class="max-w-full overflow-x-auto">
 
-    <a href="{{ path('app_edition_edit', {'id': edition.id}) }}">edit</a>
-
-    {{ include('edition/_delete_form.html.twig', {entity: edition}) }}
+        </div>
+    </div>
 {% endblock %}

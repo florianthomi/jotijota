@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Edition;
 use App\Entity\Group;
 use App\Entity\Question;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,6 +32,12 @@ class EditionType extends AbstractType
                 'required' => false
             ])
             ->add('name')
+            ->add('visible')
+            ->add('coordinators', EntityType::class, [
+                'class' => User::class,
+                'multiple' => true,
+                'required' => false
+            ])
             ->add('questions', LiveCollectionType::class, [
                 'entry_type' => QuestionType::class,
                 'help' => 'Ces questions pourront être complétées par les participants'
