@@ -1,4 +1,6 @@
 label:
+    age: Age
+    pseudo: Pseudo
     cancel: Cancel
     back: Back
     add_user: 'Add a user'

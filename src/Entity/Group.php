@@ -223,14 +223,14 @@ class Group
         return $this->editions;
     }
 
-    public function getCurrentEdition(): Edition|false
+    public function getCurrentEdition(): ?Edition
     {
         $now = new \DateTime();
         $criteria = Criteria::create();
         $criteria->andWhere(Criteria::expr()->gte('startAt', $now))
             ->andWhere(Criteria::expr()->lt('endAt', $now));
 
-        return $this->editions->matching($criteria)->first();
+        return $this->editions->matching($criteria)->first() ?: null;
     }
 
     public function addEdition(Edition $edition): static

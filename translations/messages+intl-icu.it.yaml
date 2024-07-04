@@ -1,4 +1,6 @@
 label:
+    age: Età
+    pseudo: Pseudo
     cancel: Annulla
     back: Indietro
     add_user: 'Aggiungi un utente'
