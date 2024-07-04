@@ -2,6 +2,12 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = [ "menu", "icon" ]
+  static values = {
+    autoclose: {
+      type: Boolean,
+      default: true,
+    }
+  }
 
   toggle() {
     if (this.menuTarget.classList.contains('hidden')){
@@ -14,13 +20,17 @@ export default class extends Controller {
   open() {
     this.menuTarget.classList.remove('hidden')
     this.iconTarget.classList.add('rotate-180')
-    window.addEventListener("click", this.outsideClickListener);
+    if (this.autocloseValue) {
+      window.addEventListener("click", this.outsideClickListener);
+    }
   }
 
   close() {
     this.menuTarget.classList.add('hidden')
     this.iconTarget.classList.remove('rotate-180')
-    window.removeEventListener("click", this.outsideClickListener);
+    if (this.autocloseValue) {
+      window.removeEventListener("click", this.outsideClickListener);
+    }
   }
 
   outsideClickListener = (event) => {

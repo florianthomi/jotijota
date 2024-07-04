@@ -227,8 +227,8 @@ class Group
     {
         $now = new \DateTime();
         $criteria = Criteria::create();
-        $criteria->andWhere(Criteria::expr()->gte('startAt', $now))
-            ->andWhere(Criteria::expr()->lt('endAt', $now));
+        $criteria->andWhere(Criteria::expr()->lte('startAt', $now))
+            ->andWhere(Criteria::expr()->gte('endAt', $now));
 
         return $this->editions->matching($criteria)->first() ?: null;
     }

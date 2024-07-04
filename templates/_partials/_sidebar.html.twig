@@ -42,7 +42,9 @@
                             {{ "label.menu.open_chat"|trans }}
                         </a>
                     </li>
+
                     <li>
+                        {% if is_granted(constant('App\\Security\\Voter\\EntryVoter::NEW')) %}
                         <a
                                 class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                                 href="{{ path('app_entry_new') }}"
@@ -53,9 +55,19 @@
 
                             {{ "label.menu.add_jid"|trans }}
                         </a>
+                        {% else %}
+                            <p class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark2 duration-300 ease-in-out cursor-not-allowed">
+                                {{ component('Icon', {
+                                    name: 'icon-link'
+                                }) }}
+
+                                {{ "label.menu.add_jid"|trans }}
+                            </p>
+                        {% endif %}
+
                     </li>
                     <li class="border-b border-strokedark"></li>
-                    <li data-controller="dropdown">
+                    <li data-controller="dropdown" data-dropdown-autoclose-value="false">
                         <button
                                 data-action="click->dropdown#toggle"
                                 class="w-full group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
