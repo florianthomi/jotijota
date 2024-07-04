@@ -1,4 +1,5 @@
 framework:
+    set_locale_from_accept_language: true
     default_locale: en
     enabled_locales: '%locales%'
     translator:
