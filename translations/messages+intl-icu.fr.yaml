@@ -47,10 +47,10 @@ label:
     users_count: 'Nombre d''utilisateurs'
     add_group: 'Ajouter un groupe'
     add_edition: 'Ajouter une édition'
-    start_at: 'Commence à'
-    end_at: 'Se termine à'
-    subscription_from: 'Abonnement de'
-    subscription_to: 'Abonnement à'
+    start_at: 'Commence le'
+    end_at: 'Se termine le'
+    subscription_from: 'Inscription du'
+    subscription_to: 'Inscription jusqu''au'
     visible: Visible
     add_question: '+ Ajouter une question'
     coordinators: Coordinateurs
@@ -66,7 +66,7 @@ label:
     role_user: Participant
     role_admin: Administrateur
     role_super_admin: 'Super Administrateur'
-    already_logged: Déjà connecté en tant que %username%
+    already_logged: 'Déjà connecté en tant que {username}'
     remember_me: Se souvenir de moi
     no_account: Pas de compte ?
     sign_up: S'inscrire

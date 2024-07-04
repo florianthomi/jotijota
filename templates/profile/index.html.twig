@@ -1,0 +1,65 @@
+{% extends 'layout.html.twig' %}
+
+{% block top_title %}{{ user.username }}{% endblock %}
+
+{% block buttons %}
+    {{ component('Link', {
+        icon: {name: 'icon-back'},
+        label: 'label.back'|trans,
+        action: path('app_dashboard'),
+        class: 'bg-primary text-white'
+    }) }}
+{% endblock %}
+
+{% block content %}
+    <div class="block-container">
+        <div>
+            {{ form_start(form) }}
+            {{ component('TextInput', {form: form.username}) }}
+
+            <div class="mb-4 flex flex-col gap-4 sm:flex-row">
+                {{ component('TextInput', {
+                    form: form.firstname,
+                    class: 'w-full sm:w-1/2'
+                }) }}
+
+                {{ component('TextInput', {
+                    form: form.lastname,
+                    class: 'w-full sm:w-1/2'
+                }) }}
+            </div>
+
+            <div class="mb-4 flex flex-col gap-4 sm:flex-row">
+                {{ component('TextInput', {
+                    form: form.section,
+                    class: 'w-full sm:w-1/2'
+                }) }}
+            </div>
+
+
+            <div class="mb-4 flex flex-col gap-4 sm:flex-row">
+                {{ component('TextInput', {
+                    form: form.plainPassword.first,
+                    class: 'w-full sm:w-1/2'
+                }) }}
+                {{ component('TextInput', {
+                    form: form.plainPassword.second,
+                    class: 'w-full sm:w-1/2'
+                }) }}
+            </div>
+
+            <div class="flex justify-end gap-4.5">
+                {{ component('Link', {
+                    label: 'label.cancel'|trans,
+                    action: cancelLink|default(path('app_dashboard')),
+                    class: 'text-strokedark border border-strokedark bg-transparent dark:text-stroke hover:shadow-1 dark:border-stroke'}) }}
+                {{ component('Button', {
+                    label: button_label|default('label.save')|trans,
+                    type: 'submit',
+                    class: 'bg-primary text-white'
+                }) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

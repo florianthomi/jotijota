@@ -41,9 +41,9 @@
 
                             {% if app.user %}
                                 <div class="mb-3">
-                                    {{ "label.already_logged"|trans({'%username%': app.user.userIdentifier}) }} <a href="{{ path('app_logout') }}">{{ "label.logout"|trans }}</a>
+                                    {{ "label.already_logged"|trans({'username': app.user.userIdentifier}) }} <a class="text-primary" href="{{ path('app_logout') }}">{{ "label.logout"|trans }}</a>
                                 </div>
-                            {% endif %}
+                            {% else %}
 
                             {{ component('TextInput', {
                                 name: '_username',
@@ -94,6 +94,7 @@
                                     <a href="{{ path('app_register') }}" class="text-primary">{{ "label.sign_up"|trans }}</a>
                                 </p>
                             </div>
+                            {% endif %}
                         </form>
                     </div>
                 </div>
