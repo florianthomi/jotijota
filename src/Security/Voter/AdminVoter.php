@@ -11,6 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[Autoconfigure(tags: [['security.voter' => ['priority' => 3000]]])]
 class AdminVoter extends Voter
 {
+    public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+
     protected function supports(string $attribute, mixed $subject): bool
     {
        return true;
@@ -25,6 +27,6 @@ class AdminVoter extends Voter
             return false;
         }
 
-        return in_array('ROLE_SUPER_ADMIN', $user->getRoles());
+        return in_array(self::ROLE_SUPER_ADMIN, $user->getRoles());
     }
 }

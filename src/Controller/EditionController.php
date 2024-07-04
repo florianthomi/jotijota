@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Edition;
 use App\Form\EditionType;
 use App\Repository\EditionRepository;
+use App\Security\Voter\AdminVoter;
 use App\Security\Voter\EditionVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +22,7 @@ class EditionController extends AbstractController
     public function index(EditionRepository $editionRepository): Response
     {
         return $this->render('edition/index.html.twig', [
-            'entities' => $editionRepository->findAll(),
+            'entities' => $editionRepository->findEditionsByUser($this->isGranted(AdminVoter::ROLE_SUPER_ADMIN) ? null : $this->getUser()->getId()),
         ]);
     }
 

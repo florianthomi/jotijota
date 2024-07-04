@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Group;
 use App\Form\GroupType;
 use App\Repository\GroupRepository;
+use App\Security\Voter\AdminVoter;
 use App\Security\Voter\GroupVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +22,7 @@ class GroupController extends AbstractController
     public function index(GroupRepository $groupRepository): Response
     {
         return $this->render('group/index.html.twig', [
-            'entities' => $groupRepository->findAll(),
+            'entities' => $groupRepository->findGroupByUser($this->isGranted(AdminVoter::ROLE_SUPER_ADMIN) ? null : $this->getUser()->getId()),
         ]);
     }
 

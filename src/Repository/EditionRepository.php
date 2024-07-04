@@ -40,4 +40,17 @@ class EditionRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findEditionsByUser(?int $userId)
+    {
+        $builder = $this->createQueryBuilder('edition');
+
+        if ($userId) {
+            $builder
+                ->andWhere(':user MEMBER OF editions.coordinators')
+                ->setParameter('user', $userId)
+                ;
+        }
+
+        return $builder->getQuery()->getResult();
+    }
 }
