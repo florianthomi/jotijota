@@ -13,6 +13,7 @@ label:
     group.jid: 'Il tuo JID di gruppo'
     my_profile: 'Il mio profilo'
     logout: Disconnettersi
+    login: Connettersi
     menu:
         title: Menu
         open_chat: 'Apri la chat'

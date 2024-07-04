@@ -18,28 +18,10 @@
                     <div class="px-26 py-17.5 text-center">
                         <a class="mb-5.5 inline-block" href="{{ path('app_dashboard') }}">
                             <img
-                                    class="hidden dark:block"
-                                    src="{{ asset('images/logo/logo.svg') }}"
-                                    alt="Logo"
-                            />
-                            <img
-                                    class="dark:hidden"
-                                    src="{{ asset('images/logo/logo-dark.svg') }}"
+                                    src="{{ asset('images/logo/logo-2024.png') }}"
                                     alt="Logo"
                             />
                         </a>
-
-                        <p class="font-medium 2xl:px-20">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                            suspendisse.
-                        </p>
-
-                        <span class="mt-15 inline-block">
-                      <img
-                              src="./images/illustration/illustration-03.svg"
-                              alt="illustration"
-                      />
-                    </span>
                     </div>
                 </div>
                 <div
@@ -49,7 +31,7 @@
                         <h2
                                 class="mb-5 text-2xl font-bold text-black dark:text-white sm:text-title-xl2"
                         >
-                            Login
+                            {{ "label.login"|trans }}
                         </h2>
 
                         <form method="post">

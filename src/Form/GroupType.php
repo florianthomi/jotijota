@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Edition;
 use App\Entity\Group;
 use App\Entity\Question;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\AbstractType;
@@ -52,6 +53,13 @@ class GroupType extends AbstractType
             ])
             ->add('visible', null, [
                 'label' => 'label.visible'
+            ])
+            ->add('coordinators', EntityType::class, [
+                'label' => 'label.coordinators',
+                'class' => User::class,
+                'multiple' => true,
+                'required' => false,
+                'autocomplete' => true,
             ])
             ->add('languages', ChoiceType::class, [
                 'label' => 'label.languages',
