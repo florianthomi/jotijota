@@ -6,6 +6,14 @@
     {{ 'Groups'|trans }}
 {% endblock %}
 
+{% block buttons %}
+    {{ component('Link', {
+        icon: {name: 'icon-plus'},
+        label: 'Ajouter un groupe',
+        action: path('app_group_new'),
+        class: 'bg-primary text-white'
+    }) }}
+{% endblock %}
 
 {% block content %}
     <div

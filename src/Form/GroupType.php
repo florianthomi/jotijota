@@ -30,6 +30,7 @@ class GroupType extends AbstractType
         $builder
             ->add('name')
             ->add('coords', CoordsType::class, [
+                'constraints' => new Valid(),
                 'by_reference' => false
             ])
             ->add('country', CountryType::class, [
@@ -37,6 +38,7 @@ class GroupType extends AbstractType
             ])
             ->add('comment')
             ->add('rules')
+            ->add('visible')
             ->add('languages', ChoiceType::class, [
                 'choice_loader' => new IntlCallbackChoiceLoader(function() {
                     $choices = [];

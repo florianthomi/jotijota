@@ -3,13 +3,6 @@
 {% block title %}{{ edition.name }}{% endblock %}
 
 {% block top_title %}
-    {{ component('Link', {
-        class: '!p-0 bg-transparent',
-        action: path('app_edition_index'),
-        icon: {
-            name: 'icon-back'
-        }
-    }) }}
     <span>{{ edition.name }}</span>
     {{ component('Icon', {
     name: 'icon-eye' ~ (edition.visible ? '' : '-slash')
@@ -17,6 +10,14 @@
 {% endblock %}
 
 {% block buttons %}
+    {{ component('Link', {
+        class: 'bg-primary text-white',
+        action: path('app_edition_index'),
+        label: 'Retour',
+        icon: {
+            name: 'icon-back'
+        }
+    }) }}
     {{ component('Link', {
         icon: {name: 'icon-pencil'},
         label: 'Editer',

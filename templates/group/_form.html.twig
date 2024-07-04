@@ -26,6 +26,14 @@
         }) }}
     </div>
 
+    {{ component('Toggler', {
+        class: 'mb-4',
+        label: field_label(form.visible),
+        name: field_name(form.visible),
+        value: field_value(form.visible),
+        checked: form.visible.vars.checked,
+    }) }}
+
     <div class="mb-4">
         {{ component('TextArea', {
             form: form.rules

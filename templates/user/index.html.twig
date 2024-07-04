@@ -6,6 +6,14 @@
     {{ 'Users'|trans }}
 {% endblock %}
 
+{% block buttons %}
+    {{ component('Link', {
+        icon: {name: 'icon-plus'},
+        label: 'Ajouter un utilisateur',
+        action: path('app_user_new'),
+        class: 'bg-primary text-white'
+    }) }}
+{% endblock %}
 
 {% block content %}
     <div class="block-container">
@@ -51,7 +59,7 @@
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             {% if entity.group %}
-                                <p class="text-black dark:text-white">{{ entity.group }}{% if entity.section %} ({{ entity.section }}){% endif %}</p>
+                                <p class="text-black dark:text-white">{{ entity.group.name }}{% if entity.section %} ({{ entity.section }}){% endif %}</p>
                             {% endif %}
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">

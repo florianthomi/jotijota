@@ -6,6 +6,17 @@
     {{ question.title }}
 {% endblock %}
 
+{% block buttons %}
+    {{ component('Link', {
+        class: 'bg-primary text-white',
+        action: path('app_question_index'),
+        label: 'Retour',
+        icon: {
+            name: 'icon-back'
+        }
+    }) }}
+{% endblock %}
+
 
 {% block content %}
     <div class="block-container">

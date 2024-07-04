@@ -1,11 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block top_title %}New user{% endblock %}
 
-{% block body %}
-    <h1>Create new User</h1>
+{% block buttons %}
+    {{ component('Link', {
+        icon: {name: 'icon-back'},
+        label: 'Retour',
+        action: path('app_user_index'),
+        class: 'bg-primary text-white'
+    }) }}
+{% endblock %}
 
-    {{ include('user/_form.html.twig') }}
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
+{% block content %}
+    <div class="block-container">
+        {% include 'user/_form.html.twig' %}
+    </div>
 {% endblock %}

@@ -3,17 +3,18 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block top_title %}
+    {{ user.username }}
+{% endblock %}
+
+{% block buttons %}
     {{ component('Link', {
-        class: '!p-0 bg-transparent',
+        class: 'bg-primary text-white',
         action: path('app_user_index'),
+        label: 'Retour',
         icon: {
             name: 'icon-back'
         }
     }) }}
-    <span>{{ user.username }}</span>
-{% endblock %}
-
-{% block buttons %}
     {{ component('Link', {
         icon: {name: 'icon-pencil'},
         label: 'Editer',

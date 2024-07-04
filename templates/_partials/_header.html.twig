@@ -67,18 +67,21 @@
                             data-action="click->dropdown#toggle"
                             class="w-full flex items-center gap-4"
                     >
-          <span class="hidden text-right lg:block">
-            <span class="block text-sm font-medium text-black dark:text-white"
-            >{{ app.user.firstname }}</span
-            >
-              {% if app.user.group %}
-                  <span class="block text-xs font-medium">{{ app.user.group.name }}</span>
-              {% endif %}
-          </span>
+                      <span class="hidden text-right lg:block">
+                        <span class="block text-sm font-medium text-black dark:text-white"
+                        >{{ app.user.firstname }}</span
+                        >
+                          {% if app.user.group %}
+                              <span class="block text-xs font-medium">{{ app.user.group.name }}</span>
+                          {% endif %}
+                      </span>
 
-                        <span class="h-12 w-12 rounded-full">
-            <img src="{{ asset('images/user/user-01.png') }}" alt="User" />
-          </span>
+
+
+                        <span class="font-medium relative inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray rounded-full">
+                            {{ app.user.firstname|first|upper ~ app.user.lastname|first|upper }}
+                        </span>
+
                         {{ component('Icon', {
                             name: 'icon-caret-down',
                             'data-dropdown-target': 'icon',

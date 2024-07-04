@@ -40,7 +40,7 @@ class Edition
     #[ORM\JoinTable(name: 'editions_questions')]
     #[ORM\JoinColumn(name: 'edition_id', referencedColumnName: 'id')]
     #[ORM\InverseJoinColumn(name: 'question_id', referencedColumnName: 'id', unique: true, onDelete: 'CASCADE')]
-    #[ORM\ManyToMany(targetEntity: Question::class, cascade: ['persist'])]
+    #[ORM\ManyToMany(targetEntity: Question::class, cascade: ['persist', 'remove'])]
     private Collection $questions;
 
     /**

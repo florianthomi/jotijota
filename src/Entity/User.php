@@ -35,8 +35,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    private ?string $plainPassword = null;
+
     #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: true, name: '`group`')]
+    #[ORM\JoinColumn(name: '`group`', nullable: true, onDelete: 'SET NULL')]
     private ?Group $group = null;
 
     #[ORM\Column(length: 255)]
@@ -132,7 +134,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -150,7 +152,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+         $this->plainPassword = null;
     }
 
     public function getGroup(): ?Group
@@ -281,6 +283,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->coordinatedGroups->removeElement($group)) {
             $group->removeCoordinator($this);
         }
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+        $this->password = null;
 
         return $this;
     }

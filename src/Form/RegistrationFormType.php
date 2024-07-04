@@ -27,7 +27,6 @@ class RegistrationFormType extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'type' => PasswordType::class,
-                'mapped' => false,
                 'first_options'  => ['label' => 'Password', 'attr' => ['autocomplete' => 'new-password']],
                 'second_options' => ['label' => 'Repeat Password'],
                 'constraints' => [
