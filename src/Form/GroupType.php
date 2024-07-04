@@ -36,6 +36,9 @@ class GroupType extends AbstractType
                 'constraints' => new Valid(),
                 'by_reference' => false
             ])
+            ->add('jid', null, [
+                'label' => 'label.jid'
+            ])
             ->add('country', CountryType::class, [
                 'label' => 'label.country',
                 'autocomplete' => true

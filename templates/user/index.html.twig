@@ -64,7 +64,7 @@
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             {% for role in entity.roles %}
-                                <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium bg-gray dark:bg-boxdark-2">{{ role }}</p>
+                                <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium bg-gray dark:bg-boxdark-2">{{ ('label.'~role|lower)|trans }}</p>
                             {% endfor %}
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">

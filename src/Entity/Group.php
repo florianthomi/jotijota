@@ -70,6 +70,9 @@ class Group
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'coordinatedGroups')]
     private Collection $coordinators;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $jid = null;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -291,6 +294,18 @@ class Group
     public function removeCoordinator(User $coordinator): static
     {
         $this->coordinators->removeElement($coordinator);
+
+        return $this;
+    }
+
+    public function getJid(): ?string
+    {
+        return $this->jid;
+    }
+
+    public function setJid(?string $jid): static
+    {
+        $this->jid = $jid;
 
         return $this;
     }
