@@ -20,6 +20,7 @@ label:
         title: Menü
         open_chat: 'Chat öffnen'
         add_jid: 'Neue JIDs hinzufügen'
+        home: Startseite
         dashboard: Dashboard
         editions: Ausgaben
         groups: Gruppen
@@ -70,6 +71,8 @@ label:
     remember_me: Angemeldet bleiben
     no_account: Kein Konto?
     sign_up: Registrieren
+    join_group: Einer Gruppe beitreten
+    switch_group: Gruppe wechseln
 help:
     rules: 'Verhaltensregeln für Teilnehmer'
     questions: 'Diese Fragen können von Teilnehmern beantwortet werden'

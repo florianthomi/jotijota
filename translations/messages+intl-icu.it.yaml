@@ -20,6 +20,7 @@ label:
         title: Menu
         open_chat: 'Apri la chat'
         add_jid: 'Aggiungi nuovi JID'
+        home: Casa
         dashboard: Cruscotto
         editions: Edizioni
         groups: Gruppi
@@ -70,6 +71,8 @@ label:
     remember_me: Ricordati di me
     no_account: Nessun account?
     sign_up: Iscriviti
+    join_group: Unirsi a un gruppo
+    switch_group: Cambia gruppo
 help:
     rules: 'Regole di condotta per i partecipanti'
     questions: 'Queste domande possono essere risposte dai partecipanti'
