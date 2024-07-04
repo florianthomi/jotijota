@@ -5,13 +5,16 @@ namespace App\Controller;
 use App\Entity\Edition;
 use App\Form\EditionType;
 use App\Repository\EditionRepository;
+use App\Security\Voter\EditionVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/edition')]
+#[IsGranted(attribute: EditionVoter::LIST)]
 class EditionController extends AbstractController
 {
     #[Route('/', name: 'app_edition_index', methods: ['GET'])]
@@ -23,6 +26,7 @@ class EditionController extends AbstractController
     }
 
     #[Route('/new', name: 'app_edition_new', methods: ['GET', 'POST'])]
+    #[IsGranted(attribute: EditionVoter::CREATE)]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $edition = new Edition();
@@ -43,6 +47,7 @@ class EditionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_edition_show', methods: ['GET'])]
+    #[IsGranted(attribute: EditionVoter::MANAGE, subject: 'edition')]
     public function show(Edition $edition): Response
     {
         return $this->render('edition/show.html.twig', [
@@ -51,6 +56,7 @@ class EditionController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_edition_edit', methods: ['GET', 'POST'])]
+    #[IsGranted(attribute: EditionVoter::MANAGE, subject: 'edition')]
     public function edit(Request $request, Edition $edition, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EditionType::class, $edition);
@@ -69,6 +75,7 @@ class EditionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_edition_delete', methods: ['POST'])]
+    #[IsGranted(attribute: EditionVoter::MANAGE, subject: 'edition')]
     public function delete(Request $request, Edition $edition, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$edition->getId(), $request->getPayload()->getString('_token'))) {

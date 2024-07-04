@@ -1,4 +1,7 @@
-<form method="post" action="{{ path('app_user_delete', {'id': entity.id}) }}" onsubmit="return confirm('{{ 'message.delete_confirm'|trans }}');">
+{% if is_granted(constant('App\\Security\\Voter\\UserVoter::DELETE')) %}
+    <form method="post" action="{{ path('app_user_delete', {'id': entity.id}) }}" onsubmit="return confirm('{{ 'message.delete_confirm'|trans }}');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entity.id) }}">
     <button class="hover:text-primary">{{ component('Icon', {name: 'icon-trash'}) }}</button>
-</form>
+    </form>
+{% endif %}
+
