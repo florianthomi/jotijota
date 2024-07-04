@@ -16,7 +16,9 @@
 {% endblock %}
 
 {% block content %}
-    <div
+<div class="flex flex-col gap-4 md:flex-row">
+    <div class="w-full md:w-1/2">
+        <div
             class="block-container"
     >
         <div class="max-w-full overflow-x-auto">
@@ -88,5 +90,11 @@
             </table>
         </div>
     </div>
-
+    </div>
+    <div class="w-full md:w-1/2">
+        <div class="block-container aspect-square" data-controller="leaflet" data-leaflet-marker-icon-value="{{ asset('images/marker.png') }}" data-leaflet-points-value="{{ entities|map(e => e.coords)|json_encode }}">
+            <div class="w-full h-full" data-leaflet-target="map"></div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -25,7 +25,7 @@ export default class extends Controller {
 
       const group = new leaflet.featureGroup();
 
-      this.pointsValue.forEach(({lat, lng}) => group.addLayer(leaflet.marker([lat, lng], {icon: icon})))
+      this.pointsValue.filter(({lat, lng}) => lat !== 0 && lng !== 0).forEach(({lat, lng}) => group.addLayer(leaflet.marker([lat, lng], {icon: icon})))
 
       if (group.getLayers().length) {
         group.addTo(this.map)

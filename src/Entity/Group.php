@@ -118,7 +118,7 @@ class Group
         return $this->country;
     }
 
-    public function setCountry(string $country): static
+    public function setCountry(?string $country): static
     {
         $this->country = $country;
 
@@ -197,7 +197,7 @@ class Group
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->setGroupe($this);
+            $user->setGroup($this);
         }
 
         return $this;
@@ -207,8 +207,8 @@ class Group
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getGroupe() === $this) {
-                $user->setGroupe(null);
+            if ($user->getGroup() === $this) {
+                $user->setGroup(null);
             }
         }
 
