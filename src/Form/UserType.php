@@ -19,36 +19,44 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username')
+            ->add('username', null, [
+                'label' => 'label.username'
+            ])
             ->add('roles', ChoiceType::class, [
+                'label' => 'label.roles',
                 'multiple' => true,
                 'choices' => [
-                    'ROLE_USER' => 'ROLE_USER',
-                    'ROLE_ADMIN' => 'ROLE_ADMIN',
-                    'ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN'
+                    'label.role_user' => 'ROLE_USER',
+                    'label.role_admin' => 'ROLE_ADMIN',
+                    'label.role_super_admin' => 'ROLE_SUPER_ADMIN'
                 ],
                 'autocomplete' => true
             ])
             ->add('plainPassword', RepeatedType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'type' => PasswordType::class,
                 'required' => empty($builder->getData()->getPassword()),
-                'first_options'  => ['label' => 'Password', 'attr' => ['autocomplete' => 'new-password']],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => ['label' => 'label.password', 'attr' => ['autocomplete' => 'new-password']],
+                'second_options' => ['label' => 'label.repeat_password'],
                 'constraints' => [
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'message.password_min_length',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
             ])
-            ->add('firstname')
-            ->add('lastname')
-            ->add('section')
+            ->add('firstname', null, [
+                'label' => 'label.firstname'
+            ])
+            ->add('lastname', null, [
+                'label' => 'label.lastname'
+            ])
+            ->add('section', null, [
+                'label' => 'label.section'
+            ])
             ->add('group', EntityType::class, [
+                'label' => 'label.group',
                 'class' => Group::class,
                 'choice_label' => 'name',
                 'autocomplete' => true,

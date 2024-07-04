@@ -12,10 +12,18 @@ class EntryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('jid')
-            ->add('pseudo')
-            ->add('age')
-            ->add('comment')
+            ->add('jid', null, [
+                'label' => 'label.jid',
+            ])
+            ->add('pseudo', null, [
+                'label' => 'label.pseudo'
+            ])
+            ->add('age', null, [
+                'label' => 'label.age'
+            ])
+            ->add('comment', null, [
+                'label' => 'label.comment'
+            ])
         ;
     }
 

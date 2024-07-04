@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Questions index{% endblock %}
+{% block title %}{{ question.title }}{% endblock %}
 
 {% block top_title %}
     {{ question.title }}
@@ -10,7 +10,7 @@
     {{ component('Link', {
         class: 'bg-primary text-white',
         action: path('app_question_index'),
-        label: 'Retour',
+        label: 'label.back'|trans,
         icon: {
             name: 'icon-back'
         }
@@ -27,20 +27,20 @@
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
                     >
-                        Utilisateur
+                        {{ "label.user"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        JID
+                        {{ "label.jid"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Réponse
+                        {{ "label.answer"|trans }}
                     </th>
                     <th class="px-4 py-4 font-medium text-black dark:text-white">
-                        Actions
+                        {{ "label.actions"|trans }}
                     </th>
                 </tr>
                 </thead>

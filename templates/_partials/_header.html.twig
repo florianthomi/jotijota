@@ -34,7 +34,7 @@
         </div>
         <div class="hidden sm:block">
             {% if app.user and app.user.group %}
-                <strong class="uppercase">{{ "app.jid"|trans }} : {{ app.user.group.jid|default }}</strong>
+                <strong class="uppercase">{{ "label.group.jid"|trans }} : {{ app.user.group.jid|default }}</strong>
             {% endif %}
         </div>
         <div class="flex items-center gap-3 2xsm:gap-7">
@@ -55,6 +55,45 @@
                     {% endcomponent %}
                 </li>
             </ul>
+
+            <div
+                    data-controller="dropdown"
+                    class="relative"
+            >
+                <button
+                        type="button"
+                        data-action="click->dropdown#toggle"
+                        class="w-full flex items-center gap-4"
+                >
+                    {{ app.locale|locale_name|title }}
+
+                    {{ component('Icon', {
+                        name: 'icon-caret-down',
+                        'data-dropdown-target': 'icon',
+                        class: 'hidden sm:block'
+                    }) }}
+                </button>
+
+                <!-- Dropdown Start -->
+                <div
+                        data-dropdown-target="menu"
+                        class="hidden absolute right-0 mt-4 flex w-30 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+                >
+                    <ul
+                            class="flex flex-col gap-2 border-b border-stroke p-3 dark:border-strokedark"
+                    >
+                        {% for locale in app.enabled_locales|filter(l => l != app.locale) %}
+                            <li translate="no">
+                                <a class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" lang="{{ locale }}" hreflang="{{ locale }}"
+                                   href="{{ path(app.current_route, app.current_route_parameters|merge({_locale: locale})) }}">
+                                    {{ locale|locale_name(locale)|title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- Dropdown End -->
+            </div>
 
             <!-- User Area -->
             {% if app.user %}
@@ -105,7 +144,7 @@
                                     {{ component('Icon', {
                                         name: 'icon-user'
                                     }) }}
-                                    My Profile
+                                    {{ "label.my_profile"|trans }}
                                 </a>
                             </li>
                         </ul>
@@ -115,7 +154,7 @@
                             {{ component('Icon', {
                                 name: 'icon-logout'
                             }) }}
-                            Log Out
+                            {{ "label.logout"|trans }}
                         </a>
                     </div>
                     <!-- Dropdown End -->

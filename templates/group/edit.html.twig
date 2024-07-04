@@ -5,7 +5,7 @@
 {% block buttons %}
     {{ component('Link', {
         icon: {name: 'icon-back'},
-        label: 'Retour',
+        label: 'label.back'|trans,
         action: path('app_group_index'),
         class: 'bg-primary text-white'
     }) }}

@@ -1,0 +1,83 @@
+label:
+    cancel: Abbrechen
+    back: Zurück
+    add_user: 'Benutzer hinzufügen'
+    username: Benutzername
+    firstname: Vorname
+    lastname: Nachname
+    group: Gruppe
+    section: Abschnitt
+    roles: Rollen
+    actions: Aktionen
+    no_results: 'Kein Ergebnis'
+    group.jid: 'Ihre Gruppen-JID'
+    my_profile: 'Mein Profil'
+    logout: Abmelden
+    menu:
+        title: Menü
+        open_chat: 'Chat öffnen'
+        add_jid: 'Neue JIDs hinzufügen'
+        dashboard: Dashboard
+        editions: Ausgaben
+        groups: Gruppen
+        questions: Fragen
+        users: Benutzer
+    user: Benutzer
+    jid: JID
+    answer: Antwort
+    question: Frage
+    required: Erforderlich
+    answers_count: 'Anzahl der Antworten'
+    save: Speichern
+    create_account: 'Konto erstellen'
+    already_have_account: 'Haben Sie bereits ein Konto?'
+    sign_in: 'Anmelden'
+    edit: Bearbeiten
+    name: Name
+    from: Von
+    to: Bis
+    subscriptions: Abonnements
+    groups_count: 'Anzahl der Gruppen'
+    questions_count: 'Anzahl der Fragen'
+    id: ID
+    country: Land
+    users_count: 'Anzahl der Benutzer'
+    add_group: 'Gruppe hinzufügen'
+    add_edition: 'Ausgabe hinzufügen'
+    start_at: 'Beginnt um'
+    end_at: 'Endet um'
+    subscription_from: 'Abonnement von'
+    subscription_to: 'Abonnement bis'
+    visible: Sichtbar
+    add_question: '+ Frage hinzufügen'
+    coordinators: Koordinatoren
+    questions: Fragen
+    latitude: Breite
+    longitude: Länge
+    languages: 'verfügbare Sprachen'
+    rules: Regeln
+    comment: Kommentar
+    question_title: Frage
+    password: Passwort
+    repeat_password: 'Passwort wiederholen'
+    role_user: Teilnehmer
+    role_admin: Administrator
+    role_super_admin: 'Super-Administrator'
+    already_logged: Bereits angemeldet als %username%
+    remember_me: Angemeldet bleiben
+    no_account: Kein Konto?
+    sign_up: Registrieren
+help:
+    rules: 'Verhaltensregeln für Teilnehmer'
+    questions: 'Diese Fragen können von Teilnehmern beantwortet werden'
+message:
+    delete_confirm: 'Sind Sie sicher, dass Sie dieses Element löschen möchten?'
+title:
+    users_new: 'Neuer Benutzer'
+    users: Benutzer
+    questions: Fragen
+    register: Registrieren
+    edition_new: 'Neue Ausgabe'
+    editions: Ausgaben
+    group_new: 'Neue Gruppe'
+    groups: Gruppen

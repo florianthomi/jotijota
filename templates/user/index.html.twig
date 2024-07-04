@@ -1,15 +1,15 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Users index{% endblock %}
+{% block title %}{{ "title.users"|trans }}{% endblock %}
 
 {% block top_title %}
-    {{ 'Users'|trans }}
+    {{ 'title.users'|trans }}
 {% endblock %}
 
 {% block buttons %}
     {{ component('Link', {
         icon: {name: 'icon-plus'},
-        label: 'Ajouter un utilisateur',
+        label: 'label.add_user'|trans,
         action: path('app_user_new'),
         class: 'bg-primary text-white'
     }) }}
@@ -24,25 +24,25 @@
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
                     >
-                        Username
+                        {{ "label.username"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Prénom / Nom
+                        {{ "label.firstname"|trans }} / {{ "label.lastname"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Groupe / Section
+                        {{ "label.group"|trans }} / {{ "label.section"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Roles
+                        {{ "label.roles"|trans }}
                     </th>
                     <th class="px-4 py-4 font-medium text-black dark:text-white">
-                        Actions
+                        {{ "label.actions"|trans }}
                     </th>
                 </tr>
                 </thead>

@@ -59,13 +59,13 @@
 
                             {% if app.user %}
                                 <div class="mb-3">
-                                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                    {{ "label.already_logged"|trans({'%username%': app.user.userIdentifier}) }} <a href="{{ path('app_logout') }}">{{ "label.logout"|trans }}</a>
                                 </div>
                             {% endif %}
 
                             {{ component('TextInput', {
                                 name: '_username',
-                                label: 'Email',
+                                label: 'label.username'|trans,
                                 value: last_username,
                                 extraAttributes: {
                                     autocomplete: 'username',
@@ -80,7 +80,7 @@
 
                             {{ component('TextInput', {
                                 name: '_password',
-                                label: 'Password',
+                                label: 'label.password'|trans,
                                 type: 'password',
                                 value: '',
                                 extraAttributes: {
@@ -93,7 +93,7 @@
                                 }
                             }) }}
 
-                            {{ component('Toggler', {class: 'mb-3', name: '_remember_me', label: 'Remember me'}) }}
+                            {{ component('Toggler', {class: 'mb-3', name: '_remember_me', label: 'label.remember_me'|trans}) }}
 
                             <div class="mb-5">
                                 <input type="hidden" name="_csrf_token"
@@ -101,15 +101,15 @@
                                 >
                                 {{ component('Button', {
                                     type: 'submit',
-                                    label: 'sign in',
+                                    label: 'label.sign_in'|trans,
                                     class: 'w-full bg-primary text-white'
                                 }) }}
                             </div>
 
                             <div class="mt-6 text-center">
                                 <p class="font-medium">
-                                    Don’t have any account?
-                                    <a href="{{ path('app_register') }}" class="text-primary">Sign Up</a>
+                                    {{ "label.no_account"|trans }}
+                                    <a href="{{ path('app_register') }}" class="text-primary">{{ "label.sign_up"|trans }}</a>
                                 </p>
                             </div>
                         </form>

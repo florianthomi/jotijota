@@ -28,18 +28,30 @@ class GroupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('name', null, [
+                'label' => 'label.name'
+            ])
             ->add('coords', CoordsType::class, [
+                'label' => false,
                 'constraints' => new Valid(),
                 'by_reference' => false
             ])
             ->add('country', CountryType::class, [
+                'label' => 'label.country',
                 'autocomplete' => true
             ])
-            ->add('comment')
-            ->add('rules')
-            ->add('visible')
+            ->add('comment', null, [
+                'label' => 'label.comment'
+            ])
+            ->add('rules', null, [
+                'label' => 'label.rules',
+                'help' => 'help.rules'
+            ])
+            ->add('visible', null, [
+                'label' => 'label.visible'
+            ])
             ->add('languages', ChoiceType::class, [
+                'label' => 'label.languages',
                 'choice_loader' => new IntlCallbackChoiceLoader(function() {
                     $choices = [];
 
@@ -53,8 +65,9 @@ class GroupType extends AbstractType
                 'multiple' => true
             ])
             ->add('questions', LiveCollectionType::class, [
+                'label' => 'label.questions',
                 'entry_type' => QuestionType::class,
-                'help' => 'Ces questions pourront être complétées par les participants'
+                'help' => 'help.questions'
             ])
         ;
     }

@@ -13,14 +13,14 @@
     {{ component('Link', {
         class: 'bg-primary text-white',
         action: path('app_edition_index'),
-        label: 'Retour',
+        label: 'label.back'|trans,
         icon: {
             name: 'icon-back'
         }
     }) }}
     {{ component('Link', {
         icon: {name: 'icon-pencil'},
-        label: 'Editer',
+        label: 'label.edit'|trans,
         action: path('app_edition_edit', {id: edition.id}),
         class: 'bg-primary text-white'
     }) }}

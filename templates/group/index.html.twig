@@ -1,15 +1,15 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Groups index{% endblock %}
+{% block title %}{{ "title.groups"|trans }}{% endblock %}
 
 {% block top_title %}
-    {{ 'Groups'|trans }}
+    {{ 'title.groups'|trans }}
 {% endblock %}
 
 {% block buttons %}
     {{ component('Link', {
         icon: {name: 'icon-plus'},
-        label: 'Ajouter un groupe',
+        label: 'label.add_group'|trans,
         action: path('app_group_new'),
         class: 'bg-primary text-white'
     }) }}
@@ -26,30 +26,25 @@
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
                     >
-                        Id
+                        {{ "label.id"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Logo
+                        {{ "label.name"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Nom
+                        {{ "label.country"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Pays
-                    </th>
-                    <th
-                            class="px-4 py-4 font-medium text-black dark:text-white"
-                    >
-                        Nbre de participants
+                        {{ "label.users_count"|trans }}
                     </th>
                     <th class="px-4 py-4 font-medium text-black dark:text-white">
-                        Actions
+                        {{ "label.actions"|trans }}
                     </th>
                 </tr>
                 </thead>
@@ -58,11 +53,6 @@
                     <tr>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <p class="text-black dark:text-white">{{ entity.id }}</p>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            {% if entity.logo %}
-                                <p class="text-black dark:text-white">{{ entity.logo }}</p>
-                            {% endif %}
                         </td>
                         <td
                                 class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11"

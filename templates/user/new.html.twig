@@ -1,11 +1,11 @@
 {% extends 'layout.html.twig' %}
 
-{% block top_title %}New user{% endblock %}
+{% block top_title %}{{ "title.users_new"|trans }}{% endblock %}
 
 {% block buttons %}
     {{ component('Link', {
         icon: {name: 'icon-back'},
-        label: 'Retour',
+        label: 'label.back'|trans,
         action: path('app_user_index'),
         class: 'bg-primary text-white'
     }) }}

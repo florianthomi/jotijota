@@ -67,7 +67,7 @@
 
         {% endfor %}
 
-        {{ form_widget(form.questions.vars.button_add, { label: '+ Add question', attr: { class: 'btn btn-outline-primary' } }) }}
+        {{ form_widget(form.questions.vars.button_add, { label: 'label.add_question', attr: { class: 'btn btn-outline-primary' } }) }}
 
         {% do form.questions.setRendered %}
 
@@ -76,11 +76,11 @@
 
     <div class="flex justify-end gap-4.5">
         {{ component('Link', {
-            label: 'cancel',
+            label: 'label.cancel'|trans,
             action: cancelLink|default(path('app_group_index')),
             class: 'text-strokedark border border-strokedark bg-transparent dark:text-stroke hover:shadow-1 dark:border-stroke'}) }}
         {{ component('Button', {
-            label: button_label|default('save'),
+            label: button_label|default('label.save')|trans,
             type: 'submit',
             class: 'bg-primary text-white'
         }) }}

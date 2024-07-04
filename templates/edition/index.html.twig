@@ -1,15 +1,15 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Edition index{% endblock %}
+{% block title %}{{ "title.editions"|trans }}{% endblock %}
 
 {% block top_title %}
-    {{ 'Editions'|trans }}
+    {{ "title.editions"|trans }}
 {% endblock %}
 
 {% block buttons %}
     {{ component('Link', {
         icon: {name: 'icon-plus'},
-        label: 'Ajouter une édition',
+        label: 'label.add_edition'|trans,
         action: path('app_edition_new'),
         class: 'bg-primary text-white'
     }) }}
@@ -27,35 +27,35 @@
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
                     >
-                        Nom
+                        {{ "label.name"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Du
+                        {{ "label.from"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Au
+                        {{ "label.to"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Inscriptions
+                        {{ "label.subscriptions"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Nbre de groupes
+                        {{ "label.groups_count"|trans }}
                     </th>
                     <th
                             class="px-4 py-4 font-medium text-black dark:text-white"
                     >
-                        Nbre de questions
+                        {{ "label.questions_count"|trans }}
                     </th>
                     <th class="px-4 py-4 font-medium text-black dark:text-white">
-                        Actions
+                        {{ "label.actions"|trans }}
                     </th>
                 </tr>
                 </thead>

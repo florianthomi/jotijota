@@ -1,0 +1,83 @@
+label:
+    cancel: Annulla
+    back: Indietro
+    add_user: 'Aggiungi un utente'
+    username: Nome utente
+    firstname: Nome
+    lastname: Cognome
+    group: Gruppo
+    section: Sezione
+    roles: Ruoli
+    actions: Azioni
+    no_results: 'Nessun risultato'
+    group.jid: 'Il tuo JID di gruppo'
+    my_profile: 'Il mio profilo'
+    logout: Disconnettersi
+    menu:
+        title: Menu
+        open_chat: 'Apri la chat'
+        add_jid: 'Aggiungi nuovi JID'
+        dashboard: Cruscotto
+        editions: Edizioni
+        groups: Gruppi
+        questions: Domande
+        users: Utenti
+    user: Utente
+    jid: JID
+    answer: Risposta
+    question: Domanda
+    required: Richiesto
+    answers_count: 'Numero di risposte'
+    save: Salva
+    create_account: 'Crea un account'
+    already_have_account: 'Hai già un account?'
+    sign_in: 'Accedi'
+    edit: Modifica
+    name: Nome
+    from: Da
+    to: A
+    subscriptions: Abbonamenti
+    groups_count: 'Numero di gruppi'
+    questions_count: 'Numero di domande'
+    id: ID
+    country: Paese
+    users_count: 'Numero di utenti'
+    add_group: 'Aggiungi gruppo'
+    add_edition: 'Aggiungi edizione'
+    start_at: 'Inizia a'
+    end_at: 'Finisce a'
+    subscription_from: 'Abbonamento da'
+    subscription_to: 'Abbonamento a'
+    visible: Visibile
+    add_question: '+ Aggiungi domanda'
+    coordinators: Coordinatori
+    questions: Domande
+    latitude: Latitudine
+    longitude: Longitudine
+    languages: 'lingue disponibili'
+    rules: Regole
+    comment: Commento
+    question_title: Domanda
+    password: Password
+    repeat_password: 'Ripeti password'
+    role_user: Partecipante
+    role_admin: Amministratore
+    role_super_admin: 'Super Amministratore'
+    already_logged: Già connesso come %username%
+    remember_me: Ricordati di me
+    no_account: Nessun account?
+    sign_up: Iscriviti
+help:
+    rules: 'Regole di condotta per i partecipanti'
+    questions: 'Queste domande possono essere risposte dai partecipanti'
+message:
+    delete_confirm: 'Sei sicuro di voler eliminare questo elemento?'
+title:
+    users_new: 'Nuovo utente'
+    users: Utenti
+    questions: Domande
+    register: Registrati
+    edition_new: 'Nuova edizione'
+    editions: Edizioni
+    group_new: 'Nuovo gruppo'
+    groups: Gruppi

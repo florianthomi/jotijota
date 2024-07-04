@@ -1,0 +1,83 @@
+label:
+    cancel: Annuler
+    back: Retour
+    add_user: 'Ajouter un utilisateur'
+    username: Nom d'utilisateur
+    firstname: Prénom
+    lastname: Nom
+    group: Groupe
+    section: Section
+    roles: Rôles
+    actions: Actions
+    no_results: 'Aucun résultat'
+    group.jid: 'Votre JID de groupe'
+    my_profile: 'Mon profil'
+    logout: Déconnexion
+    menu:
+        title: Menu
+        open_chat: 'Ouvrir le Chat'
+        add_jid: 'Ajouter de nouveaux JIDs'
+        dashboard: Tableau de bord
+        editions: Éditions
+        groups: Groupes
+        questions: Questions
+        users: Utilisateurs
+    user: Utilisateur
+    jid: JID
+    answer: Réponse
+    question: Question
+    required: Obligatoire
+    answers_count: 'Nombre de réponses'
+    save: Enregistrer
+    create_account: 'Créer un compte'
+    already_have_account: 'Vous avez déjà un compte ?'
+    sign_in: 'Se connecter'
+    edit: Modifier
+    name: Nom
+    from: De
+    to: À
+    subscriptions: Inscriptions
+    groups_count: 'Nombre de groupes'
+    questions_count: 'Nombre de questions'
+    id: ID
+    country: Pays
+    users_count: 'Nombre d''utilisateurs'
+    add_group: 'Ajouter un groupe'
+    add_edition: 'Ajouter une édition'
+    start_at: 'Commence à'
+    end_at: 'Se termine à'
+    subscription_from: 'Abonnement de'
+    subscription_to: 'Abonnement à'
+    visible: Visible
+    add_question: '+ Ajouter une question'
+    coordinators: Coordinateurs
+    questions: Questions
+    latitude: Latitude
+    longitude: Longitude
+    languages: 'langues disponibles'
+    rules: Règles
+    comment: Commentaire
+    question_title: Question
+    password: Mot de passe
+    repeat_password: 'Répéter le mot de passe'
+    role_user: Participant
+    role_admin: Administrateur
+    role_super_admin: 'Super Administrateur'
+    already_logged: Déjà connecté en tant que %username%
+    remember_me: Se souvenir de moi
+    no_account: Pas de compte ?
+    sign_up: S'inscrire
+help:
+    rules: 'Règles de conduite pour les participants'
+    questions: 'Ces questions peuvent être répondues par les participants'
+message:
+    delete_confirm: 'Êtes-vous sûr de vouloir supprimer cet élément ?'
+title:
+    users_new: 'Nouvel Utilisateur'
+    users: Utilisateurs
+    questions: Questions
+    register: S'inscrire
+    edition_new: 'Nouvelle Édition'
+    editions: Éditions
+    group_new: 'Nouveau Groupe'
+    groups: Groupes
