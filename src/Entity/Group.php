@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GroupRepository::class)]
 #[ORM\Table(name: '`group`')]
@@ -71,6 +72,7 @@ class Group
     private Collection $coordinators;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Regex('/^[1-7][A-Za-z]{2}[0-9]{2}[A-Za-z0-9]$/')]
     private ?string $jid = null;
 
     public function __construct()
