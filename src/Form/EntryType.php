@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Entry;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class EntryType extends AbstractType
 {
@@ -23,6 +25,11 @@ class EntryType extends AbstractType
             ])
             ->add('comment', null, [
                 'label' => 'label.comment'
+            ])
+            ->add('answers', CollectionType::class, [
+                'label' => 'label.answers',
+                'entry_type' => AnswerType::class,
+                'constraints' => new Valid()
             ])
         ;
     }

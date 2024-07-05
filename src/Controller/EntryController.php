@@ -12,10 +12,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/entry')]
 class EntryController extends AbstractController
 {
+    public function __construct(private readonly TranslatorInterface $translator)
+    {
+    }
+
     #[Route('/', name: 'app_entry_index', methods: ['GET'])]
     public function index(EntryRepository $entryRepository): Response
     {
@@ -31,6 +36,7 @@ class EntryController extends AbstractController
         $entry = new Entry();
         $entry->setUser($this->getUser());
         $entry->setEdition($this->getUser()?->getGroup()?->getCurrentEdition());
+        $entry->initAnswers();
 
         $form = $this->createForm(EntryType::class, $entry);
         $form->handleRequest($request);
@@ -38,6 +44,8 @@ class EntryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($entry);
             $entityManager->flush();
+
+            $this->addFlash('success', $this->translator->trans('message.success.element_added'));
 
             return $this->redirectToRoute('app_entry_new', [], Response::HTTP_SEE_OTHER);
         }

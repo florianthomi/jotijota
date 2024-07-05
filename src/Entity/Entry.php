@@ -34,7 +34,7 @@ class Entry
     /**
      * @var Collection<int, Answer>
      */
-    #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'entry', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'entry', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $answers;
 
     #[ORM\ManyToOne(inversedBy: 'entries')]
@@ -186,5 +186,24 @@ class Entry
         $this->country = $country;
 
         return $this;
+    }
+
+    public function initAnswers(): void
+    {
+
+        if ($this?->user->getGroup()?->getCurrentEdition()) {
+            foreach ($this?->edition->getQuestions() as $question) {
+                $answer = new Answer();
+                $answer->setQuestion($question);
+                $this->addAnswer($answer);
+            }
+        }
+        if ($this?->user?->getGroup()) {
+            foreach ($this->user->getGroup()->getQuestions() as $question) {
+                $answer = new Answer();
+                $answer->setQuestion($question);
+                $this->addAnswer($answer);
+            }
+        }
     }
 }

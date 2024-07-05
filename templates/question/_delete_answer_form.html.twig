@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_question_delete', {'id': question.id, 'answer': answer.id}) }}" onsubmit="return confirm('{{ 'message.delete_confirm'|trans }}');">
+<form method="post" action="{{ path('app_question_answer_delete', {'id': question.id, 'answer': answer.id}) }}" onsubmit="return confirm('{{ 'message.delete_confirm'|trans }}');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ question.id~answer.id) }}">
     <button class="hover:text-primary">{{ component('Icon', {name: 'icon-trash'}) }}</button>
 </form>
