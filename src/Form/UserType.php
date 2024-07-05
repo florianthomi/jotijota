@@ -40,8 +40,6 @@ class UserType extends AbstractType
                 'constraints' => [
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'message.password_min_length',
-                        // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],

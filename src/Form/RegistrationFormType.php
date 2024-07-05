@@ -39,12 +39,9 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => ['label' => 'label.password', 'attr' => ['autocomplete' => 'new-password']],
                 'second_options' => ['label' => 'label.repeat_password'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'message.enter_password',
-                    ]),
+                    new NotBlank(),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'message.password_min_length',
                         'max' => 4096,
                     ]),
                 ],
