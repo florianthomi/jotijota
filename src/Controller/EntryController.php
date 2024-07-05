@@ -39,10 +39,11 @@ class EntryController extends AbstractController
             $entityManager->persist($entry);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_entry_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_entry_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('entry/new.html.twig', [
+            'entries' => $entityManager->getRepository(Entry::class)->getEntriesByUserAndEdition($this->getUser()->getId()),
             'entry' => $entry,
             'form' => $form,
         ]);

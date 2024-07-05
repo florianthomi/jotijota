@@ -22,6 +22,8 @@
         </script>
     </head>
     <body class="dark:text-bodydark dark:bg-boxdark-2">
+        {% set toggleSidebar = toggleSidebar|default(false) %}
+
         {% block body %}{% endblock %}
     </body>
 </html>

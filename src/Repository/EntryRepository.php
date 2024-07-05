@@ -16,6 +16,25 @@ class EntryRepository extends ServiceEntityRepository
         parent::__construct($registry, Entry::class);
     }
 
+    public function getEntriesByUserAndEdition(int $userId, ?int $editionId = null): array
+    {
+        $builder = $this->createQueryBuilder('entry')
+            ->andWhere('entry.user = :user')->setParameter('user', $userId)
+            ->addOrderBy('entry.createdAt', 'DESC')
+            ;
+
+        if ($editionId) {
+            $builder
+                ->andWhere('entry.edition = :edition')->setParameter('edition', $editionId);
+        } else {
+            $builder->innerJoin('entry.edition', 'edition')
+                ->andWhere(':now BETWEEN edition.startAt AND edition.endAt')->setParameter('now', new \DateTime())
+                ;
+        }
+
+        return $builder->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Entry[] Returns an array of Entry objects
     //     */

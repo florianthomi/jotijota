@@ -4,12 +4,12 @@
     <div
             class="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11"
     >
-        <div class="flex items-center gap-2 sm:gap-4 lg:hidden">
+        <div class="flex items-center gap-2 sm:gap-4 {% if not toggleSidebar %}lg:hidden{% endif %}">
             <!-- Hamburger Toggle BTN -->
             {% block sidebar_toggler %}
                 <button
                         data-action="click->sidebar#toggle"
-                        class="z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
+                        class="z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark {% if not toggleSidebar %}lg:hidden{% endif %}"
                 >
         <span class="relative block h-5.5 w-5.5 cursor-pointer">
           <span class="du-block absolute right-0 h-full w-full">
@@ -32,7 +32,7 @@
                 <img src="{{ asset('images/logo/logo-omms.png') }}" class="w-8" alt="Logo" />
             </a>
         </div>
-        <div class="block grow ml-4 lg:ml-0">
+        <div class="block grow ml-4 {% if not toggleSidebar %}lg:ml-0{% endif %}">
             {% if app.user and app.user.group %}
                 <strong class="uppercase"><span class="hidden md:inline">{{ "label.group.jid"|trans }} : </span>{{ app.user.group.jid|default }}</strong>
             {% endif %}

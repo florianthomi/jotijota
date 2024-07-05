@@ -38,7 +38,7 @@
         {% endblock %}
         {% block map %}
             <div class="col-span-full block-container chart-container">
-                <canvas data-map-target="canvas" data-map-url-value="{{ asset('js/world-countries.json') }}" data-controller="map"></canvas>
+                <div class="aspect-video" data-map-target="canvas" data-map-url-value="{{ asset('js/custom.geo.json') }}" data-controller="map" data-map-counts-value="{{ {}|json_encode(constant('JSON_FORCE_OBJECT')) }}" data-map-leaflet-value="true"></div>
             </div>
         {% endblock %}
     </div>
