@@ -80,6 +80,11 @@ help:
     questions: 'Diese Fragen können von Teilnehmern beantwortet werden'
 message:
     delete_confirm: 'Sind Sie sicher, dass Sie dieses Element löschen möchten?'
+    closed_subscriptions: Zurzeit ist keine Anmeldung möglich
+    success:
+        element_added: Element erfolgreich angelegt
+        element_updated: Element erfolgreich aktualisiert
+        element_deleted: Element erfolgreich gelöscht
 title:
     users_new: 'Neuer Benutzer'
     users: Benutzer

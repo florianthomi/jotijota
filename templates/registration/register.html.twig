@@ -15,62 +15,80 @@
 
 {% block content %}
 
-        <div
-                class="block-container !p-0"
-        >
-            <div class="flex flex-wrap items-center items-stretch" data-controller="leaflet" data-leaflet-marker-icon-value="{{ asset('images/marker.png') }}" data-leaflet-points-value="{{ []|json_encode }}">
-                <div class="hidden w-full xl:block xl:w-1/2" data-leaflet-target="map">
+    <div
+            class="block-container !p-0"
+    >
+        <div class="flex flex-wrap items-center items-stretch">
+            <div class="hidden w-full xl:block xl:w-1/2" data-controller="leaflet" data-leaflet-marker-icon-value="{{ asset('images/marker.png') }}" data-leaflet-points-value="{{ groups|json_encode }}" data-leaflet-target="map"></div>
+            <div
+                    class="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2"
+            >
+                <div class="w-full p-4 sm:p-12.5 xl:p-17.5">
+                    <h2
+                            class="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2"
+                    >
+                        {{ "label.sign_up"|trans }}
+                    </h2>
+                    {{ form_start(registrationForm) }}
 
-                </div>
-                <div
-                        class="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2"
-                >
-                    <div class="w-full p-4 sm:p-12.5 xl:p-17.5">
-                        <h2
-                                class="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2"
-                        >
-                            {{ "label.sign_up"|trans }}
-                        </h2>
+                    <div class="flex flex-col sm:flex-row gap-x-4">
+                        {{ component('TextInput', {
+                            form: registrationForm.username,
+                            class: 'w-full sm:w-1/2',
+                            icon: {
+                                name: 'icon-user'
+                            }
+                        }) }}
 
-                        {{ form_start(registrationForm) }}
-
-                        {% component TextInput with {form: registrationForm.username, icon: {name: 'icon-user'}} %}
-
-                        {% endcomponent %}
-
-                        <div class="flex flex-row gap-x-4">
-                            {% component TextInput with {form: registrationForm.firstname} %}
-                            {% endcomponent %}
-
-                            {% component TextInput with {form: registrationForm.lastname} %}
-                            {% endcomponent %}
-                        </div>
-
-                        {% component TextInput with {form: registrationForm.plainPassword.first, icon: {name: 'icon-lock'}} %}
-
-                        {% endcomponent %}
-
-                        {% component TextInput with {form: registrationForm.plainPassword.second, icon: {name: 'icon-lock'}} %}
-
-                        {% endcomponent %}
-
-                        <div class="mb-5">
-                            {{ component('Button', {
-                                type: 'submit',
-                                label: 'label.create_account'|trans,
-                                class: 'w-full bg-primary text-white'
-                            }) }}
-                        </div>
-
-                        <div class="mt-6 text-center">
-                            <p class="font-medium">
-                                {{ "label.already_have_account"|trans }}
-                                <a href="{{ path('app_login') }}" class="text-primary">{{ "label.sign_in"|trans }}</a>
-                            </p>
-                        </div>
-                        {{ form_end(registrationForm) }}
+                        {{ component('SelectInput', {
+                            form: registrationForm.group,
+                            class: 'w-full sm:w-1/2'
+                        }) }}
                     </div>
+
+                    <div class="flex flex-col sm:flex-row gap-x-4">
+                        {{ component('TextInput', {
+                            form: registrationForm.firstname,
+                        }) }}
+
+                        {{ component('TextInput', {
+                            form: registrationForm.lastname,
+                        }) }}
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-x-4">
+                        {{ component('TextInput', {
+                            form: registrationForm.plainPassword.first,
+                            icon: {
+                                name: 'icon-lock'
+                            }
+                        }) }}
+
+                        {{ component('TextInput', {
+                            form: registrationForm.plainPassword.second,
+                            icon: {
+                                name: 'icon-lock'
+                            }
+                        }) }}
+                    </div>
+
+                    <div class="mb-5">
+                        {{ component('Button', {
+                            type: 'submit',
+                            label: 'label.create_account'|trans,
+                            class: 'w-full bg-primary text-white'
+                        }) }}
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        <p class="font-medium">
+                            {{ "label.already_have_account"|trans }}
+                            <a href="{{ path('app_login') }}" class="text-primary">{{ "label.sign_in"|trans }}</a>
+                        </p>
+                    </div>
+                    {{ form_end(registrationForm) }}
                 </div>
             </div>
         </div>
+    </div>
 {% endblock %}

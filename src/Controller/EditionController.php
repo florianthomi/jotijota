@@ -13,11 +13,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/edition')]
 #[IsGranted(attribute: EditionVoter::LIST)]
 class EditionController extends AbstractController
 {
+    public function __construct(private readonly TranslatorInterface $translator)
+    {
+    }
+
     #[Route('/', name: 'app_edition_index', methods: ['GET'])]
     public function index(EditionRepository $editionRepository): Response
     {
@@ -37,6 +42,8 @@ class EditionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($edition);
             $entityManager->flush();
+
+            $this->addFlash('success', $this->translator->trans('message.success.element_added'));
 
             return $this->redirectToRoute('app_edition_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -66,6 +73,8 @@ class EditionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('success', $this->translator->trans('message.success.element_updated'));
+
             return $this->redirectToRoute('app_edition_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -82,6 +91,8 @@ class EditionController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$edition->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($edition);
             $entityManager->flush();
+
+            $this->addFlash('success', $this->translator->trans('message.success.element_deleted'));
         }
 
         return $this->redirectToRoute('app_edition_index', [], Response::HTTP_SEE_OTHER);

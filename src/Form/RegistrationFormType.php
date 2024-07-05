@@ -4,6 +4,11 @@ namespace App\Form;
 
 use App\Entity\Group;
 use App\Entity\User;
+use App\Repository\GroupRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -43,6 +48,14 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('group', EntityType::class, [
+                'label' => 'label.group',
+                'query_builder' => fn (GroupRepository $er) => $er->getVisibleGroups() ,
+                'class' => Group::class,
+                'choice_label' => 'name',
+                'autocomplete' => true,
+                'required' => true
             ])
         ;
     }

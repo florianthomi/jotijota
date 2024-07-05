@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Group;
 use App\Entity\User;
+use App\Repository\GroupRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -44,6 +45,14 @@ class ProfileType extends AbstractType
             ])
             ->add('section', null, [
                 'label' => 'label.section'
+            ])
+            ->add('group', EntityType::class, [
+                'label' => 'label.group',
+                'query_builder' => fn (GroupRepository $er) => $er->getVisibleGroups() ,
+                'class' => Group::class,
+                'choice_label' => 'name',
+                'autocomplete' => true,
+                'required' => true
             ])
         ;
     }

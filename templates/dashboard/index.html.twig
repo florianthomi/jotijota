@@ -1,25 +1,5 @@
 {% extends 'layout.html.twig' %}
 
-    {% block buttons %}
-        {% if not app.user.group %}
-            {{ component('Link', {
-                icon: {
-                    name: 'icon-arrow-in'
-                },
-                label: 'label.join_group'|trans,
-                class: 'text-white !bg-danger'
-            }) }}
-        {% else %}
-            {{ component('Link',{
-                icon: {
-                    name: 'icon-switch'
-                },
-                label: 'label.switch_group'|trans,
-                class: 'text-white'
-            }) }}
-        {% endif %}
-    {% endblock %}
-
 {% block content %}
 
     <div class="grid grid-cols-5 gap-4">

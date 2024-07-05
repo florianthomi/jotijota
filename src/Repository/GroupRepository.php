@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Group;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -31,5 +32,17 @@ class GroupRepository extends ServiceEntityRepository
         }
 
         return $builder->getQuery()->getResult();
+    }
+
+    public function getVisibleGroups(): QueryBuilder
+    {
+        return $this->createQueryBuilder('g')
+            ->innerJoin('g.editions', 'edition')
+            ->andWhere('g.visible = 1')
+            ->andWhere('edition.visible = 1')
+            ->andWhere(':now BETWEEN edition.subscriptionFrom AND edition.subscriptionTo')
+            ->setParameter('now', new \DateTime())
+            ->orderBy('g.name', 'ASC')
+            ;
     }
 }

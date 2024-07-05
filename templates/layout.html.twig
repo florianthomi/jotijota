@@ -2,7 +2,7 @@
 
 {% block body %}
     <!-- ===== Page Wrapper Start ===== -->
-    <div data-controller="sidebar" class="flex h-screen overflow-hidden">
+    <div data-controller="sidebar" class="flex h-screen overflow-scroll">
         {% block sidebar %}
             <!-- ===== Sidebar Start ===== -->
             {% include '_partials/_sidebar.html.twig' %}
@@ -37,6 +37,15 @@
                             </div>
                         </div>
                     {% endblock %}
+
+                    {% for type, messages in app.flashes %}
+                        {% for message in messages %}
+                            {{ component('Alert', {
+                                type: type,
+                                title: message
+                            }) }}
+                        {% endfor %}
+                    {% endfor %}
 
                     {% block content %}
 

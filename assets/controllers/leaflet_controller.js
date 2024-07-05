@@ -20,12 +20,20 @@ export default class extends Controller {
       }).addTo(this.map);
 
       const icon = leaflet.icon({
-        iconUrl: this.markerIconValue
+        iconUrl: this.markerIconValue,
+        popupAnchor: [19, 0]
       })
 
-      const group = new leaflet.featureGroup();
+      const group = new leaflet.FeatureGroup();
 
-      this.pointsValue.filter(({lat, lng}) => lat !== 0 && lng !== 0).forEach(({lat, lng}) => group.addLayer(leaflet.marker([lat, lng], {icon: icon})))
+      this.pointsValue.filter(({lat, lng}) => lat !== 0 && lng !== 0).forEach(({lat, lng, title}) => {
+        let marker = leaflet.marker([lat, lng], {icon: icon})
+        if (title) {
+        marker.bindPopup('<strong class="text-xl">'+title+'</strong>')
+            .openPopup();
+        }
+        group.addLayer(marker)
+      })
 
       if (group.getLayers().length) {
         group.addTo(this.map)

@@ -80,6 +80,11 @@ help:
     questions: 'These questions can be answered by participants'
 message:
     delete_confirm: 'Are you sure you want to delete this item?'
+    closed_subscriptions: No registration is open at the moment
+    success:
+        element_added: Element successfully created
+        element_updated: Element successfully updated
+        element_deleted: Element successfully deleted
 title:
     users_new: 'New User'
     users: Users
