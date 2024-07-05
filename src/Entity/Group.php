@@ -75,6 +75,11 @@ class Group
     #[Assert\Regex('/^[1-7][A-Za-z]{2}[0-9]{2}[A-Za-z0-9]$/')]
     private ?string $jid = null;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();

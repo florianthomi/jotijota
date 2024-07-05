@@ -48,6 +48,13 @@ class EditionType extends AbstractType
                 'required' => false,
                 'autocomplete' => true,
             ])
+            ->add('groups', EntityType::class, [
+                'label' => 'label.groups',
+                'class' => Group::class,
+                'multiple' => true,
+                'required' => false,
+                'autocomplete' => true,
+            ])
             ->add('questions', LiveCollectionType::class, [
                 'label' => 'label.questions',
                 'entry_type' => QuestionType::class,

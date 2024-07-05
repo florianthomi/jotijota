@@ -74,6 +74,7 @@ label:
     join_group: Rejoindre un groupe
     switch_group: Changer de groupe
     created_at: Ajouté le
+    groups: Groupes participants
 help:
     rules: 'Règles de conduite pour les participants'
     questions: 'Ces questions peuvent être répondues par les participants'

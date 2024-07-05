@@ -39,6 +39,10 @@
         form: form.coordinators
     }) }}
 
+    {{ component('SelectInput', {
+        form: form.groups
+    }) }}
+
     <div class="mb-4 flex flex-col gap-4">
         <div>
             {{ form_label(form.questions, null, {'label_attr': {'class': 'form-label'}}) }}

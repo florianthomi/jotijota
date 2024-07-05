@@ -74,6 +74,7 @@ label:
     join_group: Unirsi a un gruppo
     switch_group: Cambia gruppo
     created_at: Aggiunto il
+    groups: Gruppi partecipanti
 help:
     rules: 'Regole di condotta per i partecipanti'
     questions: 'Queste domande possono essere risposte dai partecipanti'
