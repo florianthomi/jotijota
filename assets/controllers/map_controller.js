@@ -35,7 +35,8 @@ export default class extends Controller {
               d > 50   ? '#FD8D3C' :
                 d > 20   ? '#FEB24C' :
                   d > 10   ? '#FED976' :
-                    '#FFEDA0';
+                    d > 0   ? '#FFEDA0' :
+                      '#fefce8';
     }
 
     const style = (feature) => {
@@ -104,7 +105,7 @@ export default class extends Controller {
     legend.onAdd = function (map) {
 
       let div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+        grades = [1, 10, 20, 50, 100, 200, 500, 1000],
         labels = [];
 
       // loop through our density intervals and generate a label with a colored square for each interval

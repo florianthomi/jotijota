@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EntryRepository::class)]
 class Entry
@@ -17,12 +18,14 @@ class Entry
     private ?int $id = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\Regex('/^[1-7][A-Za-z]{2}[0-9]{2}[A-Za-z0-9]$/')]
     private ?string $jid = null;
 
     #[ORM\Column(length: 255)]
     private ?string $pseudo = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Positive]
     private ?int $age = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -44,6 +47,9 @@ class Entry
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(length: 3)]
+    private ?string $country = null;
 
     public function __construct()
     {
@@ -166,6 +172,18 @@ class Entry
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): static
+    {
+        $this->country = $country;
 
         return $this;
     }

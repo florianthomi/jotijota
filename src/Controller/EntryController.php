@@ -42,8 +42,15 @@ class EntryController extends AbstractController
             return $this->redirectToRoute('app_entry_new', [], Response::HTTP_SEE_OTHER);
         }
 
+        $entries = $entityManager->getRepository(Entry::class)->getEntriesByUserAndEdition($this->getUser()->getId());
+
         return $this->render('entry/new.html.twig', [
-            'entries' => $entityManager->getRepository(Entry::class)->getEntriesByUserAndEdition($this->getUser()->getId()),
+            'entries' => $entries,
+            'stats' => array_reduce($entries, static function(array $acc, Entry $entry)
+            {
+                array_key_exists($entry->getCountry(), $acc) ? $acc[$entry->getCountry()] += 1 : $acc[$entry->getCountry()] = 1;
+                return $acc;
+            }, []),
             'entry' => $entry,
             'form' => $form,
         ]);
