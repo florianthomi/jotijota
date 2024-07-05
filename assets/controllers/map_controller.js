@@ -53,7 +53,7 @@ export default class extends Controller {
       let layer = e.target;
 
       layer.setStyle({
-        weight: 5,
+        weight: 3,
         color: '#666',
         dashArray: '',
         fillOpacity: 0.7

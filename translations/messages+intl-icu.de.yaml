@@ -73,6 +73,7 @@ label:
     sign_up: Registrieren
     join_group: Einer Gruppe beitreten
     switch_group: Gruppe wechseln
+    created_at: Hinzugefügt am
 help:
     rules: 'Verhaltensregeln für Teilnehmer'
     questions: 'Diese Fragen können von Teilnehmern beantwortet werden'

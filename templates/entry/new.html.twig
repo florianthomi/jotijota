@@ -52,32 +52,22 @@
                         <th
                                 class="px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
                         >
-                            {{ "label.name"|trans }}
+                            {{ "label.created_at"|trans }}
                         </th>
                         <th
                                 class="px-4 py-4 font-medium text-black dark:text-white"
                         >
-                            {{ "label.from"|trans }}
+                            {{ "label.jid"|trans }}
                         </th>
                         <th
                                 class="px-4 py-4 font-medium text-black dark:text-white"
                         >
-                            {{ "label.to"|trans }}
+                            {{ "label.pseudo"|trans }}
                         </th>
                         <th
                                 class="px-4 py-4 font-medium text-black dark:text-white"
                         >
-                            {{ "label.subscriptions"|trans }}
-                        </th>
-                        <th
-                                class="px-4 py-4 font-medium text-black dark:text-white"
-                        >
-                            {{ "label.groups_count"|trans }}
-                        </th>
-                        <th
-                                class="px-4 py-4 font-medium text-black dark:text-white"
-                        >
-                            {{ "label.questions_count"|trans }}
+                            {{ "label.age"|trans }}
                         </th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
                             {{ "label.actions"|trans }}
@@ -90,22 +80,16 @@
                             <td
                                     class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11"
                             >
-                                <h5 class="font-medium text-black dark:text-white">{{ entity.JID }}</h5>
+                                <h5 class="font-medium text-black dark:text-white">{{ entity.createdAt|date('d.m.Y H:i') }}</h5>
+                            </td>
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                <p class="text-black dark:text-white">{{ entity.jid }}</p>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                 <p class="text-black dark:text-white">{{ entity.pseudo }}</p>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                 <p class="text-black dark:text-white">{{ entity.age }}</p>
-                            </td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <p class="text-black dark:text-white"></p>
-                            </td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <p class="text-black dark:text-white"></p>
-                            </td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <p class="text-black dark:text-white"></p>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                 <div class="flex items-center space-x-3.5">
@@ -124,6 +108,5 @@
             </div>
         </div>
     </div>
-
 </turbo-frame>
 {% endblock %}
