@@ -24,18 +24,20 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/dashboard/group/{group}', name: 'app_dashboard_group')]
-    public function group(Edition $edition, Group $group): Response
+    public function group(Group $group): Response
     {
         return $this->render('dashboard/group.html.twig', [
-            'stats' => $this->dashboard->getStatsForGroup($group)
+            'stats' => $this->dashboard->getStatsForGroup($group),
+            'topTens' => $this->dashboard->getTopTenByGroup($group)
         ]);
     }
 
     #[Route('/dashboard/edition/{edition}', name: 'app_dashboard_edition')]
-    public function eiditon(Edition $edition): Response
+    public function edition(Edition $edition): Response
     {
         return $this->render('dashboard/group.html.twig', [
-            'stats' => $this->dashboard->getStatsForEdition($edition)
+            'stats' => $this->dashboard->getStatsForEdition($edition),
+            'topTens' => $this->dashboard->getTopTenByEdition($edition)
         ]);
     }
 }

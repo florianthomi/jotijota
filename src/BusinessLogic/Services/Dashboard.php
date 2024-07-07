@@ -7,9 +7,9 @@ use App\Entity\Group;
 use App\Entity\User;
 use App\Repository\EntryRepository;
 
-class Dashboard
+readonly class Dashboard
 {
-    public function __construct(private readonly EntryRepository $entryRepository)
+    public function __construct(private EntryRepository $entryRepository)
     {
     }
 
@@ -76,6 +76,24 @@ class Dashboard
                 'label' => 'countries',
                 'value' => 0,
             ]
+        ];
+    }
+
+    public function getTopTenByGroup(Group $group)
+    {
+        return [
+            'jid' => $this->entryRepository->getTopTenJidByGroup($group),
+            'countries' => $this->entryRepository->getTopTenCountriesByGroup($group),
+            'entries' => $this->entryRepository->getTopTenEntriesByGroup($group)
+        ];
+    }
+
+    public function getTopTenByEdition(Edition $edition)
+    {
+        return [
+            'jid' => $this->entryRepository->getTopTenJidByEdition($edition),
+            'countries' => $this->entryRepository->getTopTenCountriesByEdition($edition),
+            'entries' => $this->entryRepository->getTopTenEntriesByEdition($edition)
         ];
     }
 }

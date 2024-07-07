@@ -61,6 +61,7 @@ label.required::after {
 }
 
 .legend {
+    @apply hidden lg:block;
     line-height: 18px;
     color: #555;
 }

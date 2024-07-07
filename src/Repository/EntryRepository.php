@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Edition;
 use App\Entity\Entry;
+use App\Entity\Group;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -35,6 +37,98 @@ class EntryRepository extends ServiceEntityRepository
         return $builder->getQuery()->getResult();
     }
 
+    public function getTopTenJidByGroup(Group $group): array
+    {
+        return $this->createQueryBuilder('entries')
+            ->innerJoin('entries.user', 'user')
+            ->innerJoin('user.group', 'g')
+            ->select('COUNT(DISTINCT entries.jid) as score, user.username, user.section')
+            ->where('g = :group')->setParameter('group', $group)
+            ->groupBy('user.username')
+            ->orderBy('score', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getScalarResult()
+        ;
+    }
+
+    public function getTopTenCountriesByGroup(Group $group): array
+    {
+        return $this->createQueryBuilder('entries')
+            ->innerJoin('entries.user', 'user')
+            ->innerJoin('user.group', 'g')
+            ->select('COUNT(DISTINCT entries.country) as score, user.username, user.section')
+            ->where('g = :group')->setParameter('group', $group)
+            ->groupBy('user.username')
+            ->orderBy('score', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getScalarResult()
+        ;
+    }
+
+    public function getTopTenEntriesByGroup(Group $group): array
+    {
+        return $this->createQueryBuilder('entries')
+            ->innerJoin('entries.user', 'user')
+            ->innerJoin('user.group', 'g')
+            ->select('COUNT(DISTINCT entries.id) as score, user.username, user.section')
+            ->where('g = :group')->setParameter('group', $group)
+            ->groupBy('user.username')
+            ->orderBy('score', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getScalarResult()
+        ;
+    }
+
+    public function getTopTenJidByEdition(Edition $edition): array
+    {
+        return $this->createQueryBuilder('entries')
+            ->innerJoin('entries.user', 'user')
+            ->innerJoin('user.group', 'g')
+            ->innerJoin('entries.edition', 'edition')
+            ->select("COUNT(DISTINCT entries.jid) as score, user.username, g.name as group, user.section")
+            ->where('edition = :edition')->setParameter('edition', $edition)
+            ->groupBy('user.username')
+            ->orderBy('score', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getScalarResult()
+        ;
+    }
+
+    public function getTopTenCountriesByEdition(Edition $edition): array
+    {
+        return $this->createQueryBuilder('entries')
+            ->innerJoin('entries.user', 'user')
+            ->innerJoin('user.group', 'g')
+            ->innerJoin('entries.edition', 'edition')
+            ->select('COUNT(DISTINCT entries.country) as score, user.username, g.name as group, user.section')
+            ->where('edition = :edition')->setParameter('edition', $edition)
+            ->groupBy('user.username')
+            ->orderBy('score', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getScalarResult()
+        ;
+    }
+
+    public function getTopTenEntriesByEdition(Edition $edition): array
+    {
+        return $this->createQueryBuilder('entries')
+            ->innerJoin('entries.user', 'user')
+            ->innerJoin('user.group', 'g')
+            ->innerJoin('entries.edition', 'edition')
+            ->select('COUNT(DISTINCT entries.id) as score, user.username, g.name as group, user.section')
+            ->where('edition = :edition')->setParameter('edition', $edition)
+            ->groupBy('user.username')
+            ->orderBy('score', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getScalarResult()
+        ;
+    }
     //    /**
     //     * @return Entry[] Returns an array of Entry objects
     //     */

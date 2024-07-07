@@ -75,6 +75,12 @@ label:
     switch_group: Cambia gruppo
     created_at: Aggiunto il
     groups: Gruppi partecipanti
+    rank: Classifica
+    score: Punteggio
+    dashboard:
+        top_jid: Top 10 - JID diversi
+        top_countries: Top 10 - Paesi diversi
+        top_entries: Top 10 - Numero di contatti
 help:
     rules: 'Regole di condotta per i partecipanti'
     questions: 'Queste domande possono essere risposte dai partecipanti'

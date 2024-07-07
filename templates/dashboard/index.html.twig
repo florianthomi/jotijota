@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <div class="grid grid-cols-5 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {% block blocks %}
             {% for block in stats %}
                 <div class="block-container">
@@ -22,4 +22,58 @@
             </div>
         {% endblock %}
     </div>
+    {% block topTens %}
+
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            {% for block, values in topTens %}
+                <div class="block-container">
+
+                    <div class="pb-6 md:px-6 xl:px-7.5 flex items-center">
+                        <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                            {{ component('Icon', {
+                                name: 'icon-trophy'
+                            }) }}
+                        </div>
+
+                        <h4 class="ml-4 text-xl font-bold text-black dark:text-white">{{ ("label.dashboard.top_"~block)|trans }}</h4>
+                    </div>
+
+                    <div class="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark md:px-6 2xl:px-7.5">
+                        <div class="col-span-1 flex items-center">
+                            <p class="font-medium">{{ "label.rank"|trans }}</p>
+                        </div>
+                        <div class="col-span-4 hidden items-center sm:flex">
+                            <p class="font-medium">{{ "label.username"|trans }}</p>
+                        </div>
+                        <div class="col-span-1 flex items-center">
+                            <p class="font-medium">{{ "label.score"|trans }}</p>
+                        </div>
+                    </div>
+                    {% for index, score in values %}
+                        <div class="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark md:px-6 2xl:px-7.5">
+                            <div class="col-span-1 flex items-center">
+                                <p class="text-sm font-bold text-black dark:text-white">{{ index + 1 }}</p>
+                            </div>
+                            <div class="col-span-4 hidden items-center sm:flex">
+                                <p class="text-sm font-medium text-black dark:text-white">
+                                    {{ score.username }}
+                                    {% if score.section or score.group|default %}
+                                        ({% if score.group|default %}
+                                        {{ score.group }}
+                                    {% endif %}
+                                        {% if score.group|default and score.section %}/{% endif %}
+                                        {% if score.section %}{{ score.section }}{% endif %})
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="col-span-1 flex items-center">
+                                <p class="text-sm font-medium text-black dark:text-white">{{ score.score }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endblock %}
+
 {% endblock %}

@@ -75,6 +75,12 @@ label:
     switch_group: Change group
     created_at: Added on
     groups: Participating groups
+    rank: Rank
+    score: Score
+    dashboard:
+        top_jid: Top 10 - different JID
+        top_countries: Top 10 - Different countries
+        top_entries: Top 10 - Number of contact
 help:
     rules: 'Rules of conduct for participants'
     questions: 'These questions can be answered by participants'
