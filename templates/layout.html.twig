@@ -38,14 +38,10 @@
                         </div>
                     {% endblock %}
 
-                    {% for type, messages in app.flashes %}
-                        {% for message in messages %}
-                            {{ component('Alert', {
-                                type: type,
-                                title: message
-                            }) }}
-                        {% endfor %}
-                    {% endfor %}
+                    <div id="alerts">
+                        {% include '_partials/_alerts.html.twig' %}
+                    </div>
+
 
                     {% block content %}
 

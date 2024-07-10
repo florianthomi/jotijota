@@ -1,4 +1,27 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="block-container" data-controller="inputmask" id="form_entry">
+    {{ form_start(form) }}
+    {{ component('TextInput', {
+        form: form.jid
+    }) }}
+    {{ component('TextInput', {
+        form: form.pseudo
+    }) }}
+    {{ component('TextInput', {
+        form: form.age
+    }) }}
+    {% for key, questionForm in form.answers %}
+        {{ component('TextArea', {
+            form: questionForm.answer,
+            class: 'w-auto grow'
+        }) }}
+    {% endfor %}
+    {{ component('TextArea', {
+        form: form.comment
+    }) }}
+    {{ component('Button', {
+        type: 'submit',
+        label: 'label.save'|trans,
+        class: 'bg-primary text-white w-full'
+    }) }}
+    {{ form_end(form) }}
+</div>

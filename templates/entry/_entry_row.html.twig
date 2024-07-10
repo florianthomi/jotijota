@@ -1,0 +1,23 @@
+<tr>
+    <td
+            class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11"
+    >
+        <h5 class="font-medium text-black dark:text-white">{{ entity.createdAt|date('d.m.Y H:i') }}</h5>
+    </td>
+    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+        <p class="text-black dark:text-white">{{ entity.jid }}</p>
+    </td>
+    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+        <p class="text-black dark:text-white">{{ entity.country|country_name }}</p>
+    </td>
+    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+        <p class="text-black dark:text-white">{{ entity.pseudo }}</p>
+    </td>
+    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+        <p class="text-black dark:text-white">{{ entity.age }}</p>
+    </td>
+    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+        <div class="flex items-center space-x-3.5">
+        </div>
+    </td>
+</tr>

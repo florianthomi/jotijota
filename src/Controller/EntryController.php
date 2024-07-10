@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[Route('/entry')]
 class EntryController extends AbstractController
@@ -39,6 +40,7 @@ class EntryController extends AbstractController
         $entry->initAnswers();
 
         $form = $this->createForm(EntryType::class, $entry);
+        $emptyForm = clone $form;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -46,6 +48,12 @@ class EntryController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', $this->translator->trans('message.success.element_added'));
+
+            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                // If the request comes from Turbo, set the content type as text/vnd.turbo-stream.html and only send the HTML to update
+                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+                return $this->renderBlock('entry/new.html.twig', 'entries_stream', ['entity' => $entry, 'form' => $emptyForm]);
+            }
 
             return $this->redirectToRoute('app_entry_new', [], Response::HTTP_SEE_OTHER);
         }

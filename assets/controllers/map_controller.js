@@ -5,10 +5,6 @@ import 'leaflet/dist/leaflet.min.css'
 export default class extends Controller {
   static targets = [ "canvas" ]
   static values = {
-    leaflet: {
-      type: Boolean,
-      default: false
-    },
     counts: {
       type: Object,
       default: {}
@@ -41,7 +37,7 @@ export default class extends Controller {
 
     const style = (feature) => {
       return {
-        fillColor: getColor(values[feature.properties.iso_a2] ?? 0),
+        fillColor: getColor(values[feature.properties.iso_a2_eh] ?? 0),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -94,7 +90,7 @@ export default class extends Controller {
 
     info.update = function (props) {
       this._div.innerHTML = '<h4>Contacts</h4>' +  (props ?
-        '<b>' + props['name_' + document.documentElement.lang] + '</b><br />' + (values[props.iso_a2] ?? 0) + ' contact(s)'
+        '<b>' + props['name_' + document.documentElement.lang] + '</b><br />' + (values[props.iso_a2_eh] ?? 0) + ' contact(s)'
         : 'Hover over a country');
     };
 
