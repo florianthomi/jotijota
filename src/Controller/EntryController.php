@@ -30,7 +30,10 @@ class EntryController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_entry_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_entry_new', methods: [
+        'GET',
+        'POST',
+    ])]
     #[IsGranted(attribute: EntryVoter::NEW)]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -43,26 +46,38 @@ class EntryController extends AbstractController
         $emptyForm = clone $form;
         $form->handleRequest($request);
 
+        $entries = $entityManager->getRepository(Entry::class)->getEntriesByUserAndEdition($this->getUser()->getId());
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($entry);
             $entityManager->flush();
 
+            $entries = [
+                $entry,
+                ...$entries,
+            ];
+
             $this->addFlash('success', $this->translator->trans('message.success.element_added'));
 
-            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
-                // If the request comes from Turbo, set the content type as text/vnd.turbo-stream.html and only send the HTML to update
+            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {// If the request comes from Turbo, set the content type as text/vnd.turbo-stream.html and only send the HTML to update
                 $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-                return $this->renderBlock('entry/new.html.twig', 'entries_stream', ['entity' => $entry, 'form' => $emptyForm]);
+                return $this->renderBlock('entry/new.html.twig', 'entries_stream', [
+                    'entity' => $entry,
+                    'form' => $emptyForm,
+                    'stats' => array_reduce($entries, static function (array $acc, Entry $entry)
+                    {
+                        array_key_exists($entry->getCountry(), $acc) ? $acc[$entry->getCountry()] += 1 : $acc[$entry->getCountry()] = 1;
+                        return $acc;
+                    }, []),
+                ]);
             }
 
             return $this->redirectToRoute('app_entry_new', [], Response::HTTP_SEE_OTHER);
         }
 
-        $entries = $entityManager->getRepository(Entry::class)->getEntriesByUserAndEdition($this->getUser()->getId());
-
         return $this->render('entry/new.html.twig', [
             'entries' => $entries,
-            'stats' => array_reduce($entries, static function(array $acc, Entry $entry)
+            'stats' => array_reduce($entries, static function (array $acc, Entry $entry)
             {
                 array_key_exists($entry->getCountry(), $acc) ? $acc[$entry->getCountry()] += 1 : $acc[$entry->getCountry()] = 1;
                 return $acc;
@@ -80,7 +95,10 @@ class EntryController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_entry_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_entry_edit', methods: [
+        'GET',
+        'POST',
+    ])]
     public function edit(Request $request, Entry $entry, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EntryType::class, $entry);
@@ -101,7 +119,7 @@ class EntryController extends AbstractController
     #[Route('/{id}', name: 'app_entry_delete', methods: ['POST'])]
     public function delete(Request $request, Entry $entry, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$entry->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $entry->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($entry);
             $entityManager->flush();
         }
