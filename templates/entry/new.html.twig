@@ -7,12 +7,83 @@
 
 {% block content %}
     <div class="flex flex-col gap-4 lg:flex-row">
-        <div class="w-full hidden md:block lg:w-2/3">
-            <div class="chart-container block-container">
+        <div class="w-full lg:w-2/3 order-2">
+            <div class="chart-container hidden md:block block-container">
                 <div class="aspect-video" data-map-target="canvas" data-map-url-value="{{ asset('js/custom.geo.json') }}" data-controller="map" data-map-counts-value="{{ stats|json_encode(constant('JSON_FORCE_OBJECT')) }}" data-map-leaflet-value="true"></div>
             </div>
+            <div class=" mt-4 block-container">
+                <div class="max-w-full overflow-x-auto">
+                    <table class="w-full table-auto">
+                        <thead>
+                        <tr class="bg-gray-2 text-left dark:bg-meta-4">
+                            <th
+                                    class="px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
+                            >
+                                {{ "label.created_at"|trans }}
+                            </th>
+                            <th
+                                    class="px-4 py-4 font-medium text-black dark:text-white"
+                            >
+                                {{ "label.jid"|trans }}
+                            </th>
+                            <th
+                                    class="px-4 py-4 font-medium text-black dark:text-white"
+                            >
+                                {{ "label.country"|trans }}
+                            </th>
+                            <th
+                                    class="px-4 py-4 font-medium text-black dark:text-white"
+                            >
+                                {{ "label.pseudo"|trans }}
+                            </th>
+                            <th
+                                    class="px-4 py-4 font-medium text-black dark:text-white"
+                            >
+                                {{ "label.age"|trans }}
+                            </th>
+                            <th class="px-4 py-4 font-medium text-black dark:text-white">
+                                {{ "label.actions"|trans }}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entries %}
+                            <tr>
+                                <td
+                                        class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11"
+                                >
+                                    <h5 class="font-medium text-black dark:text-white">{{ entity.createdAt|date('d.m.Y H:i') }}</h5>
+                                </td>
+                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                    <p class="text-black dark:text-white">{{ entity.jid }}</p>
+                                </td>
+                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                    <p class="text-black dark:text-white">{{ entity.country|country_name }}</p>
+                                </td>
+                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                    <p class="text-black dark:text-white">{{ entity.pseudo }}</p>
+                                </td>
+                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                    <p class="text-black dark:text-white">{{ entity.age }}</p>
+                                </td>
+                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                    <div class="flex items-center space-x-3.5">
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center px-4 py-5 pl-9 xl:pl-11">
+                                    {{ "label.no_results"|trans }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="w-full lg:w-1/3">
+        <div class="w-full lg:w-1/3 order-1">
             <div class="block-container">
                 {{ form_start(form) }}
                 {{ component('TextInput', {
@@ -28,12 +99,10 @@
                     form: form.age
                 }) }}
                 {% for key, questionForm in form.answers %}
-                    <div class="flex flex-col sm:flex-row items-center gap-4">
-                        {{ component('TextArea', {
-                            form: questionForm.answer,
-                            class: 'w-auto grow'
-                        }) }}
-                    </div>
+                    {{ component('TextArea', {
+                        form: questionForm.answer,
+                        class: 'w-auto grow'
+                    }) }}
                 {% endfor %}
                 {{ component('TextArea', {
                     form: form.comment
@@ -45,80 +114,6 @@
                 }) }}
                 {{ form_end(form) }}
             </div>
-        </div>
-    </div>
-
-    <div
-            class=" mt-4 block-container"
-    >
-        <div class="max-w-full overflow-x-auto">
-            <table class="w-full table-auto">
-                <thead>
-                <tr class="bg-gray-2 text-left dark:bg-meta-4">
-                    <th
-                            class="px-4 py-4 font-medium text-black dark:text-white xl:pl-11"
-                    >
-                        {{ "label.created_at"|trans }}
-                    </th>
-                    <th
-                            class="px-4 py-4 font-medium text-black dark:text-white"
-                    >
-                        {{ "label.jid"|trans }}
-                    </th>
-                    <th
-                            class="px-4 py-4 font-medium text-black dark:text-white"
-                    >
-                        {{ "label.country"|trans }}
-                    </th>
-                    <th
-                            class="px-4 py-4 font-medium text-black dark:text-white"
-                    >
-                        {{ "label.pseudo"|trans }}
-                    </th>
-                    <th
-                            class="px-4 py-4 font-medium text-black dark:text-white"
-                    >
-                        {{ "label.age"|trans }}
-                    </th>
-                    <th class="px-4 py-4 font-medium text-black dark:text-white">
-                        {{ "label.actions"|trans }}
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for entity in entries %}
-                    <tr>
-                        <td
-                                class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11"
-                        >
-                            <h5 class="font-medium text-black dark:text-white">{{ entity.createdAt|date('d.m.Y H:i') }}</h5>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.jid }}</p>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.country|country_name }}</p>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.pseudo }}</p>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <p class="text-black dark:text-white">{{ entity.age }}</p>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            <div class="flex items-center space-x-3.5">
-                            </div>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="7" class="text-center px-4 py-5 pl-9 xl:pl-11">
-                            {{ "label.no_results"|trans }}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
         </div>
     </div>
 {% endblock %}

@@ -21,7 +21,10 @@ class EntryType extends AbstractType
                 'label' => 'label.pseudo'
             ])
             ->add('age', null, [
-                'label' => 'label.age'
+                'label' => 'label.age',
+                'attr' => [
+                    'min' => 0
+                ]
             ])
             ->add('comment', null, [
                 'label' => 'label.comment'
