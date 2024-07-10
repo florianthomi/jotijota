@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Entry;
+use App\Validator\JidValidator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,6 +17,9 @@ class EntryType extends AbstractType
         $builder
             ->add('jid', null, [
                 'label' => 'label.jid',
+                'attr' => [
+                    'data-inputmask-regex' => JidValidator::JID_REGEX
+                ],
             ])
             ->add('pseudo', null, [
                 'label' => 'label.pseudo'

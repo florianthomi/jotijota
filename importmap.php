@@ -61,9 +61,6 @@ return [
     'internmap' => [
         'version' => '2.0.3',
     ],
-    'maska' => [
-        'version' => '3.0.0-beta4',
-    ],
     'leaflet' => [
         'version' => '1.9.4',
     ],
@@ -77,5 +74,11 @@ return [
     'tom-select/dist/css/tom-select.css' => [
         'version' => '2.3.1',
         'type' => 'css',
+    ],
+    'inputmask' => [
+        'version' => '5.0.9',
+    ],
+    'inputmask/dist/inputmask.es6.js' => [
+        'version' => '5.0.9',
     ],
 ];

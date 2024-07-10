@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EntryRepository;
+use App\Validator\Jid;
+use App\Validator\JidValidator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -18,7 +20,8 @@ class Entry
     private ?int $id = null;
 
     #[ORM\Column(length: 20)]
-    #[Assert\Regex('/^[1-7][A-Za-z]{2}[0-9]{2}[A-Za-z0-9]$/')]
+    #[Assert\Regex('/^'.JidValidator::JID_REGEX.'$/')]
+    #[Jid]
     private ?string $jid = null;
 
     #[ORM\Column(length: 255)]
