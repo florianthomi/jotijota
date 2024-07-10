@@ -143,8 +143,7 @@ export default class extends Controller {
   }
 
   connect () {
-    const jsonUrl = this.urlValue;
-    fetch(jsonUrl)
+    fetch(this.urlValue)
       .then(response => response.json())
       .then(data => {
         this.countries = data

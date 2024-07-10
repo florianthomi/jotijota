@@ -9,7 +9,10 @@
     <div class="flex flex-col gap-4 lg:flex-row">
         <div class="w-full lg:w-2/3 order-2">
             <div class="chart-container hidden md:block block-container">
-                <div class="aspect-video" id="map" data-map-target="canvas" data-map-url-value="{{ asset('js/custom.geo.json') }}" data-controller="map" data-map-counts-value="{{ stats|json_encode(constant('JSON_FORCE_OBJECT')) }}"></div>
+                <div class="aspect-video" id="map" data-map-target="canvas" data-map-url-value="{{ asset('js/custom.geo.json') }}" data-controller="map" data-map-counts-value="{}"></div>
+                <script id="map-data">
+                  document.getElementById('map').dataset.mapCountsValue = '{{ stats|json_encode(constant('JSON_FORCE_OBJECT'))|e('js') }}';
+                </script>
             </div>
             <div class=" mt-4 block-container">
                 <div class="max-w-full overflow-x-auto">
@@ -85,9 +88,9 @@
             {% include 'entry/_form.html.twig' %}
         </template>
     </turbo-stream>
-    <turbo-stream action="after" target="map">
+    <turbo-stream action="replace" target="map-data">
         <template>
-            <script>
+            <script id="map-data">
                 document.getElementById('map').dataset.mapCountsValue = '{{ stats|json_encode(constant('JSON_FORCE_OBJECT'))|e('js') }}';
             </script>
         </template>
