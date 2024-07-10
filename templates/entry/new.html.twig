@@ -96,3 +96,21 @@
         </template>
     </turbo-stream>
 {% endblock %}
+
+{% block entry_remove %}
+    <turbo-stream action="remove" target="entry_{{ id }}"></turbo-stream>
+
+    <turbo-stream action="update" target="alerts">
+        <template>
+            {% include '_partials/_alerts.html.twig' %}
+        </template>
+    </turbo-stream>
+
+    <turbo-stream action="replace" target="map-data">
+        <template>
+            <script id="map-data">
+              document.getElementById('map').dataset.mapCountsValue = '{{ stats|json_encode(constant('JSON_FORCE_OBJECT'))|e('js') }}';
+            </script>
+        </template>
+    </turbo-stream>
+{% endblock %}

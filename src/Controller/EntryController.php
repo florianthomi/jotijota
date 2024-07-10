@@ -119,9 +119,27 @@ class EntryController extends AbstractController
     #[Route('/{id}', name: 'app_entry_delete', methods: ['POST'])]
     public function delete(Request $request, Entry $entry, EntityManagerInterface $entityManager): Response
     {
+        $id = $entry->getId();
+
         if ($this->isCsrfTokenValid('delete' . $entry->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($entry);
             $entityManager->flush();
+
+            $this->addFlash('success', $this->translator->trans('message.success.element_deleted'));
+
+            $entries = $entityManager->getRepository(Entry::class)->getEntriesByUserAndEdition($this->getUser()->getId());
+
+            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {// If the request comes from Turbo, set the content type as text/vnd.turbo-stream.html and only send the HTML to update
+                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+                return $this->renderBlock('entry/new.html.twig', 'entry_remove', [
+                    'id' => $id,
+                    'stats' => array_reduce($entries, static function (array $acc, Entry $entry)
+                    {
+                        array_key_exists($entry->getCountry(), $acc) ? $acc[$entry->getCountry()] += 1 : $acc[$entry->getCountry()] = 1;
+                        return $acc;
+                    }, []),
+                ]);
+            }
         }
 
         return $this->redirectToRoute('app_entry_index', [], Response::HTTP_SEE_OTHER);
