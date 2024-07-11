@@ -19,7 +19,8 @@ class DashboardController extends AbstractController
     public function personal(): Response
     {
         return $this->render('dashboard/personal.html.twig', [
-            'stats' => $this->dashboard->getStatsForUser($this->getUser())
+            'stats' => $this->dashboard->getStatsForUser($this->getUser()),
+            'entity' => $this->getUser()
         ]);
     }
 
@@ -28,7 +29,8 @@ class DashboardController extends AbstractController
     {
         return $this->render('dashboard/group.html.twig', [
             'stats' => $this->dashboard->getStatsForGroup($group),
-            'topTens' => $this->dashboard->getTopTenByGroup($group)
+            'topTens' => $this->dashboard->getTopTenByGroup($group),
+            'entity' => $group
         ]);
     }
 
@@ -37,7 +39,8 @@ class DashboardController extends AbstractController
     {
         return $this->render('dashboard/group.html.twig', [
             'stats' => $this->dashboard->getStatsForEdition($edition),
-            'topTens' => $this->dashboard->getTopTenByEdition($edition)
+            'topTens' => $this->dashboard->getTopTenByEdition($edition),
+            'entity' => $edition
         ]);
     }
 }
