@@ -78,6 +78,11 @@ label:
     rank: Rang
     score: Score
     dashboard:
+        groups: Groupes
+        users: Participants
+        jid: JID
+        countries: Pays
+        entries: Contacts
         top_jid: Top 10 - JID différents
         top_countries: Top 10 - Pays différents
         top_entries: Top 10 - Nombre de contact

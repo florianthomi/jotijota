@@ -72,7 +72,7 @@ export default class extends Controller {
   }
 
   initMap () {
-    this.map = L.map(this.canvasTarget).setView([0, 0], 2);
+    this.map = L.map(this.canvasTarget).setView([30, 0], 2);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,

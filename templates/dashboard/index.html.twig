@@ -10,15 +10,15 @@
                         data-controller="animated-number"
                         data-animated-number-start-value="0"
                         data-animated-number-end-value="{{ block.value }}"
-                        data-animated-number-duration-value="3000"
+                        data-animated-number-duration-value="1500"
                     >0</h3>
-                    <p class="font-medium">{{ block.label }}</p>
+                    <p class="font-medium">{{ block.label|trans }}</p>
                 </div>
             {% endfor %}
         {% endblock %}
         {% block map %}
             <div class="col-span-full block-container chart-container">
-                <div class="aspect-video" data-map-target="canvas" data-map-url-value="{{ asset('js/countries.json') }}" data-controller="map" data-map-counts-value="{{ {}|json_encode(constant('JSON_FORCE_OBJECT')) }}" data-map-leaflet-value="true"></div>
+                <div class="aspect-video" data-map-target="canvas" data-map-url-value="{{ asset('js/countries.json') }}" data-controller="map" data-map-counts-value="{{ stats.countries.stats|default({})|json_encode(constant('JSON_FORCE_OBJECT')) }}"></div>
             </div>
         {% endblock %}
     </div>

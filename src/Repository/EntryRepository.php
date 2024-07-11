@@ -37,6 +37,26 @@ class EntryRepository extends ServiceEntityRepository
         return $builder->getQuery()->getResult();
     }
 
+    public function getEntriesByGroupAndEdition(int $groupId, ?int $editionId = null): array
+    {
+        $builder = $this->createQueryBuilder('entry')
+            ->innerJoin('entry.user', 'user')
+            ->andWhere('user.group = :group')->setParameter('group', $groupId)
+            ->addOrderBy('entry.createdAt', 'DESC')
+        ;
+
+        if ($editionId) {
+            $builder
+                ->andWhere('entry.edition = :edition')->setParameter('edition', $editionId);
+        } else {
+            $builder->innerJoin('entry.edition', 'edition')
+                ->andWhere(':now BETWEEN edition.startAt AND edition.endAt')->setParameter('now', new \DateTime())
+            ;
+        }
+
+        return $builder->getQuery()->getResult();
+    }
+
     public function getTopTenJidByGroup(Group $group): array
     {
         return $this->createQueryBuilder('entries')
