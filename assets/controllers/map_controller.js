@@ -33,7 +33,7 @@ export default class extends Controller {
 
   style = (feature) => {
     return {
-      fillColor: this.getColor(this.countsValue[feature.properties.iso_a2_eh] ?? 0),
+      fillColor: this.getColor(this.countsValue[feature.properties.alpha2] ?? 0),
       weight: 2,
       opacity: 1,
       color: 'white',
@@ -106,7 +106,7 @@ export default class extends Controller {
 
     this.info.update = (props) => {
       this.info._div.innerHTML = '<h4>Contacts</h4>' + (props ?
-        '<b>' + props['name_' + document.documentElement.lang] + '</b><br />' + (this.countsValue[props.iso_a2_eh] ?? 0) + ' contact(s)'
+        '<b>' + props['name:' + document.documentElement.lang] + '</b><br />' + (this.countsValue[props.alpha2] ?? 0) + ' contact(s)'
         : 'Hover over a country');
     };
 
