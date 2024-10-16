@@ -26,7 +26,8 @@ class UserType extends AbstractType
         $roles = $this->security->getUser()?->getRoles() ?? [];
         $builder
             ->add('username', null, [
-                'label' => 'label.username'
+                'label' => 'label.username',
+                'help' => 'label.username.help',
             ])
             ->add('roles', ChoiceType::class, [
                 'label' => 'label.roles',

@@ -23,7 +23,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Assert\Regex('/^[a-zA-Z0-9_-]{3,15}$/')]
+    #[Assert\Regex('/^[a-zA-Z0-9_-\.]{3,15}$/')]
     private ?string $username = null;
 
     /**

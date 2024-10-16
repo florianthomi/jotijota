@@ -26,7 +26,8 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', null, [
-                'label' => 'label.username'
+                'label' => 'label.username',
+                'help' => 'label.username.help',
             ])
             ->add('firstname', null, [
                 'label' => 'label.firstname'

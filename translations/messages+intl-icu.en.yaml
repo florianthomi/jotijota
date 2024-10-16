@@ -5,6 +5,7 @@ label:
     back: Back
     add_user: 'Add a user'
     username: Username
+    username.help: "Allowed characters: letters, numbers, . , - , _"
     firstname: 'First name'
     lastname: 'Last name'
     group: Group
