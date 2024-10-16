@@ -112,8 +112,8 @@
                                         >{{ edition.name }}
                                         </a>
                                         {% if app.user.group %}
-                                            <ul class="flex flex-col gap-2.5 pl-3 border-b mb-3 pb-3">
-                                                <li>
+                                            <ul class="flex flex-col gap-2.5 pl-3 border-b pb-3">
+                                                <li class="mb-3">
                                                     <a
                                                             class="group relative flex items-center gap-2.5 rounded-md text-bodydark2 duration-300 ease-in-out hover:text-white"
                                                             href="{{ path('app_dashboard_group', {group: app.user.group.id}) }}"
