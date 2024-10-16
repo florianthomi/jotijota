@@ -2,6 +2,7 @@
 
     {% if form %}
         {{ form_label(form, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_help(form) }}
         <div class="relative">
             {{ form_widget(form, {'attr': {'class': 'form-input'}|merge(extraAttributes)}) }}
             <div class="text-danger">
@@ -13,7 +14,6 @@
                 {% endif %}
             </span>
         </div>
-        {{ form_help(form) }}
     {% else %}
         {% if label %}
             <label for="{{ name }}" class="form-label">{{ label }}</label>

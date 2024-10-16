@@ -21,7 +21,8 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('username', null, [
-                'label' => 'label.username'
+                'label' => 'label.username',
+                'help' => 'label.username.help',
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
