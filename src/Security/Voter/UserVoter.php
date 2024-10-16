@@ -39,6 +39,7 @@ class UserVoter extends Voter
         }
 
         return match ($attribute) {
+            self::CREATE => in_array('ROLE_ADMIN', $user->getRoles()),
             self::DELETE => $user !== $subject && $this->voteOnAttribute(self::MANAGE, $subject, $token),
             self::MANAGE => $user === $subject || $user->getCoordinatedGroups()->contains($subject->getGroup()) || $user->getCoordinatedEditions()->exists(fn($key, Edition $edition) => $user->getGroup()->getEditions()->contains($edition)),
             self::LIST => !$user->getCoordinatedGroups()->isEmpty() || !$user->getCoordinatedEditions()->isEmpty(),
