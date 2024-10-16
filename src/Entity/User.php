@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
@@ -22,6 +23,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\Regex('/^[a-z0-9_-]{3,15}$/')]
     private ?string $username = null;
 
     /**
