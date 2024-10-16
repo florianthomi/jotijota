@@ -3,7 +3,6 @@
 namespace App\Security\Voter;
 
 use App\Entity\Edition;
-use App\Entity\Group;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -42,7 +41,7 @@ class UserVoter extends Voter
         return match ($attribute) {
             self::CREATE => in_array('ROLE_ADMIN', $user->getRoles()),
             self::DELETE => $user !== $subject && $this->voteOnAttribute(self::MANAGE, $subject, $token),
-            self::MANAGE => $user === $subject || $user->getCoordinatedGroups()->exists(static fn (int $key, Group $group) => $group->getId() === $subject->getGroup()?->getId()) || $user->getCoordinatedEditions()->exists(fn($key, Edition $edition) => $user->getGroup()->getEditions()->contains($edition)),
+            self::MANAGE => $user === $subject || $user->getCoordinatedGroups()->contains($subject->getGroup()) || $user->getCoordinatedEditions()->exists(fn($key, Edition $edition) => $user->getGroup()->getEditions()->contains($edition)),
             self::LIST => !$user->getCoordinatedGroups()->isEmpty() || !$user->getCoordinatedEditions()->isEmpty(),
             default => false,
         };

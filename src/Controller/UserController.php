@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Group;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -26,7 +27,7 @@ class UserController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
-            'entities' => $this->isGranted('ROLE_SUPER_ADMIN') ? $userRepository->findAll() : $userRepository->findBy(['group' => $this->getUser()?->getCoordinatedGroups()], ['username' => 'ASC']),
+            'entities' => $this->isGranted('ROLE_SUPER_ADMIN') ? $userRepository->findAll() : $userRepository->findBy(['group' => $this->getUser()?->getCoordinatedGroups()->map(fn(Group $group) => $group->getId())->toArray()], ['username' => 'ASC']),
         ]);
     }
 
