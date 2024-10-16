@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Group;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -16,8 +17,13 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
+    public function __construct(private readonly Security $security)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $roles = $this->security->getUser()?->getRoles() ?? [];
         $builder
             ->add('username', null, [
                 'label' => 'label.username'
@@ -25,11 +31,7 @@ class UserType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'label' => 'label.roles',
                 'multiple' => true,
-                'choices' => [
-                    'label.role_user' => 'ROLE_USER',
-                    'label.role_admin' => 'ROLE_ADMIN',
-                    'label.role_super_admin' => 'ROLE_SUPER_ADMIN'
-                ],
+                'choices' => array_combine(array_map(static fn(string $role) => 'label.'.strtolower($role), $roles), $roles),
                 'autocomplete' => true
             ])
             ->add('plainPassword', RepeatedType::class, [
