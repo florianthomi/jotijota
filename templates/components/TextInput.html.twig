@@ -13,6 +13,7 @@
                 {% endif %}
             </span>
         </div>
+        {{ form_help(form) }}
     {% else %}
         {% if label %}
             <label for="{{ name }}" class="form-label">{{ label }}</label>
