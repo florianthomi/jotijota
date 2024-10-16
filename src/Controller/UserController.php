@@ -26,7 +26,7 @@ class UserController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
-            'entities' => $userRepository->findAll(),
+            'entities' => $this->isGranted('ROLE_SUPER_ADMIN') ? $userRepository->findAll() : $userRepository->findBy(['group' => $this->getUser()?->getCoordinatedGroups()], ['username' => 'ASC']),
         ]);
     }
 
