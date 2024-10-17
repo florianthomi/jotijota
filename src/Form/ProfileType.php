@@ -45,14 +45,6 @@ class ProfileType extends AbstractType
             ->add('section', null, [
                 'label' => 'label.section'
             ])
-            ->add('group', EntityType::class, [
-                'label' => 'label.group',
-                'query_builder' => fn (GroupRepository $er) => $er->getVisibleGroups() ,
-                'class' => Group::class,
-                'choice_label' => 'name',
-                'autocomplete' => true,
-                'required' => true
-            ])
         ;
     }
 
