@@ -7,12 +7,14 @@
 {% endblock %}
 
 {% block buttons %}
-    {{ component('Link', {
-        icon: {name: 'icon-plus'},
-        label: 'label.add_group'|trans,
-        action: path('app_group_new'),
-        class: 'bg-primary text-white'
-    }) }}
+    {% if is_granted(constant('App\\Security\\Voter\\GroupVoter::CREATE')) %}
+        {{ component('Link', {
+            icon: {name: 'icon-plus'},
+            label: 'label.add_group'|trans,
+            action: path('app_group_new'),
+            class: 'bg-primary text-white'
+        }) }}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
