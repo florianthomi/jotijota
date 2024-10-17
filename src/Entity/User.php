@@ -56,7 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     /**
      * @var Collection<int, Entry>
      */
-    #[ORM\OneToMany(targetEntity: Entry::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Entry::class, mappedBy: 'user', cascade: ['remove'], orphanRemoval: true)]
     private Collection $entries;
 
     /**
