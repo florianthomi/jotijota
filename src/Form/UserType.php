@@ -14,18 +14,19 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
-    public function __construct(private readonly Security $security)
+    public function __construct(private readonly Security $security, private readonly RoleHierarchyInterface $roleHierarchy)
     {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $roles = $this->security->getUser()?->getRoles() ?? [];
+        $roles = $this->roleHierarchy->getReachableRoleNames($this->security->getUser()?->getRoles() ?? []);
         $builder
             ->add('username', null, [
                 'label' => 'label.username',

@@ -40,6 +40,13 @@ class GroupController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach ($group->getCoordinators() as $coordinator) {
+                if (null === $coordinator->getGroup()) {
+                    $coordinator->setGroup($group);
+                }
+            }
+
             $entityManager->persist($group);
             $entityManager->flush();
 
@@ -71,6 +78,13 @@ class GroupController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach ($group->getCoordinators() as $coordinator) {
+                if (null === $coordinator->getGroup()) {
+                    $coordinator->setGroup($group);
+                }
+            }
+
             $entityManager->flush();
 
             $this->addFlash('success', $this->translator->trans('message.success.element_updated'));
