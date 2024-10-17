@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Group;
 use App\Entity\User;
+use App\Repository\GroupRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
@@ -59,6 +61,7 @@ class UserType extends AbstractType
             ->add('group', EntityType::class, [
                 'label' => 'label.group',
                 'class' => Group::class,
+                'choices' => $this->security->getUser()?->getCoordinatedGroups() ?? new ArrayCollection(),
                 'choice_label' => 'name',
                 'autocomplete' => true,
                 'required' => false
