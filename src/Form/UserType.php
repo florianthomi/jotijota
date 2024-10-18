@@ -35,13 +35,13 @@ class UserType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'label' => 'label.roles',
                 'multiple' => true,
-                'choices' => array_combine(array_map(static fn(string $role) => 'label.'.strtolower($role), $roles), $roles),
+                'choices' => array_combine(array_map(static fn(string $role) => 'label.' . strtolower($role), $roles), $roles),
                 'autocomplete' => true
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => empty($builder->getData()->getPassword()),
-                'first_options'  => ['label' => 'label.password', 'attr' => ['autocomplete' => 'new-password']],
+                'first_options' => ['label' => 'label.password', 'attr' => ['autocomplete' => 'new-password']],
                 'second_options' => ['label' => 'label.repeat_password'],
                 'constraints' => [
                     new Length([
@@ -58,16 +58,20 @@ class UserType extends AbstractType
             ])
             ->add('section', null, [
                 'label' => 'label.section'
-            ])
-            ->add('group', EntityType::class, [
-                'label' => 'label.group',
-                'class' => Group::class,
-                'choices' => $this->security->getUser()?->getCoordinatedGroups() ?? new ArrayCollection(),
-                'choice_label' => 'name',
-                'autocomplete' => true,
-                'required' => false
-            ])
-        ;
+            ]);
+
+        $params = [
+            'label' => 'label.group',
+            'class' => Group::class,
+            'choice_label' => 'name',
+            'autocomplete' => true,
+            'required' => false
+        ];
+
+        if (!$this->security->isGranted('ROLE_SUPER_ADMIN')) {
+            $params['choices'] = $this->security->getUser()?->getCoordinatedGroups() ?? new ArrayCollection();
+        }
+        $builder->add('group', EntityType::class, $params);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
